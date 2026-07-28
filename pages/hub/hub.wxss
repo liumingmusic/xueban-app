@@ -1,0 +1,41 @@
+.head-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8rpx;
+}
+.press { transform: scale(0.99); transition: transform 0.1s; }
+
+/* 诗词卡 */
+.poem-title { font-size: 40rpx; font-weight: 700; letter-spacing: 2rpx; }
+.poem-meta { font-size: 24rpx; color: var(--ink-2); margin: 6rpx 0 16rpx; }
+.poem-line { font-size: 32rpx; letter-spacing: 3rpx; line-height: 1.9; }
+
+/* 成语卡 */
+.state {
+  margin-left: auto;
+  font-size: 22rpx;
+  color: var(--ink-2);
+  border: 1rpx solid var(--line);
+  border-radius: 999rpx;
+  padding: 2rpx 16rpx;
+}
+.state.ok { color: #fff; background: var(--c-idiom); border-color: var(--c-idiom); }
+.idiom-word { font-size: 48rpx; font-weight: 700; letter-spacing: 8rpx; }
+.idiom-pinyin { font-size: 26rpx; color: var(--c-idiom); margin: 4rpx 0 12rpx; }
+.idiom-brief { font-size: 28rpx; color: var(--ink-2); }
+
+/* 一句卡 */
+.quote-text { font-size: 32rpx; line-height: 1.8; }
+.quote-from { font-size: 24rpx; color: var(--ink-2); margin-top: 12rpx; text-align: right; }
+
+/* 闯关卡 */
+.quiz-line { font-size: 28rpx; }
+.quiz-num { font-size: 36rpx; font-weight: 700; color: var(--c-quiz); padding: 0 4rpx; }
+
+.go-hint {
+  font-size: 24rpx;
+  color: var(--c-poetry);
+  margin-top: 12rpx;
+}
+.foot-space { height: 40rpx; }

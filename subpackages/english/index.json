@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "学伴小筑",
+  "usingComponents": {
+    "related-rail": "/components/related-rail/related-rail"
+  }
+}

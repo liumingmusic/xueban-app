@@ -1,0 +1,63 @@
+.offline-tip {
+  display: inline-block;
+  font-size: 22rpx; color: var(--c-history);
+  background: #fdf0e3; border-radius: 999rpx;
+  padding: 4rpx 20rpx; margin-top: 12rpx;
+}
+.sec-title {
+  font-size: 26rpx; color: var(--c-history); font-weight: 600;
+  letter-spacing: 4rpx; margin-bottom: 16rpx;
+}
+.feat { display: flex; margin-bottom: 20rpx; }
+.year-badge {
+  flex-shrink: 0;
+  font-size: 24rpx; font-weight: 700; color: #fff;
+  background: var(--c-history); border-radius: 10rpx;
+  padding: 4rpx 14rpx; margin-right: 18rpx;
+  align-self: flex-start;
+}
+.feat-text { font-size: 28rpx; line-height: 1.8; }
+
+.seg {
+  display: flex; margin: 0 24rpx 20rpx;
+  background: #fff; border-radius: 999rpx; padding: 8rpx;
+  box-shadow: 0 4rpx 20rpx rgba(60, 45, 20, 0.06);
+}
+.seg-item {
+  flex: 1; text-align: center; font-size: 26rpx;
+  min-height: 64rpx; line-height: 64rpx;
+  border-radius: 999rpx; color: var(--ink-2);
+}
+.seg-item.on { background: var(--c-history); color: #fff; }
+
+.row { display: flex; padding: 14rpx 0; border-bottom: 1rpx solid var(--line); }
+.row:last-child { border-bottom: none; }
+.year { flex-shrink: 0; width: 110rpx; font-size: 26rpx; font-weight: 700; color: var(--c-history); }
+.text { flex: 1; font-size: 27rpx; line-height: 1.7; }
+.foot-space { height: 60rpx; }
+
+/* 日期回看 + 搜索 */
+.bar { display: flex; align-items: center; gap: 16rpx; padding: 0 24rpx 16rpx; }
+.date-pick {
+  flex-shrink: 0; font-size: 26rpx; color: var(--c-history);
+  background: #fff; border: 1rpx solid var(--line); border-radius: 14rpx;
+  padding: 14rpx 20rpx;
+}
+.bar-search {
+  flex: 1; background: var(--bg); border: 1rpx solid var(--line);
+  border-radius: 14rpx; padding: 14rpx 20rpx; font-size: 26rpx;
+}
+.poster-btn {
+  flex-shrink: 0; font-size: 26rpx; color: #fff;
+  background: var(--c-history); border-radius: 14rpx;
+  padding: 14rpx 20rpx;
+}
+
+/* 缩略图（懒加载） + 外链提示 */
+.thumb {
+  flex-shrink: 0; width: 96rpx; height: 96rpx;
+  border-radius: 12rpx; margin-left: 16rpx; background: var(--bg);
+}
+.text-wrap { flex: 1; }
+.link-hint { display: block; font-size: 20rpx; color: var(--ink-2); margin-top: 6rpx; }
+.row-press { background: #faf5ec; }

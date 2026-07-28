@@ -1,0 +1,5 @@
+<view class="streak" wx:if="{{count > 0}}">
+  <text class="flame">🔥</text>
+  <text class="num">{{count}}</text>
+  <text class="txt">天 · {{label}}</text>
+</view>

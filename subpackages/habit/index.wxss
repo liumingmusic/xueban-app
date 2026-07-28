@@ -1,0 +1,60 @@
+.wrap { padding-bottom: 20rpx; }
+
+/* 总览 */
+.ov { display: flex; }
+.ov-item { flex: 1; text-align: center; }
+.ov-num { font-size: 40rpx; font-weight: 700; color: var(--c-habit); }
+.ov-lab { font-size: 22rpx; color: var(--ink-2); margin-top: 4rpx; }
+
+/* 热力图 */
+.heat { white-space: nowrap; width: 100%; }
+.heat-weeks { display: inline-flex; }
+.heat-week { display: flex; flex-direction: column; margin-right: 6rpx; }
+.heat-cell {
+  width: 22rpx; height: 22rpx; border-radius: 5rpx; margin: 3rpx 0;
+  background: var(--line); position: relative;
+}
+.heat-cell.lv0 { background: #EFE8DC; }
+.heat-cell.lv1 { background: #bfe3cf; }
+.heat-cell.lv2 { background: #6fc29a; }
+.heat-cell.lv3 { background: var(--c-habit); }
+.heat-tip {
+  position: absolute; bottom: 28rpx; left: 50%; transform: translateX(-50%);
+  background: #2B2B2B; color: #fff; font-size: 20rpx; padding: 4rpx 10rpx;
+  border-radius: 8rpx; white-space: nowrap; opacity: 0; pointer-events: none;
+}
+.heat-cell:active .heat-tip { opacity: 1; }
+.legend-row { display: flex; align-items: center; margin-top: 16rpx; }
+.legend-row .lg { font-size: 22rpx; color: var(--ink-2); margin: 0 10rpx; }
+.legend-row .heat-cell { margin: 0 4rpx; }
+
+/* 添加 */
+.add-btn { text-align: center; color: var(--c-habit); font-size: 30rpx; padding: 12rpx 0; }
+.add-in { background: var(--bg); border: 1rpx solid var(--line); border-radius: 14rpx; padding: 18rpx 24rpx; font-size: 28rpx; width: 100%; box-sizing: border-box; }
+.pick-row { display: flex; align-items: center; margin-top: 18rpx; }
+.pick-lab { font-size: 26rpx; color: var(--ink-2); width: 80rpx; flex-shrink: 0; }
+.emoji-row { flex: 1; white-space: nowrap; }
+.emoji { display: inline-block; font-size: 40rpx; padding: 8rpx 14rpx; margin-right: 8rpx; border-radius: 12rpx; }
+.emoji.on { background: var(--c-habit); }
+.color-row { flex: 1; display: flex; flex-wrap: wrap; }
+.color-dot { width: 48rpx; height: 48rpx; border-radius: 50%; margin: 0 12rpx 12rpx 0; border: 4rpx solid transparent; }
+.color-dot.on { border-color: #2B2B2B; }
+.add-ops { display: flex; gap: 16rpx; margin-top: 20rpx; }
+.add-ops .btn { flex: 1; }
+
+/* 习惯卡片 */
+.hb { margin: 0 var(--gap) 16rpx; }
+.hb-top { display: flex; align-items: center; }
+.hb-emoji { width: 72rpx; height: 72rpx; border-radius: 18rpx; display: flex; align-items: center; justify-content: center; font-size: 40rpx; margin-right: 18rpx; }
+.hb-name { flex: 1; font-size: 32rpx; font-weight: 600; }
+.hb-streak { font-size: 30rpx; font-weight: 700; color: #b45309; }
+.hb-dots { display: flex; gap: 12rpx; margin: 18rpx 0; }
+.dot-cell { flex: 1; height: 44rpx; border-radius: 10rpx; background: var(--line); }
+.dot-cell.on { background: var(--c-habit); }
+.dot-cell.today { box-shadow: 0 0 0 3rpx #2B2B2B; }
+.hb-ops { display: flex; gap: 16rpx; }
+.hb-ops .btn { flex: 1; }
+.btn.danger { color: #c0392b; border-color: #c0392b; }
+
+.back { margin: 0 var(--gap); }
+.foot-space { height: 20rpx; }

@@ -1,0 +1,27 @@
+.sum-grid { display: flex; margin: 8rpx 0 16rpx; }
+.sum-cell { flex: 1; text-align: center; }
+.sum-num { font-size: 52rpx; font-weight: 700; color: var(--c-poetry); }
+.sum-label { font-size: 24rpx; color: var(--ink-2); }
+.created { font-size: 22rpx; color: var(--ink-2); text-align: center; padding-top: 12rpx; border-top: 1rpx dashed var(--line); }
+
+.row {
+  display: flex; align-items: center;
+  min-height: 88rpx;
+  padding: 8rpx 0;
+  border-bottom: 1rpx solid var(--line);
+}
+.row:last-child { border-bottom: none; }
+.row-icon { font-size: 36rpx; margin-right: 20rpx; }
+.row-text { flex: 1; font-size: 28rpx; }
+.row-arrow { color: #c9c0b2; font-size: 36rpx; }
+.row-copy {
+  font-size: 22rpx; color: var(--c-quote);
+  border: 1rpx solid var(--c-quote);
+  border-radius: 999rpx; padding: 6rpx 20rpx;
+}
+.row.danger .row-text { color: #e64340; }
+.press { opacity: 0.7; }
+
+.web-hint { font-size: 22rpx; color: var(--ink-2); margin-bottom: 8rpx; }
+.ver { text-align: center; font-size: 22rpx; color: #c9c0b2; margin-top: 20rpx; }
+.foot-space { height: 40rpx; }

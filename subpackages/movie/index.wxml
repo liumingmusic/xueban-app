@@ -1,0 +1,99 @@
+<view class="wrap">
+
+  <view class="page-head ph-movie fade-in">
+    <view class="ph-wm">影</view>
+    <view class="ph-block">影</view>
+    <view class="ph-body">
+      <view class="ph-title">观影追踪</view>
+    </view>
+  </view>
+
+  <!-- 统计 -->
+  <view class="card fade-in ov">
+    <view class="ov-item"><view class="ov-num">{{stats.total}}</view><view class="ov-lab">已记录</view></view>
+    <view class="ov-item"><view class="ov-num">{{stats.avg}}</view><view class="ov-lab">平均评分</view></view>
+    <view class="ov-item"><view class="ov-num">{{stats.thisYear}}</view><view class="ov-lab">本年</view></view>
+  </view>
+
+  <!-- 月历标记 -->
+  <view class="card fade-in">
+    <view class="cal-head">
+      <text class="cal-arrow" bindtap="prevMonth">‹</text>
+      <text class="cal-label">{{monthLabel}}</text>
+      <text class="cal-arrow" bindtap="nextMonth">›</text>
+    </view>
+    <view class="cal-week">
+      <text wx:for="{{weekHead}}" wx:key="index" class="cal-wd">{{item}}</text>
+    </view>
+    <view class="cal-grid">
+      <view wx:for="{{monthCells}}" wx:key="index" class="cal-cell {{item ? '' : 'blank'}}">
+        <block wx:if="{{item}}">
+          <text class="cal-day">{{item.day}}</text>
+          <view wx:if="{{item.count}}" class="cal-dot"></view>
+        </block>
+      </view>
+    </view>
+  </view>
+
+  <!-- 类型统计 -->
+  <view class="card fade-in" wx:if="{{genreStats.length}}">
+    <view class="card-title"><view class="dot" style="background: var(--c-movie);"></view>类型统计</view>
+    <view wx:for="{{genreStats}}" wx:key="name" class="g-row">
+      <view class="g-name">{{item.name}}</view>
+      <view class="g-track"><view class="g-fill" style="width: {{item.pct}}%"></view></view>
+      <view class="g-num">{{item.count}}</view>
+    </view>
+  </view>
+
+  <!-- 添加入口 -->
+  <view class="card fade-in">
+    <view wx:if="{{!adding}}" class="add-btn" bindtap="toggleAdding">＋ 记录一部电影</view>
+    <block wx:else>
+      <input class="add-in" placeholder="片名" value="{{title}}" bindinput="onTitle" confirm-type="done" focus="{{adding}}" />
+      <picker mode="date" value="{{date}}" bindchange="onDate">
+        <view class="pick-line"><text class="pick-lab">观看日期</text><text class="pick-val">{{date}}</text></view>
+      </picker>
+      <view class="pick-line">
+        <text class="pick-lab">评分</text>
+        <view class="stars">
+          <text wx:for="{{[1,2,3,4,5]}}" wx:key="index" class="star {{rating >= item ? 'on' : ''}}" data-r="{{item}}" bindtap="setRating">★</text>
+        </view>
+      </view>
+      <view class="pick-line col">
+        <text class="pick-lab">类型</text>
+        <view class="g-chips">
+          <text wx:for="{{genres}}" wx:key="index" class="chip {{selected.indexOf(item) > -1 ? 'on' : ''}}" data-g="{{item}}" bindtap="pickGenre">{{item}}</text>
+        </view>
+      </view>
+      <input class="add-in" placeholder="一句话短评（可选）" value="{{note}}" bindinput="onNote" confirm-type="done" />
+      <view class="add-ops">
+        <button class="btn mini ghost" bindtap="toggleAdding">取消</button>
+        <button class="btn mini" bindtap="confirmAdd">保存</button>
+      </view>
+    </block>
+  </view>
+
+  <!-- 列表 -->
+  <view class="list">
+    <view wx:if="{{!movies.length}}" class="empty">还没有观影记录，点上面「＋ 记录一部电影」</view>
+    <view wx:for="{{movies}}" wx:key="id" class="card mv">
+      <view class="mv-top">
+        <view class="mv-icon">🎬</view>
+        <view class="mv-title">{{item.title}}</view>
+        <view class="mv-del" data-id="{{item.id}}" data-title="{{item.title}}" bindtap="removeMovie">✕</view>
+      </view>
+      <view class="mv-meta">
+        <text class="mv-date">{{item.date}}</text>
+        <text class="mv-stars">{{item.rating}}★</text>
+      </view>
+      <view class="mv-genres" wx:if="{{item.genres.length}}">
+        <text wx:for="{{item.genres}}" wx:for-item="g" wx:key="index" class="chip">{{g}}</text>
+      </view>
+      <view wx:if="{{item.note}}" class="mv-note">“{{item.note}}”</view>
+    </view>
+  </view>
+
+  <view class="foot-space"></view>
+  <button class="btn ghost back" bindtap="backHub">返回我的坚持</button>
+  <view class="foot-space"></view>
+</view>

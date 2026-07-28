@@ -1,0 +1,63 @@
+<view class="page-head ph-quote fade-in">
+  <view class="ph-wm">句</view>
+  <view class="ph-block">句</view>
+  <view class="ph-body">
+    <view class="ph-title">每日一句</view>
+  </view>
+</view>
+
+<view class="wrap">
+
+  <!-- 顶部分段 -->
+  <view class="seg">
+    <text class="seg-item {{tab === 'today' ? 'on' : ''}}" data-t="today" bindtap="switchTab">今日</text>
+    <text class="seg-item {{tab === 'fav' ? 'on' : ''}}" data-t="fav" bindtap="switchTab">收藏</text>
+    <text class="seg-item {{tab === 'history' ? 'on' : ''}}" data-t="history" bindtap="switchTab">回看</text>
+  </view>
+
+  <!-- 收藏列表 -->
+  <block wx:if="{{view === 'list' && tab === 'fav'}}">
+    <view class="list">
+      <view wx:if="{{!favList.length}}" class="empty">还没有收藏的句子，去今日页收藏喜欢的吧</view>
+      <view wx:for="{{favList}}" wx:key="text" class="q-row">
+        <view class="q-main" data-text="{{item.text}}" bindtap="openQuote">
+          <view class="q-text">「{{item.text}}」</view>
+          <view class="q-sub">{{item.from}}<text wx:if="{{item.author}}"> · {{item.author}}</text> · {{item.type}}</view>
+        </view>
+        <text class="q-del" data-text="{{item.text}}" catchtap="delFav">删除</text>
+      </view>
+    </view>
+  </block>
+
+  <!-- 回看列表 -->
+  <block wx:elif="{{view === 'list' && tab === 'history'}}">
+    <view class="list">
+      <view wx:for="{{historyList}}" wx:key="date" class="row" data-text="{{item.text}}" bindtap="openQuote" hover-class="row-hover">
+        <view class="row-title">「{{item.text}}」</view>
+        <view class="row-meta">{{item.date}} · {{item.from}} · {{item.type}}</view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 详情 -->
+  <block wx:else>
+    <view wx:if="{{fromList}}" class="back-bar" bindtap="backToList">← 返回列表</view>
+    <view class="card quote-card">
+      <view wx:if="{{quote.type}}" class="q-type">{{quote.type}}<text wx:if="{{offline}}"> · 离线</text></view>
+      <view class="q-text-big">「{{quote.text}}」</view>
+      <view class="q-from">—— {{quote.from}}<text wx:if="{{quote.author}}"> · {{quote.author}}</text></view>
+
+      <view class="ops">
+        <button class="btn mini {{favorited ? '' : 'ghost'}}" bindtap="toggleFav">{{favorited ? '★ 已收藏' : '☆ 收藏'}}</button>
+        <button class="btn mini ghost" bindtap="copy">复制</button>
+        <button class="btn mini ghost" bindtap="another">换一句</button>
+        <button class="btn mini ghost" open-type="share">↗ 分享</button>
+      </view>
+    </view>
+
+    <view class="bottom-ops">
+      <button wx:if="{{!isToday}}" class="btn" bindtap="backToday">回到今日</button>
+    </view>
+    <view class="foot-space"></view>
+  </block>
+</view>

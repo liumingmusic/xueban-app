@@ -1,0 +1,14 @@
+<view wx:if="{{related.length}}" class="rail">
+  <text class="rail-label">拓展</text>
+  <scroll-view scroll-x class="rail-scroll" enhanced show-scrollbar="{{false}}">
+    <view class="rail-inner">
+      <view wx:for="{{related}}" wx:key="url" class="rel-chip" hover-class="hov"
+            style="color: {{item.color}}; border-color: {{item.color}}55;"
+            data-url="{{item.url}}" bindtap="onTapRel">
+        <text class="rel-icon">{{item.icon}}</text>
+        <text>{{item.label}}</text>
+        <text class="rel-arrow">›</text>
+      </view>
+    </view>
+  </scroll-view>
+</view>

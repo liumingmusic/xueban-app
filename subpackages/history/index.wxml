@@ -1,0 +1,89 @@
+<view class="wrap fade-in">
+  <view class="page-head ph-history">
+    <view class="ph-wm">史</view>
+    <view class="ph-block">史</view>
+    <view class="ph-body">
+      <view class="ph-title">历史上的今天</view>
+      <view class="ph-chip">{{dateCn}}</view>
+    <view wx:if="{{offline}}" class="offline-tip">当前离线 · 展示 {{offlineDate}} 缓存快照</view>
+  </view>
+
+  <!-- 日期回看 + 搜索 + 海报入口 -->
+  <view class="bar">
+    <picker mode="date" value="2026-{{dateStr}}" bindchange="onDatePick">
+      <view class="date-pick">📅 {{dateStr}} ▾</view>
+    </picker>
+    <input class="bar-search" placeholder="搜事件 / 年份" value="{{query}}" bindinput="onSearch" confirm-type="search" />
+    <view class="poster-btn" bindtap="copyPoster">🖼️ 海报</view>
+  </view>
+
+  <view wx:if="{{loading}}" class="empty">正在翻史书…</view>
+
+  <block wx:else>
+    <!-- 精选 -->
+    <view wx:if="{{featured.length}}" class="card">
+      <view class="sec-title">今日精选</view>
+      <view wx:for="{{featured}}" wx:key="index" class="feat" data-link="{{item.link}}" bindtap="copyLink">
+        <view class="year-badge">{{item.year}}</view>
+        <view class="feat-text">{{item.text}}</view>
+        <image wx:if="{{item.thumb}}" class="thumb" src="{{item.thumb}}" mode="aspectFill" lazy-load="true" />
+      </view>
+      <related-rail tags="{{['历史']}}" exclude="history" />
+    </view>
+
+    <!-- 分类 tab -->
+    <view class="seg">
+      <view class="seg-item {{tab === 'events' ? 'on' : ''}}" data-tab="events" bindtap="switchTab">大事件</view>
+      <view class="seg-item {{tab === 'births' ? 'on' : ''}}" data-tab="births" bindtap="switchTab">诞生</view>
+      <view class="seg-item {{tab === 'deaths' ? 'on' : ''}}" data-tab="deaths" bindtap="switchTab">逝世</view>
+      <view class="seg-item {{tab === 'holidays' ? 'on' : ''}}" data-tab="holidays" bindtap="switchTab">节日</view>
+    </view>
+
+    <view class="card">
+      <block wx:if="{{tab === 'events'}}">
+        <view wx:if="{{!shownEvents.length}}" class="empty">暂无记录</view>
+        <view wx:for="{{shownEvents}}" wx:key="index" class="row" data-link="{{item.link}}" bindtap="copyLink" hover-class="{{item.link ? 'row-press' : ''}}">
+          <text class="year">{{item.year}}</text>
+          <view class="text-wrap">
+            <text class="text">{{item.text}}</text>
+            <text wx:if="{{item.link}}" class="link-hint">点按复制维基链接</text>
+          </view>
+          <image wx:if="{{item.thumb}}" class="thumb" src="{{item.thumb}}" mode="aspectFill" lazy-load="true" />
+        </view>
+      </block>
+      <block wx:if="{{tab === 'births'}}">
+        <view wx:if="{{!shownBirths.length}}" class="empty">暂无记录</view>
+        <view wx:for="{{shownBirths}}" wx:key="index" class="row" data-link="{{item.link}}" bindtap="copyLink" hover-class="{{item.link ? 'row-press' : ''}}">
+          <text class="year">{{item.year}}</text>
+          <view class="text-wrap">
+            <text class="text">{{item.text}}</text>
+            <text wx:if="{{item.link}}" class="link-hint">点按复制维基链接</text>
+          </view>
+          <image wx:if="{{item.thumb}}" class="thumb" src="{{item.thumb}}" mode="aspectFill" lazy-load="true" />
+        </view>
+      </block>
+      <block wx:if="{{tab === 'deaths'}}">
+        <view wx:if="{{!shownDeaths.length}}" class="empty">暂无记录</view>
+        <view wx:for="{{shownDeaths}}" wx:key="index" class="row" data-link="{{item.link}}" bindtap="copyLink" hover-class="{{item.link ? 'row-press' : ''}}">
+          <text class="year">{{item.year}}</text>
+          <view class="text-wrap">
+            <text class="text">{{item.text}}</text>
+            <text wx:if="{{item.link}}" class="link-hint">点按复制维基链接</text>
+          </view>
+          <image wx:if="{{item.thumb}}" class="thumb" src="{{item.thumb}}" mode="aspectFill" lazy-load="true" />
+        </view>
+      </block>
+      <block wx:if="{{tab === 'holidays'}}">
+        <view wx:if="{{!shownHolidays.length}}" class="empty">暂无节日记录</view>
+        <view wx:for="{{shownHolidays}}" wx:key="index" class="row" data-link="{{item.link}}" bindtap="copyLink" hover-class="{{item.link ? 'row-press' : ''}}">
+          <text class="year">{{item.year || '节'}}</text>
+          <view class="text-wrap">
+            <text class="text">{{item.text}}</text>
+            <text wx:if="{{item.link}}" class="link-hint">点按复制维基链接</text>
+          </view>
+        </view>
+      </block>
+    </view>
+  </block>
+  <view class="foot-space"></view>
+</view>

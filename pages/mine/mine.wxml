@@ -1,0 +1,56 @@
+<view class="page-head ph-poetry fade-in">
+  <view class="ph-wm">我</view>
+  <view class="ph-block">我</view>
+  <view class="ph-body">
+    <view class="ph-title">我</view>
+  </view>
+</view>
+
+<!-- 档案概览 -->
+<view class="card fade-in">
+  <view class="card-title"><view class="dot" style="background: var(--c-poetry);"></view>学习者档案</view>
+  <view class="sum-grid">
+    <view class="sum-cell">
+      <view class="sum-num">{{summary.mastered}}</view>
+      <view class="sum-label">已掌握</view>
+    </view>
+    <view class="sum-cell">
+      <view class="sum-num">{{summary.wrong}}</view>
+      <view class="sum-label">待复习</view>
+    </view>
+    <view class="sum-cell">
+      <view class="sum-num">{{summary.streak}}</view>
+      <view class="sum-label">连续天数</view>
+    </view>
+  </view>
+  <view class="created">建档时间：{{summary.createdAt}} · 数据仅存于本机</view>
+</view>
+
+<!-- 数据管理 -->
+<view class="card fade-in">
+  <view class="card-title"><view class="dot" style="background: var(--c-quote);"></view>数据管理</view>
+  <view class="row" bindtap="exportData" hover-class="press">
+    <text class="row-icon">📤</text><text class="row-text">导出档案（JSON 到剪贴板与本地文件）</text><text class="row-arrow">›</text>
+  </view>
+  <view class="row" bindtap="importData" hover-class="press">
+    <text class="row-icon">📥</text><text class="row-text">从剪贴板导入档案</text><text class="row-arrow">›</text>
+  </view>
+  <view class="row danger" bindtap="resetData" hover-class="press">
+    <text class="row-icon">🗑️</text><text class="row-text">清空档案</text><text class="row-arrow">›</text>
+  </view>
+</view>
+
+<!-- 网页版 -->
+<view class="card fade-in">
+  <view class="card-title"><view class="dot" style="background: var(--c-history);"></view>更多 · 网页版应用</view>
+  <view class="web-hint">以下应用因类目资质原因保留在网页版，点按复制链接后到浏览器打开。</view>
+  <view wx:for="{{webApps}}" wx:key="id" class="row" hover-class="press"
+        data-url="{{item.entry}}" data-name="{{item.name}}" bindtap="copyWeb">
+    <text class="row-icon">{{item.icon}}</text>
+    <text class="row-text">{{item.name}}</text>
+    <text class="row-copy">复制链接</text>
+  </view>
+</view>
+
+<view class="ver">学伴小筑 v1.0.0 · 原生小程序</view>
+<view class="foot-space"></view>

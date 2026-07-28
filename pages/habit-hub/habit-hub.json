@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "学伴小筑",
+  "usingComponents": {
+    "streak-badge": "/components/streak-badge/streak-badge"
+  }
+}

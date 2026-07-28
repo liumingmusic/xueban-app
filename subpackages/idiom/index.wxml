@@ -1,0 +1,123 @@
+<view class="page-head ph-idiom fade-in">
+  <view class="ph-wm">典</view>
+  <view class="ph-block">典</view>
+  <view class="ph-body">
+    <view class="ph-title">成语故事</view>
+  </view>
+</view>
+
+<view class="wrap">
+
+  <!-- 顶部分段 -->
+  <view class="seg">
+    <text class="seg-item {{tab === 'today' ? 'on' : ''}}" data-t="today" bindtap="switchTab">今日</text>
+    <text class="seg-item {{tab === 'library' ? 'on' : ''}}" data-t="library" bindtap="switchTab">手册</text>
+    <text class="seg-item {{tab === 'my' ? 'on' : ''}}" data-t="my" bindtap="switchTab">学习</text>
+    <text class="seg-item {{tab === 'history' ? 'on' : ''}}" data-t="history" bindtap="switchTab">回看</text>
+  </view>
+
+  <!-- 我的学习 -->
+  <block wx:if="{{view === 'list' && tab === 'my'}}">
+    <view class="card">
+      <view class="sec-title">掌握进度</view>
+      <view class="my-track"><view class="my-fill" style="width: {{myPct}}%"></view></view>
+      <view class="my-text">已认识 {{myLearnedCount}} / {{myTotal}} 条 · {{myPct}}%</view>
+    </view>
+    <view class="card">
+      <view class="sec-title">✅ 已认识（{{myLearned.length}}）</view>
+      <view wx:if="{{!myLearned.length}}" class="empty">还没有标记「已学会」的成语</view>
+      <view wx:for="{{myLearned}}" wx:key="id" class="row flat" data-id="{{item.id}}" bindtap="openIdiom" hover-class="row-hover">
+        <view class="row-title">{{item.word}}</view>
+        <view class="row-meta">{{item.pinyin}}<text wx:if="{{item.stage}}"> · {{item.stage}}</text></view>
+      </view>
+    </view>
+    <view class="card">
+      <view class="sec-title">📌 待学习（{{myToLearn.length}}）</view>
+      <view wx:if="{{!myToLearn.length}}" class="empty">待学习清单是空的</view>
+      <view wx:for="{{myToLearn}}" wx:key="id" class="row flat" data-id="{{item.id}}" bindtap="openIdiom" hover-class="row-hover">
+        <view class="row-title">{{item.word}}</view>
+        <view class="row-meta">{{item.pinyin}}<text wx:if="{{item.stage}}"> · {{item.stage}}</text></view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 手册列表 -->
+  <block wx:elif="{{view === 'list' && tab === 'library'}}">
+    <view class="search"><input class="search-in" placeholder="搜成语 / 释义 / 典故" value="{{query}}" bindinput="onSearch" confirm-type="search" /></view>
+    <view class="chips"><text wx:for="{{stages}}" wx:key="index" class="chip {{stageIdx == index ? 'on' : ''}}" data-i="{{index}}" bindtap="pickStage">{{item}}</text></view>
+    <view class="chips"><text wx:for="{{themes}}" wx:key="index" class="chip {{themeIdx == index ? 'on' : ''}}" data-i="{{index}}" bindtap="pickTheme">{{item}}</text></view>
+    <view class="chips"><text wx:for="{{initials}}" wx:key="index" class="chip {{initialIdx == index ? 'on' : ''}}" data-i="{{index}}" bindtap="pickInitial">{{item}}</text></view>
+    <view class="list">
+      <view wx:for="{{list}}" wx:key="id" class="row" data-id="{{item.id}}" bindtap="openIdiom" hover-class="row-hover">
+        <view class="row-title">{{item.word}}</view>
+        <view class="row-meta">{{item.pinyin}}<text wx:if="{{item.stage}}"> · {{item.stage}}</text></view>
+      </view>
+      <view wx:if="{{!list.length}}" class="empty">没有匹配的成语，换个关键词试试</view>
+    </view>
+  </block>
+
+  <!-- 回看列表 -->
+  <block wx:elif="{{view === 'list' && tab === 'history'}}">
+    <view class="list">
+      <view wx:for="{{historyList}}" wx:key="date" class="row" data-id="{{item.id}}" bindtap="openHistory" hover-class="row-hover">
+        <view class="row-title">{{item.word}}</view>
+        <view class="row-meta">{{item.date}} · {{item.pinyin}}</view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 详情 -->
+  <block wx:else>
+    <view wx:if="{{fromList}}" class="back-bar" bindtap="backToList">← 返回列表</view>
+    <view class="card">
+      <view class="word">{{idiom.word}}</view>
+      <view class="pinyin">{{idiom.pinyin}}</view>
+      <view class="tags center">
+        <text wx:for="{{idiom.tags}}" wx:key="index" class="chip">{{item}}</text>
+        <text wx:if="{{idiom.stage}}" class="chip">{{idiom.stage}}</text>
+      </view>
+
+      <view class="ops">
+        <button class="btn mini {{favorited ? '' : 'ghost'}}" bindtap="toggleFavorite">{{favorited ? '★ 已收藏' : '☆ 收藏'}}</button>
+        <button class="btn mini {{learned ? '' : 'ghost'}}" bindtap="markLearned">{{learned ? '已认识 ✓' : '标记已学'}}</button>
+        <button class="btn mini {{tolearn ? '' : 'ghost'}}" bindtap="toggleToLearn">{{tolearn ? '待学习 ✓' : '待学习'}}</button>
+        <button class="btn mini ghost" bindtap="readAloud">🔊 朗读</button>
+        <button class="btn mini ghost" open-type="share">↗ 分享</button>
+      </view>
+
+      <related-rail tags="{{idiom.tags}}" exclude="idiom" />
+    </view>
+
+    <view class="card">
+      <view class="sec-title">释义</view>
+      <view class="sec-text">{{idiom.explanation}}</view>
+      <view wx:if="{{idiom.source}}" class="source">出处 · {{idiom.source}}</view>
+    </view>
+
+    <view wx:if="{{idiom.story}}" class="card story-card">
+      <view class="sec-title">白话典故</view>
+      <view class="sec-text story">{{idiom.story}}</view>
+    </view>
+
+    <view wx:if="{{idiom.example}}" class="card">
+      <view class="sec-title">造个句</view>
+      <view class="sec-text">{{idiom.example}}</view>
+    </view>
+
+    <view wx:if="{{(idiom.synonym && idiom.synonym.length) || (idiom.antonym && idiom.antonym.length)}}" class="card">
+      <view wx:if="{{idiom.synonym.length}}" class="rel-line">
+        <text class="rel-key">近义</text>
+        <text wx:for="{{idiom.synonym}}" wx:key="index" class="chip rel-chip" data-word="{{item}}" bindtap="jumpRel">{{item}}</text>
+      </view>
+      <view wx:if="{{idiom.antonym.length}}" class="rel-line">
+        <text class="rel-key">反义</text>
+        <text wx:for="{{idiom.antonym}}" wx:key="index" class="chip rel-chip" data-word="{{item}}" bindtap="jumpRel">{{item}}</text>
+      </view>
+    </view>
+
+    <view class="bottom-ops">
+      <button class="btn ghost" bindtap="random">换一个</button>
+    </view>
+    <view class="foot-space"></view>
+  </block>
+</view>

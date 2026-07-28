@@ -1,0 +1,61 @@
+<view class="page-head ph-poetry fade-in">
+  <view class="ph-wm">学</view>
+  <view class="ph-block">枢</view>
+  <view class="ph-body">
+    <view class="ph-title">{{greeting}}</view>
+    <view class="ph-chip">{{dateCn}}</view>
+  </view>
+</view>
+
+<!-- 今日诗词 -->
+<view class="card fade-in" bindtap="goPoetry" hover-class="press">
+  <view class="card-title"><view class="dot" style="background: var(--c-poetry);"></view>今日诗词</view>
+  <view class="poem-title">{{poem.title}}</view>
+  <view class="poem-meta">{{poem.dynasty}} · {{poem.author}}</view>
+  <view class="poem-lines">
+    <view wx:for="{{poem.first}}" wx:key="index" class="poem-line">{{item}}</view>
+  </view>
+  <view class="go-hint">读全篇 ›</view>
+  <related-rail tags="{{poem.tags}}" exclude="poetry" catchtap="noop" />
+</view>
+
+<!-- 今日成语 -->
+<view class="card fade-in" bindtap="goIdiom" hover-class="press">
+  <view class="card-title">
+    <view class="dot" style="background: var(--c-idiom);"></view>今日成语
+    <text class="state {{idiomLearned ? 'ok' : ''}}">{{idiomLearned ? '已学 ✓' : '未学'}}</text>
+  </view>
+  <view class="idiom-word">{{idiom.word}}</view>
+  <view class="idiom-pinyin">{{idiom.pinyin}}</view>
+  <view class="idiom-brief">{{idiom.brief}}…</view>
+  <view class="go-hint">听典故 ›</view>
+  <related-rail tags="{{idiom.tags}}" exclude="idiom" catchtap="noop" />
+</view>
+
+<!-- 每日一句 -->
+<view class="card fade-in" bindtap="goQuote" hover-class="press">
+  <view class="card-title"><view class="dot" style="background: var(--c-quote);"></view>每日一句</view>
+  <view class="quote-text">「{{quote.text}}」</view>
+  <view class="quote-from">—— {{quote.from}}{{quote.author ? ' · ' + quote.author : ''}}</view>
+</view>
+
+<!-- 闯关挑战：错题回流 + 新题 -->
+<view class="card fade-in" bindtap="goQuiz" hover-class="press">
+  <view class="card-title"><view class="dot" style="background: var(--c-quiz);"></view>闯关挑战</view>
+  <view wx:if="{{quizWrongCount > 0}}" class="quiz-line">
+    错题本还有 <text class="quiz-num">{{quizWrongCount}}</text> 道题等你消灭，今天再战一轮？
+  </view>
+  <view wx:else class="quiz-line">
+    题库共 <text class="quiz-num">{{quizTotal}}</text> 道题，今天来一组每日挑战吧！
+  </view>
+  <view class="go-hint">开始闯关 ›</view>
+</view>
+
+<!-- 打卡提醒：habit 上线后自动出现（当前隐藏） -->
+<view wx:if="{{habitOnline}}" class="card fade-in" bindtap="goHabit" hover-class="press">
+  <view class="card-title"><view class="dot" style="background: var(--c-habit);"></view>打卡提醒</view>
+  <view class="quiz-line">今天的习惯还没打卡，去看看吧</view>
+  <view class="go-hint">去打卡 ›</view>
+</view>
+
+<view class="foot-space"></view>

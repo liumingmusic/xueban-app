@@ -1,0 +1,14 @@
+<view class="page-head ph-quote fade-in">
+  <view class="ph-wm">集</view>
+  <view class="ph-block">览</view>
+  <view class="ph-body">
+    <view class="ph-title">发现</view>
+  </view>
+</view>
+
+<view wx:for="{{groups}}" wx:key="category" wx:for-item="group" class="group fade-in">
+  <view class="group-title">{{group.category}}</view>
+  <app-card wx:for="{{group.apps}}" wx:key="id" app="{{item}}" />
+</view>
+
+<view class="foot-space"></view>

@@ -1,0 +1,12 @@
+.streak {
+  display: inline-flex;
+  align-items: center;
+  background: #fff4e6;
+  border: 1rpx solid #f5d9b8;
+  border-radius: 999rpx;
+  padding: 8rpx 24rpx;
+  font-size: 24rpx;
+  color: #b45309;
+}
+.flame { font-size: 26rpx; margin-right: 6rpx; }
+.num { font-weight: 700; font-size: 28rpx; margin-right: 4rpx; }

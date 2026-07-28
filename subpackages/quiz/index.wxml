@@ -1,0 +1,172 @@
+<!-- 选择学段学科 -->
+<view wx:if="{{phase === 'setup'}}" class="wrap fade-in">
+  <view class="page-head ph-quiz">
+    <view class="ph-wm">知</view>
+    <view class="ph-block">关</view>
+    <view class="ph-body">
+      <view class="ph-title">知识闯关</view>
+    </view>
+  </view>
+
+  <view wx:if="{{remoteState==='loading'}}" class="remote-tip">⏳ 正在从云端加载题库…</view>
+  <view wx:elif="{{remoteState==='empty'}}" class="remote-tip offline">
+    <text>📡 离线且未下载题库，请联网后重试</text>
+    <view class="retry-btn" bindtap="loadBank">重试</view>
+  </view>
+  <view wx:elif="{{remoteState==='offline'}}" class="remote-tip offline">📡 离线模式：使用已缓存题库</view>
+
+  <!-- 积分 / 等级 / 连胜 -->
+  <block wx:if="{{remoteState==='ready' || remoteState==='offline'}}">
+  <view class="card stat-strip">
+    <view class="stat"><text class="stat-num">{{points}}</text><text class="stat-label">积分</text></view>
+    <view class="stat"><text class="stat-num">{{level}}</text><text class="stat-label">等级</text></view>
+    <view class="stat"><text class="stat-num">{{streak}}</text><text class="stat-label">连胜天数</text></view>
+    <view class="stat link" bindtap="openOverview"><text class="stat-num">📊</text><text class="stat-label">题库总览</text></view>
+  </view>
+
+  <view class="card">
+    <view class="sec-title">学段</view>
+    <view class="chips">
+      <text wx:for="{{stages}}" wx:key="index" class="chip {{stageIdx == index ? 'on' : ''}}"
+            data-i="{{index}}" bindtap="pickStage">{{item}}</text>
+    </view>
+    <view class="sec-title mt">学科</view>
+    <view class="chips">
+      <text wx:for="{{subjects}}" wx:key="index" class="chip {{subjectIdx == index ? 'on' : ''}}"
+            data-i="{{index}}" bindtap="pickSubject">{{item}}</text>
+    </view>
+    <view class="rest-row" bindtap="toggleRest">
+      <text class="rest-label">🌿 每轮结束休息 20 秒护眼</text>
+      <text class="rest-state {{restEnabled ? 'on' : ''}}">{{restEnabled ? '已开启' : '已关闭'}}</text>
+    </view>
+  </view>
+
+  <view wx:if="{{wrongCount}}" class="card wrong-card" bindtap="startWrongOnly" hover-class="press">
+    <text class="wrong-txt">错题本还有 <text class="wrong-num">{{wrongCount}}</text> 题，专攻错题 ›</text>
+  </view>
+
+  <view class="start-area">
+    <button class="btn big" bindtap="start">开始闯关</button>
+    <button class="btn line mt" bindtap="startEnglish">🌍 英文拓展（OpenTDB 在线题库）</button>
+    <view class="clear-link" bindtap="clearProgress">清空闯关进度</view>
+  </view>
+  </block>
+</view>
+
+<!-- 题库总览 -->
+<view wx:elif="{{phase === 'overview'}}" class="wrap fade-in">
+  <view class="back-bar" bindtap="closeOverview">‹ 返回</view>
+  <view class="page-head ph-quiz">
+    <view class="ph-wm">库</view>
+    <view class="ph-block">库</view>
+    <view class="ph-body">
+      <view class="ph-title">题库总览</view>
+      <view class="ph-chip">共 {{overview.total}} 题</view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="sec-title">难度占比</view>
+    <view wx:for="{{overview.diffs}}" wx:key="d" class="diff-row">
+      <text class="diff-name">{{item.label}}</text>
+      <view class="diff-track"><view class="diff-fill d{{item.d}}" style="width: {{item.pct}}%"></view></view>
+      <text class="diff-count">{{item.count}} 题 · {{item.pct}}%</text>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="sec-title">学科分布（点击钻取开练）</view>
+    <view wx:for="{{overview.subjects}}" wx:key="name" class="sub-row" hover-class="press"
+          data-name="{{item.name}}" bindtap="drillSubject">
+      <view class="sub-head">
+        <text class="sub-name">{{item.name}}</text>
+        <text class="sub-count">{{item.count}} 题 ›</text>
+      </view>
+      <view class="sub-track">
+        <view class="diff-fill d1" style="width: {{item.p1}}%"></view>
+        <view class="diff-fill d2" style="width: {{item.p2}}%"></view>
+        <view class="diff-fill d3" style="width: {{item.p3}}%"></view>
+      </view>
+    </view>
+    <view class="legend">
+      <text class="lg"><text class="dot d1"></text>基础</text>
+      <text class="lg"><text class="dot d2"></text>进阶</text>
+      <text class="lg"><text class="dot d3"></text>挑战</text>
+    </view>
+  </view>
+</view>
+
+<!-- 答题 -->
+<view wx:elif="{{phase === 'quiz'}}" class="wrap fade-in">
+  <view class="progress-line">
+    <text class="prog">{{curIdx + 1}} / {{total}}</text>
+    <text wx:if="{{fromWrongBank}}" class="from-wrong">错题回流</text>
+    <text wx:if="{{isEnglishRound}}" class="from-wrong en">EN</text>
+    <text class="q-meta">{{cur.stage}} · {{cur.subject}} · {{multi ? '多选' : blank ? '填空' : '单选'}}</text>
+  </view>
+
+  <view class="card">
+    <view class="q-text">{{cur.question}}</view>
+
+    <!-- 单选 / 判断 -->
+    <block wx:if="{{!multi && !blank}}">
+      <view wx:for="{{cur.options}}" wx:key="index"
+            class="opt {{answered ? (index === cur.answer ? 'right' : (index === picked ? 'wrong' : 'mute')) : ''}}"
+            data-i="{{index}}" bindtap="pick">
+        <text class="opt-no">{{index === 0 ? 'A' : index === 1 ? 'B' : index === 2 ? 'C' : 'D'}}</text>
+        <text class="opt-text">{{item}}</text>
+      </view>
+    </block>
+
+    <!-- 多选 -->
+    <block wx:elif="{{multi}}">
+      <view wx:for="{{cur.options}}" wx:key="index"
+            class="opt {{answered ? (cur.answer.indexOf(index) > -1 ? 'right' : (picked.indexOf(index) > -1 ? 'wrong' : 'mute')) : (picked.indexOf(index) > -1 ? 'picked' : '')}}"
+            data-i="{{index}}" bindtap="toggle">
+        <text class="opt-no">{{index === 0 ? 'A' : index === 1 ? 'B' : index === 2 ? 'C' : 'D'}}</text>
+        <text class="opt-text">{{item}}</text>
+      </view>
+      <button wx:if="{{!answered}}" class="btn big mt" bindtap="submit">确认答案</button>
+    </block>
+
+    <!-- 填空 -->
+    <block wx:elif="{{blank}}">
+      <input class="blank-input" placeholder="请输入答案" value="{{userInput}}" bindinput="onInput" disabled="{{answered}}" />
+      <button wx:if="{{!answered}}" class="btn big mt" bindtap="submit">提交</button>
+    </block>
+  </view>
+
+  <!-- 判分后：知识点讲解 -->
+  <view wx:if="{{answered}}" class="card explain-card fade-in">
+    <view class="verdict {{correct ? 'ok' : 'no'}}">{{correct ? '答对了 🎉' : '答错了，看讲解 ↓'}}</view>
+    <view wx:if="{{!correct}}" class="kn your">✍️ 你的答案：{{yourAnswer}}</view>
+    <view wx:if="{{!correct || multi || blank}}" class="kn">✅ 正确答案：{{cur._answerText}}</view>
+    <view wx:if="{{cur.knowledge}}" class="kn">📌 {{cur.knowledge}}</view>
+    <view wx:if="{{cur.explain}}" class="sec-text">{{cur.explain}}</view>
+    <button class="btn big mt" bindtap="next">{{curIdx + 1 >= total ? '看成绩' : '下一题'}}</button>
+  </view>
+</view>
+
+<!-- 休息卡护眼 -->
+<view wx:elif="{{phase === 'rest'}}" class="wrap fade-in">
+  <view class="rest-card">
+    <view class="rest-emoji">🌿</view>
+    <view class="rest-title">休息一下，看看远方</view>
+    <view class="rest-tip">闭眼或远眺 20 秒，让眼睛放松放松</view>
+    <view class="rest-count">{{restSeconds}}</view>
+    <button class="btn line" bindtap="skipRest">跳过休息，看成绩</button>
+  </view>
+</view>
+
+<!-- 成绩 -->
+<view wx:else class="wrap fade-in">
+  <view class="card center-card">
+    <view class="score-num">{{score}} / {{total}}</view>
+    <view class="score-label">{{score === total ? '全对！太厉害了' : score >= total / 2 ? '不错，继续加油' : '错题已收入错题本，明天再战'}}</view>
+    <view class="score-points">+{{roundPoints}} 积分 · 累计 {{points}} · {{level}} · 连胜 {{streak}} 天</view>
+    <view wx:if="{{wrongCount}}" class="score-sub">错题本待消灭：{{wrongCount}} 题（会回流到今日中枢）</view>
+    <button class="btn big mt" bindtap="again">再来一轮</button>
+    <related-rail tags="{{['智慧']}}" exclude="quiz" />
+  </view>
+</view>
+<view class="foot-space"></view>

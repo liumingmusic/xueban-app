@@ -1,0 +1,75 @@
+.wrap { padding-top: 24rpx; }
+.title { font-size: 48rpx; font-weight: 700; letter-spacing: 3rpx; text-align: center; }
+.meta { font-size: 26rpx; color: var(--ink-2); text-align: center; margin: 10rpx 0 28rpx; }
+.content { text-align: center; }
+.line { font-size: 34rpx; letter-spacing: 4rpx; line-height: 2.1; }
+.tags { text-align: center; margin-top: 24rpx; }
+
+.ops { display: flex; gap: 16rpx; justify-content: center; margin-top: 24rpx; flex-wrap: wrap; }
+.ops .btn { margin: 0; }
+
+.section { margin-top: 24rpx; }
+.sec-title {
+  font-size: 26rpx; color: var(--c-poetry); font-weight: 600;
+  letter-spacing: 4rpx; margin-bottom: 12rpx;
+}
+.sec-text { font-size: 28rpx; color: var(--ink); line-height: 1.9; }
+
+.bottom-ops { display: flex; gap: 20rpx; justify-content: center; margin: 12rpx 24rpx; }
+.foot-space { height: 60rpx; }
+
+/* 顶部分段 */
+.seg {
+  display: flex; gap: 0; padding: 0 24rpx 16rpx;
+}
+.seg-item {
+  flex: 1; text-align: center; font-size: 28rpx; padding: 14rpx 0;
+  color: var(--ink-2); border-bottom: 4rpx solid transparent;
+}
+.seg-item.on { color: var(--c-poetry); font-weight: 700; border-bottom-color: var(--c-poetry); }
+
+/* 搜索 + 列表 */
+.search { padding: 0 24rpx 16rpx; }
+.search-in {
+  background: var(--bg); border: 1rpx solid var(--line); border-radius: 14rpx;
+  padding: 18rpx 24rpx; font-size: 28rpx;
+}
+.chips { display: flex; flex-wrap: wrap; padding: 0 24rpx; gap: 12rpx; margin-bottom: 12rpx; }
+.list { padding: 12rpx 24rpx 0; }
+.row {
+  background: var(--card); border: 1rpx solid var(--line); border-radius: 16rpx;
+  padding: 22rpx 24rpx; margin-bottom: 16rpx;
+}
+.row-hover { background: #f3f6f4; }
+.row-title { font-size: 32rpx; font-weight: 600; }
+.row-meta { font-size: 24rpx; color: var(--ink-2); margin-top: 6rpx; }
+.empty { text-align: center; color: var(--ink-2); font-size: 26rpx; padding: 60rpx 0; }
+.back-bar {
+  font-size: 26rpx; color: var(--c-poetry); padding: 8rpx 24rpx 16rpx;
+}
+
+/* 农历行 */
+.lunar-line {
+  text-align: center; font-size: 24rpx; color: var(--ink-2);
+  letter-spacing: 2rpx; padding-bottom: 12rpx;
+}
+
+/* 竖排排版（自右向左） */
+.content.vertical {
+  display: flex; flex-direction: row-reverse; justify-content: center;
+  min-height: 400rpx;
+}
+.content.vertical .line {
+  writing-mode: vertical-rl;
+  letter-spacing: 8rpx;
+  margin: 0 12rpx;
+  line-height: 1.4;
+}
+
+/* 词牌 chip */
+.chip.cp { border-color: var(--c-poetry); }
+.cp-count { font-size: 20rpx; color: var(--c-poetry); }
+.mt8 { margin-top: 8rpx; padding: 0; }
+
+/* 作者卡跳转提示 */
+.author-more { float: right; font-size: 24rpx; color: var(--c-poetry); font-weight: 400; letter-spacing: 0; }

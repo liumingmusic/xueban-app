@@ -1,0 +1,102 @@
+.wrap { padding-top: 24rpx; }
+.badge-line { margin-bottom: 12rpx; }
+.today-badge {
+  font-size: 22rpx; color: var(--c-english);
+  border: 1rpx solid var(--c-english);
+  border-radius: 999rpx; padding: 4rpx 20rpx;
+}
+.w { font-size: 72rpx; font-weight: 700; text-align: center; font-family: Georgia, serif; }
+.phon-row {
+  display: flex; gap: 20rpx; justify-content: center; align-items: center;
+  margin: 8rpx 0 16rpx;
+}
+.phon { font-size: 28rpx; color: var(--c-english); }
+.pos, .level { font-size: 22rpx; color: var(--ink-2); border: 1rpx solid var(--line); border-radius: 8rpx; padding: 2rpx 10rpx; }
+.cn { font-size: 34rpx; text-align: center; }
+.en { font-size: 26rpx; color: var(--ink-2); text-align: center; margin-top: 10rpx; }
+
+.ops { display: flex; gap: 16rpx; justify-content: center; margin-top: 28rpx; }
+.ops .btn { margin: 0; }
+.warn { color: #b45309; border-color: #b45309; }
+.warn.in { opacity: 0.5; }
+
+.section { margin-top: 28rpx; }
+.sec-title {
+  font-size: 26rpx; color: var(--c-english); font-weight: 600;
+  letter-spacing: 4rpx; margin-bottom: 12rpx;
+}
+.sec-title.tap { margin-bottom: 0; min-height: 60rpx; display: flex; align-items: center; }
+.ex { margin-bottom: 16rpx; }
+.ex-en { font-size: 28rpx; font-family: Georgia, serif; }
+.ex-cn { font-size: 24rpx; color: var(--ink-2); }
+
+.rev-row {
+  display: flex; align-items: center;
+  padding: 16rpx 0; border-bottom: 1rpx solid var(--line);
+  min-height: 72rpx;
+}
+.rev-row:last-child { border-bottom: none; }
+.rev-main { flex: 1; }
+.rev-word { font-size: 30rpx; font-weight: 600; margin-right: 20rpx; }
+.rev-cn { font-size: 24rpx; color: var(--ink-2); }
+.rev-del { font-size: 22rpx; color: #b45309; padding: 8rpx 16rpx; }
+
+.bottom-ops { display: flex; gap: 20rpx; justify-content: center; margin: 12rpx 24rpx; }
+.foot-space { height: 60rpx; }
+
+/* ---------- 背诵流 ---------- */
+.chips.np { padding: 0; }
+.chip.on { color: #fff; background: var(--c-english); border-color: var(--c-english); }
+.mt { margin-top: 24rpx; }
+.mt8 { margin-top: 12rpx; }
+.start-area { margin: 32rpx 24rpx; }
+.btn.big { width: 100%; background: var(--c-english); }
+
+.book-stat { margin-top: 20rpx; }
+.bs-track { height: 20rpx; background: var(--bg); border-radius: 10rpx; overflow: hidden; }
+.bs-fill { height: 100%; background: var(--c-english); border-radius: 10rpx; }
+.bs-text { font-size: 24rpx; color: var(--ink-2); margin-top: 10rpx; display: block; }
+
+.study-bar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 4rpx 32rpx 16rpx;
+}
+.study-mode {
+  font-size: 22rpx; color: #fff; background: var(--c-english);
+  border-radius: 8rpx; padding: 4rpx 16rpx;
+}
+.study-prog { font-size: 26rpx; font-weight: 600; color: var(--c-english); }
+
+.study-w { font-size: 64rpx; font-weight: 700; text-align: center; font-family: Georgia, serif; }
+.study-phon { font-size: 26rpx; color: var(--ink-2); text-align: center; margin: 8rpx 0 28rpx; }
+.study-cn-q { font-size: 40rpx; font-weight: 600; text-align: center; margin-bottom: 8rpx; }
+.study-audio {
+  font-size: 34rpx; color: var(--c-english); text-align: center;
+  padding: 32rpx 0 8rpx;
+}
+
+.opt {
+  border: 2rpx solid var(--line); border-radius: 16rpx;
+  padding: 20rpx 24rpx; margin-bottom: 16rpx; min-height: 88rpx;
+  box-sizing: border-box; display: flex; align-items: center;
+}
+.opt-text { font-size: 28rpx; line-height: 1.6; }
+.opt.right { border-color: #2f8f78; background: #eef7f3; }
+.opt.wrong { border-color: #e64340; background: #fdf0ef; }
+.opt.mute { opacity: 0.55; }
+
+.blank-input {
+  border: 2rpx solid var(--line); border-radius: 16rpx;
+  padding: 20rpx 24rpx; font-size: 30rpx; margin-bottom: 8rpx; background: var(--bg);
+}
+.verdict { font-size: 30rpx; font-weight: 700; margin: 16rpx 0 8rpx; }
+.verdict.ok { color: #2f8f78; }
+.verdict.no { color: #e64340; }
+.study-ans { font-size: 28rpx; color: var(--ink); }
+
+.study-ops { display: flex; gap: 16rpx; justify-content: center; margin-top: 20rpx; }
+.exit-link { text-align: center; font-size: 24rpx; color: var(--ink-2); text-decoration: underline; margin-top: 8rpx; }
+
+.center-card { text-align: center; }
+.done-emoji { font-size: 72rpx; }
+.done-title { font-size: 36rpx; font-weight: 700; margin: 12rpx 0; }

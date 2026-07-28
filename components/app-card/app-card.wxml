@@ -1,0 +1,13 @@
+<view class="app-card {{app.status === 'placeholder' ? 'dim' : ''}}" hover-class="hov" bindtap="onTap">
+  <view class="icon" style="background: {{app.color}}1a;">{{app.icon}}</view>
+  <view class="body">
+    <view class="name-row">
+      <text class="name">{{app.name}}</text>
+      <text wx:if="{{app.status === 'online'}}" class="badge online">已上线</text>
+      <text wx:elif="{{app.status === 'placeholder'}}" class="badge placeholder">即将上线</text>
+      <text wx:else class="badge web">网页版</text>
+    </view>
+    <view class="desc">{{app.desc}}</view>
+  </view>
+  <view class="arrow">›</view>
+</view>

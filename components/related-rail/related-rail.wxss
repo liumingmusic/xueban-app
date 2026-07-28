@@ -1,0 +1,32 @@
+.rail {
+  display: flex;
+  align-items: center;
+  margin-top: 24rpx;
+  padding-top: 20rpx;
+  border-top: 1rpx dashed var(--line, #EFE8DC);
+}
+.rail-label {
+  font-size: 22rpx;
+  color: var(--ink-2, #8A8175);
+  letter-spacing: 4rpx;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+  writing-mode: horizontal-tb;
+}
+.rail-scroll { flex: 1; white-space: nowrap; }
+.rail-inner { display: inline-flex; }
+.rel-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6rpx;
+  font-size: 24rpx;
+  border: 1rpx solid;
+  border-radius: 999rpx;
+  padding: 8rpx 22rpx;
+  margin-right: 14rpx;
+  background: #fff;
+  min-height: 44rpx;
+}
+.rel-icon { font-size: 26rpx; }
+.rel-arrow { opacity: 0.6; }
+.hov { opacity: 0.7; }

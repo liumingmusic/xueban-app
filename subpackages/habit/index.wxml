@@ -1,0 +1,80 @@
+<view class="wrap">
+
+  <view class="page-head ph-habit fade-in">
+    <view class="ph-wm">律</view>
+    <view class="ph-block">律</view>
+    <view class="ph-body">
+      <view class="ph-title">习惯打卡</view>
+    </view>
+  </view>
+
+  <!-- 总览 -->
+  <view class="card fade-in ov">
+    <view class="ov-item"><view class="ov-num">{{overview.total}}</view><view class="ov-lab">习惯数</view></view>
+    <view class="ov-item"><view class="ov-num">{{overview.todayDone}}/{{overview.todayTotal}}</view><view class="ov-lab">今日完成</view></view>
+    <view class="ov-item"><view class="ov-num">{{overview.best}}</view><view class="ov-lab">最长连胜</view></view>
+    <view class="ov-item"><view class="ov-num">{{overview.checks}}</view><view class="ov-lab">累计打卡</view></view>
+  </view>
+
+  <!-- 年度热力图 -->
+  <view class="card fade-in">
+    <view class="card-title"><view class="dot" style="background: var(--c-habit);"></view>年度热力图</view>
+    <scroll-view class="heat" scroll-x="true">
+      <view class="heat-weeks">
+        <view wx:for="{{weeks}}" wx:for-item="w" wx:key="index" class="heat-week">
+          <view wx:for="{{w}}" wx:for-item="d" wx:key="date" class="heat-cell lv{{d.level}}">
+            <view wx:if="{{!d.future}}" class="heat-tip">{{d.date}} · {{d.count}} 个习惯</view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+    <view class="legend-row"><text class="lg">少</text><view class="heat-cell lv0"></view><view class="heat-cell lv1"></view><view class="heat-cell lv2"></view><view class="heat-cell lv3"></view><text class="lg">多</text></view>
+  </view>
+
+  <!-- 添加入口 -->
+  <view class="card fade-in">
+    <view wx:if="{{!adding}}" class="add-btn" bindtap="toggleAdding">＋ 添加习惯</view>
+    <block wx:else>
+      <input class="add-in" placeholder="习惯名称，如「每日阅读」" value="{{name}}" bindinput="onName" confirm-type="done" focus="{{adding}}" />
+      <view class="pick-row">
+        <text class="pick-lab">图标</text>
+        <scroll-view class="emoji-row" scroll-x="true">
+          <text wx:for="{{emojis}}" wx:key="index" class="emoji {{emoji === item ? 'on' : ''}}" data-e="{{item}}" bindtap="pickEmoji">{{item}}</text>
+        </scroll-view>
+      </view>
+      <view class="pick-row">
+        <text class="pick-lab">颜色</text>
+        <view class="color-row">
+          <view wx:for="{{colors}}" wx:key="index" class="color-dot {{color === item ? 'on' : ''}}" style="background: {{item}}" data-c="{{item}}" bindtap="pickColor"></view>
+        </view>
+      </view>
+      <view class="add-ops">
+        <button class="btn mini ghost" bindtap="toggleAdding">取消</button>
+        <button class="btn mini" bindtap="confirmAdd">添加</button>
+      </view>
+    </block>
+  </view>
+
+  <!-- 习惯列表 -->
+  <view class="list">
+    <view wx:if="{{!habits.length}}" class="empty">还没有习惯，点上面「＋ 添加习惯」开始吧</view>
+    <view wx:for="{{habits}}" wx:key="id" class="card hb">
+      <view class="hb-top">
+        <view class="hb-emoji" style="background: {{item.color}}1a;">{{item.emoji}}</view>
+        <view class="hb-name">{{item.name}}</view>
+        <view class="hb-streak">🔥 {{item.streak}}</view>
+      </view>
+      <view class="hb-dots">
+        <view wx:for="{{item.dots}}" wx:for-item="d" wx:key="date" class="dot-cell {{d.done ? 'on' : ''}} {{d.isToday ? 'today' : ''}}"></view>
+      </view>
+      <view class="hb-ops">
+        <button class="btn mini {{item.todayDone ? '' : 'ghost'}}" data-id="{{item.id}}" bindtap="toggleToday">{{item.todayDone ? '今日已打卡 ✓' : '今日打卡'}}</button>
+        <button class="btn mini ghost danger" data-id="{{item.id}}" data-name="{{item.name}}" bindtap="removeHabit">删除</button>
+      </view>
+    </view>
+  </view>
+
+  <view class="foot-space"></view>
+  <button class="btn ghost back" bindtap="backHub">返回我的坚持</button>
+  <view class="foot-space"></view>
+</view>

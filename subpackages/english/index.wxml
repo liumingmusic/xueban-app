@@ -1,0 +1,192 @@
+<view class="page-head ph-english fade-in">
+  <view class="ph-wm">词</view>
+  <view class="ph-block">词</view>
+  <view class="ph-body">
+    <view class="ph-title">英语卡片</view>
+  </view>
+</view>
+
+<view wx:if="{{remoteState==='loading'}}" class="remote-tip">⏳ 正在从云端加载词库…</view>
+<view wx:elif="{{remoteState==='empty'}}" class="remote-tip offline">
+  <text>📡 离线且未下载词库，请联网后重试</text>
+  <view class="retry-btn" bindtap="loadWords">重试</view>
+</view>
+<view wx:elif="{{remoteState==='offline'}}" class="remote-tip offline">📡 离线模式：使用已缓存词库</view>
+
+<block wx:if="{{remoteState==='ready' || remoteState==='offline'}}">
+<view class="wrap">
+
+  <!-- 顶部分段 -->
+  <view class="seg">
+    <text class="seg-item {{tab === 'today' ? 'on' : ''}}" data-t="today" bindtap="switchTab">今日</text>
+    <text class="seg-item {{tab === 'study' ? 'on' : ''}}" data-t="study" bindtap="switchTab">背诵</text>
+    <text class="seg-item {{tab === 'library' ? 'on' : ''}}" data-t="library" bindtap="switchTab">词库</text>
+    <text class="seg-item {{tab === 'review' ? 'on' : ''}}" data-t="review" bindtap="switchTab">生词</text>
+  </view>
+
+  <!-- 背诵流 -->
+  <block wx:if="{{view === 'study'}}">
+    <!-- 设置：词书 + 每日计划 -->
+    <block wx:if="{{studyPhase === 'setup'}}">
+      <view class="card">
+        <view class="sec-title">选词书</view>
+        <view class="chips np">
+          <text wx:for="{{levels}}" wx:key="index" class="chip {{bookIdx == index ? 'on' : ''}}" data-i="{{index}}" bindtap="pickBook">{{item}}</text>
+        </view>
+        <view class="book-stat">
+          <view class="bs-track"><view class="bs-fill" style="width: {{bookPct}}%"></view></view>
+          <text class="bs-text">已掌握 {{bookMastered}} / {{bookTotal}} 词 · {{bookPct}}%</text>
+        </view>
+      </view>
+      <view class="card">
+        <view class="sec-title">每日计划</view>
+        <view class="chips np">
+          <text wx:for="{{goals}}" wx:key="index" class="chip {{goalIdx == index ? 'on' : ''}}" data-i="{{index}}" bindtap="pickGoal">{{item}} 词/天</text>
+        </view>
+        <view class="bs-text mt8">今日已背 {{dailyDone}} / {{goals[goalIdx]}} 词（跨天自动重置）</view>
+      </view>
+      <view class="start-area">
+        <button class="btn big" bindtap="startStudy">开始背诵</button>
+      </view>
+    </block>
+
+    <!-- 答题 -->
+    <block wx:elif="{{studyPhase === 'quiz'}}">
+      <view class="study-bar">
+        <text class="study-mode">{{sq.modeLabel}}</text>
+        <text class="study-prog">今日 {{dailyDone}} / {{goals[goalIdx]}}</text>
+      </view>
+      <view class="card">
+        <!-- 题面 -->
+        <block wx:if="{{sq.mode === 'wordToCn'}}">
+          <view class="study-w">{{sq.w.word}}</view>
+          <view class="study-phon">{{sq.w.phonetic}}</view>
+        </block>
+        <block wx:elif="{{sq.mode === 'cnToWord' || sq.mode === 'spell'}}">
+          <view class="study-cn-q">{{sq.w.cn}}</view>
+          <view wx:if="{{sq.mode === 'spell'}}" class="study-phon">{{sq.w.phonetic}} · 请拼写这个单词</view>
+        </block>
+        <block wx:elif="{{sq.mode === 'audioToCn'}}">
+          <view class="study-audio" bindtap="playStudy">🔊 点击播放发音</view>
+          <view class="study-phon">{{sq.w.phonetic}}</view>
+        </block>
+
+        <!-- 作答区 -->
+        <block wx:if="{{sq.mode !== 'spell'}}">
+          <view wx:for="{{sq.options}}" wx:key="index"
+                class="opt {{sq.answered ? (index === sq.answer ? 'right' : (index === sq.picked ? 'wrong' : 'mute')) : ''}}"
+                data-i="{{index}}" bindtap="pickStudy">
+            <text class="opt-text">{{item}}</text>
+          </view>
+        </block>
+        <block wx:else>
+          <input class="blank-input" placeholder="输入单词拼写" value="{{spellInput}}" bindinput="onSpellInput" disabled="{{sq.answered}}" />
+          <button wx:if="{{!sq.answered}}" class="btn big mt" bindtap="submitSpell">提交</button>
+        </block>
+
+        <!-- 判分结果 -->
+        <block wx:if="{{sq.answered}}">
+          <view class="verdict {{sq.correct ? 'ok' : 'no'}}">{{sq.correct ? '✓ 正确' : '✗ 错误，已加入生词本'}}</view>
+          <view class="study-ans">{{sq.w.word}} {{sq.w.phonetic}} — {{sq.w.cn}}</view>
+          <button class="btn big mt" bindtap="studyNext">下一词</button>
+        </block>
+
+        <!-- 快捷操作 -->
+        <view wx:if="{{!sq.answered}}" class="study-ops">
+          <button class="btn mini ghost" bindtap="zhanWord">⚔️ 斩掉·认识</button>
+          <button class="btn mini ghost" bindtap="skipWord">跳过</button>
+        </view>
+      </view>
+      <view class="exit-link" bindtap="exitStudy">结束本次背诵</view>
+    </block>
+
+    <!-- 完成 -->
+    <block wx:else>
+      <view class="card center-card">
+        <view class="done-emoji">🎉</view>
+        <view class="done-title">今日计划完成</view>
+        <view class="bs-text">已背 {{dailyDone}} 词 · 词书掌握 {{bookPct}}%</view>
+        <button class="btn big mt" bindtap="exitStudy">返回设置</button>
+      </view>
+    </block>
+  </block>
+
+  <!-- 词库列表 -->
+  <block wx:elif="{{view === 'list' && tab === 'library'}}">
+    <view class="search"><input class="search-in" placeholder="搜单词 / 中文 / 英文释义" value="{{query}}" bindinput="onSearch" confirm-type="search" /></view>
+    <view class="chips"><text wx:for="{{levels}}" wx:key="index" class="chip {{levelIdx == index ? 'on' : ''}}" data-i="{{index}}" bindtap="pickLevel">{{item}}</text></view>
+    <view class="list">
+      <view wx:for="{{list}}" wx:key="word" class="row" data-id="{{item.word}}" bindtap="openWord" hover-class="row-hover">
+        <view class="row-title">{{item.word}}</view>
+        <view class="row-meta">{{item.phonetic}} · {{item.cn}}</view>
+      </view>
+      <view wx:if="{{!list.length}}" class="empty">没有匹配的单词，换个关键词试试</view>
+    </view>
+  </block>
+
+  <!-- 生词列表 -->
+  <block wx:elif="{{view === 'list' && tab === 'review'}}">
+    <view class="list">
+      <view wx:if="{{!reviewList.length}}" class="empty">生词本是空的，很棒！</view>
+      <view wx:for="{{reviewList}}" wx:key="id" class="row" data-id="{{item.id}}" bindtap="tapReview" hover-class="row-hover">
+        <view class="row-title">{{item.word}}</view>
+        <view class="row-meta">{{item.cn}}</view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 详情 -->
+  <block wx:else>
+    <view wx:if="{{fromList}}" class="back-bar" bindtap="backToList">← 返回列表</view>
+    <view class="card">
+      <view class="w">{{word.word}}</view>
+      <view class="phon-row">
+        <text class="phon">{{word.phonetic}}</text>
+        <text class="pos">{{word.pos}}</text>
+        <text class="level">{{word.level}}</text>
+      </view>
+      <view class="cn">{{word.cn}}</view>
+      <view wx:if="{{word.en}}" class="en">{{word.en}}</view>
+
+      <view class="ops">
+        <button class="btn mini ghost" bindtap="play">🔊 发音</button>
+        <button class="btn mini {{known ? '' : 'ghost'}}" bindtap="markKnown">{{known ? '认识 ✓' : '认识'}}</button>
+        <button class="btn mini ghost warn {{inWrong ? 'in' : ''}}" bindtap="markUnknown">{{inWrong ? '已在生词本' : '不认识'}}</button>
+        <button class="btn mini {{favorited ? '' : 'ghost'}}" bindtap="toggleFavorite">{{favorited ? '★ 已收藏' : '☆ 收藏'}}</button>
+        <button class="btn mini ghost" open-type="share">↗ 分享</button>
+      </view>
+
+      <view wx:if="{{word.examples.length}}" class="section">
+        <view class="sec-title">例句</view>
+        <view wx:for="{{word.examples}}" wx:key="index" class="ex">
+          <view class="ex-en">{{item.en || item}}</view>
+          <view wx:if="{{item.cn}}" class="ex-cn">{{item.cn}}</view>
+        </view>
+      </view>
+
+      <related-rail tags="{{['英语']}}" exclude="english" />
+    </view>
+
+    <!-- 生词复习队列 -->
+    <view class="card">
+      <view class="sec-title tap" bindtap="toggleReview">生词本（{{reviewList.length}}） {{showReview ? '▾' : '▸'}}</view>
+      <block wx:if="{{showReview}}">
+        <view wx:if="{{!reviewList.length}}" class="empty">生词本是空的，很棒！</view>
+        <view wx:for="{{reviewList}}" wx:key="id" class="rev-row">
+          <view class="rev-main" data-id="{{item.id}}" bindtap="tapReview">
+            <text class="rev-word">{{item.word}}</text>
+            <text class="rev-cn">{{item.cn}}</text>
+          </view>
+          <text class="rev-del" data-id="{{item.id}}" catchtap="removeReview">移出</text>
+        </view>
+      </block>
+    </view>
+
+    <view class="bottom-ops">
+      <button class="btn ghost" bindtap="random">换一词</button>
+      <button wx:if="{{!isToday}}" class="btn" bindtap="backToday">回到今日</button>
+    </view>
+    <view class="foot-space"></view>
+  </block>
+</view>
+</block>

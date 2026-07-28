@@ -1,0 +1,44 @@
+<view class="page-head ph-habit fade-in">
+  <view class="ph-wm">恒</view>
+  <view class="ph-block">恒</view>
+  <view class="ph-body">
+    <view class="ph-title">我的坚持</view>
+  </view>
+</view>
+
+<!-- 总连续 -->
+<view class="card fade-in center-card">
+  <view class="big-num">{{appStreak}}</view>
+  <view class="big-label">连续学习天数</view>
+  <view class="last" wx:if="{{lastCheckin}}">最近打卡：{{lastCheckin}}</view>
+</view>
+
+<!-- 各模块坚持 -->
+<view class="card fade-in">
+  <view class="card-title"><view class="dot" style="background: var(--c-poetry);"></view>模块打卡</view>
+  <view wx:if="{{modules.length === 0}}" class="empty">还没有模块打卡记录，去「发现」里学点什么吧</view>
+  <view wx:for="{{modules}}" wx:key="id" class="mod-row">
+    <text class="mod-icon">{{item.icon}}</text>
+    <view class="mod-body">
+      <view class="mod-name">{{item.name}}</view>
+      <view class="mod-sub">累计 {{item.total}} 天 · 最近 {{item.last}}</view>
+    </view>
+    <view class="mod-streak">🔥 {{item.count}}</view>
+  </view>
+</view>
+
+<!-- 习惯打卡 -->
+<view class="card fade-in entry" bindtap="goHabit" hover-class="row-hover">
+  <view class="card-title"><view class="dot" style="background: var(--c-habit);"></view>习惯打卡</view>
+  <view class="entry-text">{{habitCount ? '已添加 ' + habitCount + ' 个习惯 · 点击去打卡' : '多习惯管理 · 连胜 · 年度热力图'}}</view>
+  <view class="entry-arrow">›</view>
+</view>
+
+<!-- 观影追踪 -->
+<view class="card fade-in entry" bindtap="goMovie" hover-class="row-hover">
+  <view class="card-title"><view class="dot" style="background: var(--c-movie);"></view>观影追踪</view>
+  <view class="entry-text">{{movieCount ? '已记录 ' + movieCount + ' 部 · 点击查看' : '电影记录本 · 类型统计 · 月历标记'}}</view>
+  <view class="entry-arrow">›</view>
+</view>
+
+<view class="foot-space"></view>

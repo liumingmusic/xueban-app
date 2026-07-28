@@ -1,0 +1,41 @@
+{
+  "pages": [
+    "pages/hub/hub",
+    "pages/cover/cover",
+    "pages/habit-hub/habit-hub",
+    "pages/stats/stats",
+    "pages/mine/mine"
+  ],
+  "subpackages": [
+    { "root": "subpackages/poetry", "pages": ["index"] },
+    { "root": "subpackages/idiom", "pages": ["index"] },
+    { "root": "subpackages/english", "pages": ["index"] },
+    { "root": "subpackages/history", "pages": ["index"] },
+    { "root": "subpackages/quiz", "pages": ["index"] },
+    { "root": "subpackages/quote", "pages": ["index"] },
+    { "root": "subpackages/habit", "pages": ["index"] },
+    { "root": "subpackages/movie", "pages": ["index"] }
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#FBF7F0",
+    "navigationBarTitleText": "学伴小筑",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#FBF7F0",
+    "backgroundTextStyle": "light"
+  },
+  "tabBar": {
+    "color": "#8A8175",
+    "selectedColor": "#2f8f78",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      { "pagePath": "pages/hub/hub", "text": "中枢", "iconPath": "assets/tab/hub.png", "selectedIconPath": "assets/tab/hub-on.png" },
+      { "pagePath": "pages/cover/cover", "text": "发现", "iconPath": "assets/tab/cover.png", "selectedIconPath": "assets/tab/cover-on.png" },
+      { "pagePath": "pages/habit-hub/habit-hub", "text": "习惯", "iconPath": "assets/tab/habit.png", "selectedIconPath": "assets/tab/habit-on.png" },
+      { "pagePath": "pages/stats/stats", "text": "数据", "iconPath": "assets/tab/stats.png", "selectedIconPath": "assets/tab/stats-on.png" },
+      { "pagePath": "pages/mine/mine", "text": "我", "iconPath": "assets/tab/mine.png", "selectedIconPath": "assets/tab/mine-on.png" }
+    ]
+  },
+  "lazyCodeLoading": "requiredComponents",
+  "sitemapLocation": "sitemap.json"
+}

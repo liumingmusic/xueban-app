@@ -1,0 +1,32 @@
+.app-card {
+  display: flex;
+  align-items: center;
+  background: var(--card, #fff);
+  border-radius: 24rpx;
+  padding: 28rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 4rpx 20rpx rgba(60, 45, 20, 0.06);
+  min-height: 88rpx;
+}
+.app-card.dim { opacity: 0.72; }
+.hov { transform: scale(0.985); transition: transform 0.1s; }
+.icon {
+  width: 88rpx; height: 88rpx;
+  border-radius: 20rpx;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 44rpx;
+  margin-right: 24rpx;
+  flex-shrink: 0;
+}
+.body { flex: 1; min-width: 0; }
+.name-row { display: flex; align-items: center; gap: 12rpx; }
+.name { font-size: 32rpx; font-weight: 600; color: var(--ink, #2B2B2B); }
+.desc {
+  font-size: 24rpx; color: var(--ink-2, #8A8175); margin-top: 6rpx;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.arrow { color: #c9c0b2; font-size: 40rpx; margin-left: 12rpx; }
+.badge { font-size: 20rpx; border-radius: 8rpx; padding: 2rpx 10rpx; color: #fff; flex-shrink: 0; }
+.badge.online { background: #2f8f78; }
+.badge.placeholder { background: #c9c0b2; }
+.badge.web { background: #3a78a8; }

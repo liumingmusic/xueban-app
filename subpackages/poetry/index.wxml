@@ -1,0 +1,192 @@
+<view class="page-head ph-poetry fade-in">
+  <view class="ph-wm">诗</view>
+  <view class="ph-block">诗</view>
+  <view class="ph-body">
+    <view class="ph-title">每日诗词</view>
+  </view>
+</view>
+
+<view class="wrap">
+
+  <!-- 顶部分段：今日 / 诗库 / 词牌 / 回看 -->
+  <view class="seg">
+    <text class="seg-item {{tab === 'today' ? 'on' : ''}}" data-t="today" bindtap="switchTab">今日</text>
+    <text class="seg-item {{tab === 'library' ? 'on' : ''}}" data-t="library" bindtap="switchTab">诗库</text>
+    <text class="seg-item {{tab === 'cipai' ? 'on' : ''}}" data-t="cipai" bindtap="switchTab">词牌</text>
+    <text class="seg-item {{tab === 'history' ? 'on' : ''}}" data-t="history" bindtap="switchTab">回看</text>
+  </view>
+
+  <!-- 诗库列表 -->
+  <block wx:if="{{view === 'list' && tab === 'library'}}">
+    <view class="search"><input class="search-in" placeholder="搜标题 / 作者 / 标签 / 正文" value="{{query}}" bindinput="onSearch" confirm-type="search" /></view>
+    <view class="chips">
+      <text wx:for="{{stages}}" wx:key="index" class="chip {{stageIdx == index ? 'on' : ''}}" data-i="{{index}}" bindtap="pickStage">{{item}}</text>
+    </view>
+    <view class="chips">
+      <text wx:for="{{dynasties}}" wx:key="index" class="chip {{dynastyIdx == index ? 'on' : ''}}" data-i="{{index}}" bindtap="pickDynasty">{{item}}</text>
+    </view>
+    <view class="list">
+      <view wx:for="{{list}}" wx:key="id" class="row" data-id="{{item.id}}" bindtap="openPoem" hover-class="row-hover">
+        <view class="row-title">{{item.title}}</view>
+        <view class="row-meta">{{item.dynasty}} · {{item.author}} · {{item.form}}</view>
+      </view>
+      <view wx:if="{{!list.length}}" class="empty">没有匹配的诗词，换个关键词试试</view>
+    </view>
+  </block>
+
+  <!-- 词牌分类 -->
+  <block wx:elif="{{view === 'list' && tab === 'cipai'}}">
+    <view class="card" wx:for="{{cipaiGroups}}" wx:key="title" wx:for-item="grp">
+      <view class="sec-title">{{grp.title}}</view>
+      <view class="chips">
+        <text wx:for="{{grp.names}}" wx:key="name" class="chip cp" data-name="{{item.name}}" bindtap="openCipai">{{item.name}}<text wx:if="{{item.count}}" class="cp-count"> {{item.count}}</text></text>
+      </view>
+    </view>
+  </block>
+
+  <!-- 词牌详情 -->
+  <block wx:elif="{{view === 'cipaiDetail'}}">
+    <view class="back-bar" bindtap="backToList">← 返回词牌</view>
+    <view class="card">
+      <view class="title">{{curCipai.name}}</view>
+      <view wx:if="{{curCipai.info}}" class="meta">{{curCipai.info.category}} · {{curCipai.info.chars}} 字 · {{curCipai.info.tone}}</view>
+      <view wx:if="{{curCipai.info.aka}}" class="section"><view class="sec-title">又名</view><view class="sec-text">{{curCipai.info.aka}}</view></view>
+      <view wx:if="{{curCipai.info.rhythm}}" class="section"><view class="sec-title">格律</view><view class="sec-text">{{curCipai.info.rhythm}}</view></view>
+      <view wx:if="{{curCipai.info.origin}}" class="section"><view class="sec-title">调名由来</view><view class="sec-text">{{curCipai.info.origin}}</view></view>
+      <view wx:if="{{curCipai.info.style}}" class="section"><view class="sec-title">声情特点</view><view class="sec-text">{{curCipai.info.style}}</view></view>
+      <view wx:if="{{curCipai.info.represent}}" class="section"><view class="sec-title">代表作</view><view class="sec-text">{{curCipai.info.represent}}</view></view>
+    </view>
+    <view wx:if="{{curCipai.poems.length}}" class="card">
+      <view class="sec-title">本库中用此调的作品</view>
+      <view wx:for="{{curCipai.poems}}" wx:key="id" class="row" data-id="{{item.id}}" bindtap="openPoem" hover-class="row-hover">
+        <view class="row-title">{{item.title}}</view>
+        <view class="row-meta">{{item.dynasty}} · {{item.author}}</view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 作者生平详情 -->
+  <block wx:elif="{{view === 'author'}}">
+    <view class="back-bar" bindtap="backToDetail">← 返回诗词</view>
+    <view class="card">
+      <view class="title">{{author.name}}</view>
+      <view class="meta">{{author.dynasty}} · {{author.life}}<text wx:if="{{author.alias}}"> · {{author.alias}}</text></view>
+      <view wx:if="{{author.identity.length}}" class="chips mt8">
+        <text wx:for="{{author.identity}}" wx:key="index" class="chip">{{item}}</text>
+      </view>
+      <view wx:if="{{author.birthplace}}" class="section"><view class="sec-title">籍贯</view><view class="sec-text">{{author.birthplace}}</view></view>
+      <view wx:if="{{author.bio}}" class="section"><view class="sec-title">生平</view><view class="sec-text">{{author.bio}}</view></view>
+      <view wx:if="{{author.career}}" class="section"><view class="sec-title">经历</view><view class="sec-text">{{author.career}}</view></view>
+      <view wx:if="{{author.style}}" class="section"><view class="sec-title">风格</view><view class="sec-text">{{author.style}}</view></view>
+      <view wx:if="{{author.eval}}" class="section"><view class="sec-title">评价</view><view class="sec-text">{{author.eval}}</view></view>
+      <view wx:if="{{author.influence}}" class="section"><view class="sec-title">影响</view><view class="sec-text">{{author.influence}}</view></view>
+      <view wx:if="{{author.repText}}" class="section"><view class="sec-title">代表作</view><view class="sec-text">{{author.repText}}</view></view>
+    </view>
+    <view wx:if="{{author.works.length}}" class="card">
+      <view class="sec-title">本库收录（{{author.works.length}} 首）</view>
+      <view wx:for="{{author.works}}" wx:key="id" class="row" data-id="{{item.id}}" bindtap="openPoem" hover-class="row-hover">
+        <view class="row-title">{{item.title}}</view>
+        <view class="row-meta">{{item.dynasty}}</view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 回看列表 -->
+  <block wx:elif="{{view === 'list' && tab === 'history'}}">
+    <view class="list">
+      <view wx:for="{{historyList}}" wx:key="date" class="row" data-id="{{item.id}}" bindtap="openHistory" hover-class="row-hover">
+        <view class="row-title">{{item.title}}</view>
+        <view class="row-meta">{{item.date}} · {{item.dynasty}} · {{item.author}}</view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 详情 -->
+  <block wx:else>
+    <view wx:if="{{fromList}}" class="back-bar" bindtap="backToList">← 返回列表</view>
+    <view wx:if="{{tab === 'today' && !fromList}}" class="lunar-line">{{todayStr}} · {{lunarLabel}}</view>
+    <view class="card poem-card">
+      <view class="title">{{poem.title}}</view>
+      <view class="meta">{{poem.dynasty}} · {{poem.author}}<text wx:if="{{poem.form}}" class="form"> · {{poem.form}}</text></view>
+      <view class="content {{vertical ? 'vertical' : ''}}">
+        <view wx:for="{{poem.content}}" wx:key="index" class="line">{{item}}</view>
+      </view>
+      <view class="tags">
+        <text wx:for="{{poem.tags}}" wx:key="index" class="chip">{{item}}</text>
+      </view>
+
+      <view class="ops">
+        <button class="btn mini {{collected ? '' : 'ghost'}}" bindtap="toggleCollect">{{collected ? '已收藏 ✓' : '☆ 收藏'}}</button>
+        <button class="btn mini ghost" bindtap="toggleTrans">{{showTrans ? '收起译文' : '看译文'}}</button>
+        <button class="btn mini ghost" bindtap="toggleVertical">{{vertical ? '横排' : '竖排'}}</button>
+        <button class="btn mini ghost" bindtap="readAloud">🔊 朗读</button>
+        <button class="btn mini ghost" open-type="share">↗ 分享</button>
+      </view>
+
+      <view wx:if="{{showTrans && poem.translation}}" class="section">
+        <view class="sec-title">译文</view>
+        <view class="sec-text">{{poem.translation}}</view>
+      </view>
+      <view wx:if="{{poem.enTranslation}}" class="section">
+        <view class="sec-title">英译</view>
+        <view class="sec-text">{{poem.enTranslation}}</view>
+      </view>
+    </view>
+
+    <view wx:if="{{poem.note}}" class="card">
+      <view class="sec-title">注释</view>
+      <view class="sec-text">{{poem.note}}</view>
+    </view>
+    <view wx:if="{{poem.appreciation}}" class="card">
+      <view class="sec-title">赏析</view>
+      <view class="sec-text">{{poem.appreciation}}</view>
+    </view>
+    <view wx:if="{{poem.background}}" class="card">
+      <view class="sec-title">创作背景</view>
+      <view class="sec-text">{{poem.background}}</view>
+    </view>
+    <view wx:if="{{poem.allusions}}" class="card">
+      <view class="sec-title">化用典故</view>
+      <view class="sec-text">{{poem.allusions}}</view>
+    </view>
+    <view wx:if="{{poem.famousLines}}" class="card">
+      <view class="sec-title">名句赏析</view>
+      <view class="sec-text">{{poem.famousLines}}</view>
+    </view>
+    <view wx:if="{{poem.criticism}}" class="card">
+      <view class="sec-title">历代评价</view>
+      <view class="sec-text">{{poem.criticism}}</view>
+    </view>
+    <view wx:if="{{poem.mood}}" class="card">
+      <view class="sec-title">意境</view>
+      <view class="sec-text">{{poem.mood}}</view>
+    </view>
+    <view wx:if="{{poem.usage}}" class="card">
+      <view class="sec-title">适用场景</view>
+      <view class="sec-text">{{poem.usage}}</view>
+    </view>
+    <view wx:if="{{poem.howToUse}}" class="card">
+      <view class="sec-title">使用方式</view>
+      <view class="sec-text">{{poem.howToUse}}</view>
+    </view>
+
+    <view wx:if="{{poem.cipai}}" class="card">
+      <view class="sec-title">词牌 · {{poem.cipai.name}}</view>
+      <view class="sec-text">{{poem.cipai.category}} · {{poem.cipai.chars}} 字 · 声情{{poem.cipai.tone}}</view>
+      <view wx:if="{{poem.cipai.rhythm}}" class="sec-text mt8">{{poem.cipai.rhythm}}</view>
+      <view wx:if="{{poem.cipai.origin}}" class="sec-text mt8">{{poem.cipai.origin}}</view>
+    </view>
+
+    <view wx:if="{{authorBio}}" class="card {{hasAuthorDetail ? 'author-card' : ''}}" bindtap="openAuthor" hover-class="{{hasAuthorDetail ? 'row-hover' : 'none'}}">
+      <view class="sec-title">作者 · {{poem.author}}<text wx:if="{{hasAuthorDetail}}" class="author-more">生平详情 ›</text></view>
+      <view class="sec-text">{{authorBio}}</view>
+    </view>
+
+    <related-rail tags="{{poem.tags}}" exclude="poetry" />
+
+    <view class="bottom-ops">
+      <button class="btn ghost" bindtap="random">换一首</button>
+    </view>
+    <view class="foot-space"></view>
+  </block>
+</view>

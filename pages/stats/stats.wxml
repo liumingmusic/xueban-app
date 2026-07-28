@@ -1,0 +1,60 @@
+<view class="page-head ph-quiz fade-in">
+  <view class="ph-wm">长</view>
+  <view class="ph-block">长</view>
+  <view class="ph-body">
+    <view class="ph-title">我的成长</view>
+    <view class="ph-chip">建档于 {{createdAt}}</view>
+  </view>
+</view>
+
+<!-- 掌握量 -->
+<view class="card fade-in">
+  <view class="card-title"><view class="dot" style="background: var(--c-poetry);"></view>掌握量</view>
+  <view wx:for="{{counts}}" wx:key="label" class="bar-row">
+    <text class="bar-label">{{item.label}}</text>
+    <view class="bar-track">
+      <view class="bar-fill" style="width: {{item.pct}}%; background: {{item.color}};"></view>
+    </view>
+    <text class="bar-num">{{item.num}}</text>
+  </view>
+</view>
+
+<!-- 待消灭 -->
+<view class="card fade-in">
+  <view class="card-title"><view class="dot" style="background: var(--c-quiz);"></view>待消灭</view>
+  <view class="wrong-grid">
+    <view class="wrong-cell" bindtap="goQuiz" hover-class="press">
+      <view class="wrong-num" style="color: {{wrongs[0].color}};">{{wrongs[0].num}}</view>
+      <view class="wrong-label">{{wrongs[0].label}} ›</view>
+    </view>
+    <view class="wrong-cell" bindtap="goEnglish" hover-class="press">
+      <view class="wrong-num" style="color: {{wrongs[1].color}};">{{wrongs[1].num}}</view>
+      <view class="wrong-label">{{wrongs[1].label}} ›</view>
+    </view>
+    <view class="wrong-cell">
+      <view class="wrong-num" style="color: #3a78a8;">{{reviewCount}}</view>
+      <view class="wrong-label">复习队列</view>
+    </view>
+  </view>
+</view>
+
+<!-- 活跃热力（近 12 周） -->
+<view class="card fade-in">
+  <view class="card-title"><view class="dot" style="background: var(--c-history);"></view>学习热力 · 近 12 周</view>
+  <view class="heat">
+    <view wx:for="{{heatWeeks}}" wx:key="index" wx:for-item="week" class="heat-col">
+      <view wx:for="{{week}}" wx:key="key" wx:for-item="day"
+            class="heat-cell lv{{day.lv}} {{day.future ? 'future' : ''}}"></view>
+    </view>
+  </view>
+  <view class="heat-legend">
+    <text>少</text>
+    <view class="heat-cell lv0"></view>
+    <view class="heat-cell lv1"></view>
+    <view class="heat-cell lv2"></view>
+    <view class="heat-cell lv3"></view>
+    <text>多</text>
+  </view>
+</view>
+
+<view class="foot-space"></view>

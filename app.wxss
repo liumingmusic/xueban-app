@@ -1,0 +1,235 @@
+/* ============================================
+   学伴小筑 · 全局设计令牌
+   主题：东方书卷 · 暖白宣纸
+   ============================================ */
+
+page {
+  /* 基础色 */
+  --bg: #FBF7F0;            /* 宣纸暖白 */
+  --card: #FFFFFF;          /* 册页米白 */
+  --ink: #2B2B2B;           /* 主文字·墨 */
+  --ink-2: #8A8175;         /* 次文字·淡墨 */
+  --line: #EFE8DC;          /* 分隔线 */
+
+  /* 模块强调色 */
+  --c-poetry: #2f8f78;      /* 诗词·青瓷绿 */
+  --c-idiom: #2f8f78;       /* 成语·青瓷绿 */
+  --c-english: #4f8a6a;     /* 英语 */
+  --c-history: #b45309;     /* 历史·琥珀 */
+  --c-quiz: #2563eb;        /* 闯关 */
+  --c-quote: #3a78a8;       /* 一句·霁蓝 */
+  --c-habit: #3a9d6e;       /* 打卡 */
+  --c-movie: #7c5cff;       /* 观影 */
+
+  /* 尺寸令牌 */
+  --radius: 24rpx;
+  --gap: 24rpx;
+  --pad: 32rpx;
+
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Songti SC", "Noto Serif SC", "STSong", serif;
+  font-size: 30rpx;
+  line-height: 1.6;
+}
+
+/* ---------- 通用卡片 ---------- */
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: var(--pad);
+  margin: 0 var(--gap) var(--gap);
+  box-shadow: 0 4rpx 20rpx rgba(60, 45, 20, 0.06);
+}
+
+.card-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--ink-2);
+  letter-spacing: 2rpx;
+  margin-bottom: 16rpx;
+  display: flex;
+  align-items: center;
+}
+.card-title .dot {
+  width: 12rpx; height: 12rpx; border-radius: 50%;
+  margin-right: 12rpx;
+}
+
+/* ---------- 钤印横幅 · 新版页头 ---------- */
+.page-head {
+  position: relative;
+  padding: 44rpx var(--gap) 32rpx;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 28rpx;
+}
+/* 背景淡墨水印大字 */
+.ph-wm {
+  position: absolute;
+  right: 6rpx; top: -44rpx;
+  font-size: 230rpx; line-height: 1; font-weight: 700;
+  color: var(--ph-accent, #2f8f78);
+  opacity: 0.05;
+  pointer-events: none; z-index: 0;
+  font-family: "Songti SC", "STSong", serif;
+}
+/* 朱印块 · 实心旋转印章（视觉主角） */
+.ph-block {
+  position: relative; z-index: 1;
+  flex: none;
+  width: 104rpx; height: 104rpx;
+  border-radius: 24rpx;
+  background: var(--ph-accent, #2f8f78);
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 54rpx; font-weight: 700;
+  font-family: "Songti SC", "STSong", serif;
+  transform: rotate(-6deg);
+  box-shadow: 0 10rpx 22rpx rgba(60,45,20,.14);
+}
+/* 文字区（单行标题，无装饰副标题） */
+.ph-body {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column;
+  min-width: 0;
+}
+.ph-title {
+  font-size: 46rpx; font-weight: 700; letter-spacing: 3rpx;
+  color: var(--ink); line-height: 1.2;
+  font-family: "Songti SC", "STSong", serif;
+}
+/* 功能性小标签（仅日期等真实信息，非装饰副标题） */
+.ph-chip {
+  align-self: flex-start;
+  margin-top: 12rpx;
+  font-size: 22rpx; letter-spacing: 1rpx;
+  color: var(--ph-accent, #2f8f78);
+  background: var(--ph-tint, rgba(47,143,120,.12));
+  border-radius: 999rpx;
+  padding: 6rpx 16rpx;
+}
+
+/* 各页强调色 + 淡色底 */
+.ph-poetry  { --ph-accent: var(--c-poetry);  --ph-tint: rgba(47,143,120,.12); }
+.ph-idiom   { --ph-accent: var(--c-idiom);   --ph-tint: rgba(47,143,120,.12); }
+.ph-english { --ph-accent: var(--c-english); --ph-tint: rgba(79,138,106,.12); }
+.ph-history { --ph-accent: var(--c-history); --ph-tint: rgba(180,83,9,.12); }
+.ph-quiz    { --ph-accent: var(--c-quiz);    --ph-tint: rgba(37,99,235,.12); }
+.ph-quote   { --ph-accent: var(--c-quote);   --ph-tint: rgba(58,120,168,.12); }
+.ph-habit   { --ph-accent: var(--c-habit);   --ph-tint: rgba(58,157,110,.12); }
+.ph-movie   { --ph-accent: var(--c-movie);   --ph-tint: rgba(124,92,255,.12); }
+
+/* 兼容旧标记（如有未更新处） */
+.page-head .h1 { font-size: 46rpx; font-weight: 700; }
+.page-head .sub { font-size: 24rpx; color: var(--ink-2); }
+
+/* ---------- 标签 chip ---------- */
+.chip {
+  display: inline-block;
+  font-size: 24rpx;
+  color: var(--ink-2);
+  background: var(--bg);
+  border: 1rpx solid var(--line);
+  border-radius: 999rpx;
+  padding: 6rpx 22rpx;
+  margin: 0 12rpx 12rpx 0;
+}
+.chip.on { color: #fff; background: var(--c-poetry); border-color: var(--c-poetry); }
+
+/* ---------- 按钮 ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 88rpx;
+  padding: 0 44rpx;
+  border-radius: 999rpx;
+  font-size: 30rpx;
+  background: var(--c-poetry);
+  color: #fff;
+  line-height: 1;
+}
+.btn.ghost {
+  background: transparent;
+  color: var(--c-poetry);
+  border: 2rpx solid var(--c-poetry);
+}
+.btn.mini { min-height: 72rpx; padding: 0 32rpx; font-size: 26rpx; }
+.btn[disabled] { opacity: 0.4; }
+
+/* ---------- 状态徽章 ---------- */
+.badge {
+  font-size: 22rpx;
+  border-radius: 8rpx;
+  padding: 4rpx 12rpx;
+  color: #fff;
+}
+.badge.online { background: var(--c-poetry); }
+.badge.placeholder { background: #c9c0b2; }
+.badge.web { background: var(--c-quote); }
+
+/* ---------- 空态 ---------- */
+.empty {
+  text-align: center;
+  color: var(--ink-2);
+  font-size: 26rpx;
+  padding: 60rpx 0;
+}
+
+/* ---------- 轻进场动效（尊重减少动态效果时也不刺眼） ---------- */
+.fade-in { animation: fadeIn 0.35s ease both; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12rpx); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ---------- 顶部分段（今日/库/回看 通用） ---------- */
+.seg { display: flex; padding: 0 var(--gap) 16rpx; }
+.seg-item {
+  flex: 1; text-align: center; font-size: 28rpx; padding: 14rpx 0;
+  color: var(--ink-2); border-bottom: 4rpx solid transparent;
+}
+.seg-item.on { color: var(--c-poetry); font-weight: 700; border-bottom-color: var(--c-poetry); }
+
+/* ---------- 搜索 + 列表（库浏览通用） ---------- */
+.search { padding: 0 var(--gap) 16rpx; }
+.search-in {
+  background: var(--bg); border: 1rpx solid var(--line); border-radius: 14rpx;
+  padding: 18rpx 24rpx; font-size: 28rpx; width: 100%; box-sizing: border-box;
+}
+.list { padding: 12rpx var(--gap) 0; }
+.row {
+  background: var(--card); border: 1rpx solid var(--line); border-radius: 16rpx;
+  padding: 22rpx 24rpx; margin-bottom: 16rpx;
+}
+.row-hover { background: #f3f6f4; }
+.row-title { font-size: 32rpx; font-weight: 600; }
+.row-meta { font-size: 24rpx; color: var(--ink-2); margin-top: 6rpx; }
+.back-bar { font-size: 26rpx; color: var(--c-poetry); padding: 8rpx var(--gap) 16rpx; }
+.chips { display: flex; flex-wrap: wrap; padding: 0 var(--gap); gap: 12rpx; margin-bottom: 12rpx; }
+
+/* ---------- 远程数据加载态 ---------- */
+.remote-tip {
+  margin: 16rpx var(--gap);
+  padding: 22rpx 24rpx;
+  border-radius: 16rpx;
+  background: var(--card);
+  border: 1rpx solid var(--line);
+  font-size: 26rpx;
+  color: var(--ink-2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.remote-tip.offline { background: #fff7ed; border-color: #fed7aa; color: #9a3412; }
+.retry-btn {
+  flex: none;
+  margin-left: 20rpx;
+  padding: 10rpx 28rpx;
+  border-radius: 999rpx;
+  background: var(--c-poetry);
+  color: #fff;
+  font-size: 24rpx;
+}

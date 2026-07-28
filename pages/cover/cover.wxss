@@ -1,0 +1,8 @@
+.group { padding: 0 24rpx; }
+.group-title {
+  font-size: 26rpx;
+  color: var(--ink-2);
+  letter-spacing: 4rpx;
+  margin: 24rpx 8rpx 16rpx;
+}
+.foot-space { height: 40rpx; }
