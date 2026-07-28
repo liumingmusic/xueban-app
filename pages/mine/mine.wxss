@@ -23,5 +23,12 @@
 .press { opacity: 0.7; }
 
 .web-hint { font-size: 22rpx; color: var(--ink-2); margin-bottom: 8rpx; }
+/* 关于 */
+.about-card { display: flex; flex-direction: column; align-items: center; padding: 36rpx 24rpx 28rpx; }
+.about-logo { width: 160rpx; height: 160rpx; border-radius: 32rpx; box-shadow: 0 4rpx 16rpx rgba(47,143,120,.12); }
+.about-name { font-size: 36rpx; font-weight: 700; color: var(--c-poetry); margin-top: 20rpx; letter-spacing: 6rpx; }
+.about-tagline { font-size: 24rpx; color: var(--c-quote); margin-top: 6rpx; letter-spacing: 4rpx; }
+.about-desc { font-size: 24rpx; color: var(--ink-2); line-height: 1.7; margin-top: 16rpx; text-align: center; padding: 0 8rpx; }
+
 .ver { text-align: center; font-size: 22rpx; color: #c9c0b2; margin-top: 20rpx; }
 .foot-space { height: 40rpx; }

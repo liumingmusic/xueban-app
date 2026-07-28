@@ -6,6 +6,14 @@
   </view>
 </view>
 
+<!-- 关于 -->
+<view class="card about-card fade-in">
+  <image class="about-logo" src="/assets/branding/logo-small.jpg" mode="aspectFit"></image>
+  <view class="about-name">学伴小筑</view>
+  <view class="about-tagline">学海无涯 · 同行为伴</view>
+  <view class="about-desc">一站式聚合诗词 / 成语 / 英语 / 历史 / 闯关 / 一句 / 习惯 / 观影 八大学习模块，水墨青绿，宋韵雅致。本地优先，离线可用。</view>
+</view>
+
 <!-- 档案概览 -->
 <view class="card fade-in">
   <view class="card-title"><view class="dot" style="background: var(--c-poetry);"></view>学习者档案</view>
