@@ -5,7 +5,8 @@
     <view class="ph-body">
       <view class="ph-title">历史上的今天</view>
       <view class="ph-chip">{{dateCn}}</view>
-    <view wx:if="{{offline}}" class="offline-tip">当前离线 · 展示 {{offlineDate}} 缓存快照</view>
+      <view wx:if="{{offline}}" class="offline-tip">当前离线 · 展示 {{offlineDate}} 缓存快照</view>
+    </view>
   </view>
 
   <!-- 日期回看 + 搜索 + 海报入口 -->
