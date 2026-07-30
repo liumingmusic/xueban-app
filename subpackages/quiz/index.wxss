@@ -53,10 +53,13 @@
 .blank-input {
   border: 2rpx solid var(--line);
   border-radius: 16rpx;
-  padding: 20rpx 24rpx;
+  height: 84rpx; line-height: 84rpx;
+  padding: 0 24rpx;
   font-size: 30rpx;
   margin-bottom: 8rpx;
   background: var(--bg);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* 积分条 */

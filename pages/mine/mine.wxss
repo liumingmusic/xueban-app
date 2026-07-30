@@ -7,8 +7,12 @@
 .row {
   display: flex; align-items: center;
   min-height: 88rpx;
-  padding: 8rpx 0;
+  padding: 16rpx 0;
+  background: transparent;
+  border: none;
   border-bottom: 1rpx solid var(--line);
+  border-radius: 0;
+  margin-bottom: 0;
 }
 .row:last-child { border-bottom: none; }
 .row-icon { font-size: 36rpx; margin-right: 20rpx; }

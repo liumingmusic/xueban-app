@@ -190,6 +190,7 @@ page {
 .seg-item {
   flex: 1; text-align: center; font-size: 28rpx; padding: 14rpx 0;
   color: var(--ink-2); border-bottom: 4rpx solid transparent;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .seg-item.on { color: var(--c-poetry); font-weight: 700; border-bottom-color: var(--c-poetry); }
 
@@ -197,8 +198,10 @@ page {
 .search { padding: 0 var(--gap) 16rpx; }
 .search-in {
   background: var(--bg); border: 1rpx solid var(--line); border-radius: 14rpx;
-  padding: 18rpx 24rpx; font-size: 28rpx; width: 100%; box-sizing: border-box;
+  height: 76rpx; line-height: 76rpx;
+  padding: 0 24rpx; font-size: 28rpx; width: 100%; box-sizing: border-box;
 }
+input { box-sizing: border-box; }
 .list { padding: 12rpx var(--gap) 0; }
 .row {
   background: var(--card); border: 1rpx solid var(--line); border-radius: 16rpx;

@@ -30,7 +30,7 @@
 
 /* 添加 */
 .add-btn { text-align: center; color: var(--c-habit); font-size: 30rpx; padding: 12rpx 0; }
-.add-in { background: var(--bg); border: 1rpx solid var(--line); border-radius: 14rpx; padding: 18rpx 24rpx; font-size: 28rpx; width: 100%; box-sizing: border-box; }
+.add-in { background: var(--bg); border: 1rpx solid var(--line); border-radius: 14rpx; height: 84rpx; line-height: 84rpx; padding: 0 24rpx; font-size: 28rpx; width: 100%; box-sizing: border-box; }
 .pick-row { display: flex; align-items: center; margin-top: 18rpx; }
 .pick-lab { font-size: 26rpx; color: var(--ink-2); width: 80rpx; flex-shrink: 0; }
 .emoji-row { flex: 1; white-space: nowrap; }
