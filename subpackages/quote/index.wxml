@@ -43,20 +43,26 @@
   <block wx:else>
     <view wx:if="{{fromList}}" class="back-bar" bindtap="backToList">← 返回列表</view>
     <view class="card quote-card">
-      <view wx:if="{{quote.type}}" class="q-type">{{quote.type}}<text wx:if="{{offline}}"> · 离线</text></view>
-      <view class="q-text-big">「{{quote.text}}」</view>
-      <view class="q-from">—— {{quote.from}}<text wx:if="{{quote.author}}"> · {{quote.author}}</text></view>
-
-      <view class="ops">
-        <button class="btn mini {{favorited ? '' : 'ghost'}}" bindtap="toggleFav">{{favorited ? '★ 已收藏' : '☆ 收藏'}}</button>
-        <button class="btn mini ghost" bindtap="copy">复制</button>
-        <button class="btn mini ghost" bindtap="another">换一句</button>
-        <button class="btn mini ghost" open-type="share">↗ 分享</button>
+      <view wx:if="{{loading}}" class="loading-box">
+        <view class="loading-spin"></view>
+        <text class="loading-text">正在取一句…</text>
       </view>
+      <block wx:else>
+        <view wx:if="{{quote.type}}" class="q-type">{{quote.type}}<text wx:if="{{offline}}"> · 离线</text></view>
+        <view class="q-text-big">「{{quote.text}}」</view>
+        <view class="q-from">—— {{quote.from}}<text wx:if="{{quote.author}}"> · {{quote.author}}</text></view>
+
+        <view class="ops">
+          <button class="btn mini {{favorited ? '' : 'ghost'}}" bindtap="toggleFav">{{favorited ? '★ 已收藏' : '☆ 收藏'}}</button>
+          <button class="btn mini ghost" bindtap="copy">复制</button>
+          <button class="btn mini ghost" bindtap="another">换一句</button>
+          <button class="btn mini ghost" open-type="share">↗ 分享</button>
+        </view>
+      </block>
     </view>
 
     <view class="bottom-ops">
-      <button wx:if="{{!isToday}}" class="btn" bindtap="backToday">回到今日</button>
+      <button wx:if="{{!isToday && !loading}}" class="btn" bindtap="backToday">回到今日</button>
     </view>
     <view class="foot-space"></view>
   </block>

@@ -1,26 +1,48 @@
-.wrap { padding-top: 60rpx; }
-.main-card { padding: 48rpx; }
-.badge-line { margin-bottom: 20rpx; display: flex; gap: 12rpx; }
-.today-badge {
-  font-size: 22rpx; color: var(--c-quote);
-  border: 1rpx solid var(--c-quote);
-  border-radius: 999rpx; padding: 4rpx 20rpx;
-}
-.offline-badge {
-  font-size: 22rpx; color: var(--ink-2);
-  border: 1rpx solid var(--line);
-  border-radius: 999rpx; padding: 4rpx 20rpx;
-}
-.mark { font-size: 72rpx; color: var(--c-quote); line-height: 1; opacity: 0.5; }
-.mark.end { text-align: right; }
-.text { font-size: 40rpx; line-height: 2; padding: 0 16rpx; }
-.from { text-align: right; font-size: 26rpx; color: var(--ink-2); margin-top: 16rpx; }
-.type-chip {
+.wrap { padding-top: 8rpx; }
+
+/* 详情卡（基于全局 .card 派生） */
+.quote-card { padding: 48rpx 40rpx; }
+
+.q-type {
   display: inline-block;
   font-size: 22rpx; color: var(--c-quote);
-  background: #eef4f9; border-radius: 8rpx;
-  padding: 4rpx 16rpx; margin-top: 16rpx;
+  background: rgba(58, 120, 168, 0.12); border-radius: 8rpx;
+  padding: 4rpx 16rpx; margin-bottom: 20rpx;
 }
-.ops { display: flex; flex-wrap: nowrap; gap: 12rpx; justify-content: center; margin-top: 36rpx; }
+.q-text-big {
+  font-size: 44rpx; line-height: 1.8; font-weight: 600;
+  color: var(--ink); letter-spacing: 2rpx;
+}
+.q-from {
+  text-align: right; font-size: 26rpx; color: var(--ink-2);
+  margin-top: 20rpx;
+}
+
+/* 操作区 */
+.ops { display: flex; flex-wrap: nowrap; gap: 12rpx; justify-content: center; align-items: center; margin-top: 36rpx; }
 .ops .btn { margin: 0; background: var(--c-quote); flex: 0 0 auto; }
 .ops .btn.ghost { background: transparent; color: var(--c-quote); border-color: var(--c-quote); }
+
+/* 收藏列表行 */
+.q-row {
+  display: flex; align-items: center; gap: 16rpx;
+  padding: 22rpx 24rpx; margin-bottom: 16rpx;
+  background: var(--card); border: 1rpx solid var(--line); border-radius: 16rpx;
+}
+.q-main { flex: 1; min-width: 0; }
+.q-text { font-size: 28rpx; color: var(--ink); font-weight: 600; }
+.q-sub { font-size: 22rpx; color: var(--ink-2); margin-top: 6rpx; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.q-del { flex: none; font-size: 24rpx; color: #e64340; padding: 8rpx 12rpx; }
+
+.bottom-ops { display: flex; justify-content: center; margin: 12rpx 24rpx; }
+.foot-space { height: 60rpx; }
+
+/* 加载态 */
+.loading-box { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80rpx 0; gap: 24rpx; }
+.loading-spin {
+  width: 52rpx; height: 52rpx; border-radius: 50%;
+  border: 5rpx solid var(--line); border-top-color: var(--c-quote);
+  animation: spin 0.8s linear infinite;
+}
+.loading-text { font-size: 26rpx; color: var(--ink-2); letter-spacing: 2rpx; }
+@keyframes spin { to { transform: rotate(360deg); } }

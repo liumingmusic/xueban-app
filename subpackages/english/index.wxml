@@ -151,7 +151,7 @@
       <view class="ops">
         <button class="btn mini ghost" bindtap="play">🔊 发音</button>
         <button class="btn mini {{known ? '' : 'ghost'}}" bindtap="markKnown">{{known ? '认识 ✓' : '认识'}}</button>
-        <button class="btn mini ghost warn {{inWrong ? 'in' : ''}}" bindtap="markUnknown">{{inWrong ? '已在生词本' : '不认识'}}</button>
+        <button class="btn mini ghost warn {{inWrong ? 'in' : ''}}" bindtap="markUnknown">{{inWrong ? '生词本' : '不认识'}}</button>
         <button class="btn mini {{favorited ? '' : 'ghost'}}" bindtap="toggleFavorite">{{favorited ? '★ 已收藏' : '☆ 收藏'}}</button>
         <button class="btn mini ghost" open-type="share">↗ 分享</button>
       </view>

@@ -40,7 +40,7 @@
 .add-ops .btn { flex: 1; }
 
 /* 列表 */
-.mv { margin: 0 var(--gap) 16rpx; }
+.mv { margin: 0 0 16rpx; }
 .mv-top { display: flex; align-items: center; }
 .mv-icon { font-size: 40rpx; margin-right: 16rpx; }
 .mv-title { flex: 1; font-size: 32rpx; font-weight: 600; }

@@ -36,12 +36,8 @@
 }
 .seg-item.on { color: var(--c-poetry); font-weight: 700; border-bottom-color: var(--c-poetry); }
 
-/* 搜索 + 列表 */
+/* 搜索 + 列表（src-in 直接用全局定义，避免局部覆盖导致行高塌陷） */
 .search { padding: 0 24rpx 16rpx; }
-.search-in {
-  background: var(--bg); border: 1rpx solid var(--line); border-radius: 14rpx;
-  padding: 18rpx 24rpx; font-size: 28rpx;
-}
 .chips { display: flex; flex-wrap: wrap; padding: 0 24rpx; gap: 12rpx; margin-bottom: 12rpx; }
 .list { padding: 12rpx 24rpx 0; }
 .row {

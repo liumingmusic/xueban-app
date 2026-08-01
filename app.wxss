@@ -160,6 +160,13 @@ page {
 }
 .btn.mini { min-height: 72rpx; padding: 0 18rpx; font-size: 24rpx; flex: 0 0 auto; }
 .btn[disabled] { opacity: 0.4; }
+/* 微信 <button> 默认带 1px ::after 边框，会叠在自定义圆角上形成双描边，必须清掉 */
+.btn::after { border: none; }
+.btn.ghost::after { border: none; }
+
+/* ---------- 详情页操作区（紧凑不换行，防小屏溢出） ---------- */
+.ops { display: flex; flex-wrap: nowrap; gap: 12rpx; justify-content: center; align-items: center; }
+.ops .btn.mini { padding: 0 14rpx; font-size: 22rpx; }
 
 /* ---------- 状态徽章 ---------- */
 .badge {
@@ -214,6 +221,8 @@ input { box-sizing: border-box; }
 .row-meta { font-size: 24rpx; color: var(--ink-2); margin-top: 6rpx; }
 .back-bar { font-size: 26rpx; color: var(--c-poetry); padding: 8rpx var(--gap) 16rpx; }
 .chips { display: flex; flex-wrap: wrap; padding: 0 var(--gap); gap: 12rpx; margin-bottom: 12rpx; }
+/* 卡片内的标签组应与卡片正文左对齐（去掉页级左右缩进） */
+.card .chips { padding: 0; }
 
 /* ---------- 远程数据加载态 ---------- */
 .remote-tip {

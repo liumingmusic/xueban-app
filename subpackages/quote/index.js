@@ -19,6 +19,7 @@ Page({
   data: {
     view: 'detail', tab: 'today',
     quote: null, offline: false, isToday: true, favorited: false, fromList: false,
+    loading: false,
     favList: [], historyList: []
   },
 
@@ -31,6 +32,7 @@ Page({
   dailyQuote() { return LOCAL[dateUtil.dailyIndex(LOCAL.length, 'quote')]; },
 
   async fetchOnline() {
+    this.setData({ loading: true });
     try {
       const d = await request.get('https://v1.hitokoto.cn/?c=d&c=i&c=k&encode=json', { timeout: 6000 });
       this.setData({
@@ -39,6 +41,8 @@ Page({
       });
     } catch (e) {
       this.setData({ quote: LOCAL[Math.floor(Math.random() * LOCAL.length)], offline: true, isToday: false, favorited: false, view: 'detail' });
+    } finally {
+      this.setData({ loading: false });
     }
   },
 

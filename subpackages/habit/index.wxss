@@ -1,4 +1,6 @@
 .wrap { padding-bottom: 20rpx; }
+/* 列表卡：去掉与外层 .list 重复的左右缩进，与上方概览卡对齐 */
+.card.hb { margin: 0 0 var(--gap); }
 
 /* 总览 */
 .ov { display: flex; }
