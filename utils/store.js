@@ -318,6 +318,10 @@ function getHabits() {
 function saveHabits(arr) {
   const p = getProfile();
   p.habits = arr;
+  // 聚合习惯连胜写入 streaks.habit，与学习连续天数并列
+  let best = 0;
+  arr.forEach(h => { if ((h.streak || 0) > best) best = h.streak; });
+  p.streaks.habit = { count: best, updated: dateUtil.todayStr() };
   touchActivity(p);
   saveProfile(p);
   return p.habits;

@@ -136,6 +136,18 @@ page {
   background: var(--ph-tint, rgba(47,143,120,.12));
 }
 
+/* 习惯打卡进度条（中枢页） */
+.habit-bar {
+  margin: 14rpx 0 4rpx;
+  height: 14rpx; border-radius: 999rpx;
+  background: var(--line); overflow: hidden;
+}
+.habit-bar-fill {
+  height: 100%; border-radius: 999rpx;
+  background: linear-gradient(90deg, #3a9d6e, #2f8f78);
+  transition: width .3s ease;
+}
+
 /* ============================================
    主题根容器 + 暗色模式 + 字号三档
    注意：CSS 变量在 page 上定义（亮色默认），

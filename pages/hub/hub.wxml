@@ -60,11 +60,21 @@
   <view class="go-hint">开始闯关 ›</view>
 </view>
 
-<!-- 打卡提醒：habit 上线后自动出现（当前隐藏） -->
+<!-- 打卡提醒：习惯打卡进度（与中枢 streak 联动） -->
 <view wx:if="{{habitOnline}}" class="card fade-in" bindtap="goHabit" hover-class="press">
-  <view class="card-title"><view class="dot" style="background: var(--c-habit);"></view>打卡提醒</view>
-  <view class="quiz-line">今天的习惯还没打卡，去看看吧</view>
-  <view class="go-hint">去打卡 ›</view>
+  <view class="card-title"><view class="dot" style="background: var(--c-habit);"></view>习惯打卡</view>
+
+  <block wx:if="{{habitTotal === 0}}">
+    <view class="quiz-line">还没有习惯，添加第一个开始坚持吧</view>
+  </block>
+  <block wx:else>
+    <view class="quiz-line">今日打卡 {{habitDone}}/{{habitTotal}} · 最长连胜 🔥 {{habitStreak}} 天</view>
+    <view class="habit-bar">
+      <view class="habit-bar-fill" style="width: {{habitTotal ? (habitDone * 100 / habitTotal) : 0}}%;"></view>
+    </view>
+    <view wx:if="{{habitDone < habitTotal}}" class="go-hint">还差 {{habitTotal - habitDone}} 个，去打卡 ›</view>
+    <view wx:else class="go-hint">今日已全勤，太棒了 ✓</view>
+  </block>
 </view>
 
 <view class="foot-space"></view>

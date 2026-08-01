@@ -20,7 +20,10 @@ Page({
     quizWrongCount: 0,
     quizTotal: 0,
     reviewDue: 0,
-    habitOnline: false
+    habitOnline: false,
+    habitTotal: 0,
+    habitDone: 0,
+    habitStreak: 0
   },
 
   onShow() {
@@ -45,6 +48,17 @@ Page({
       reviewDue: store.getDueReviews().length,
       // 打卡提醒卡片：habit 上线后才显示（当前为 placeholder，隐藏）
       habitOnline: APP_MAP.habit && APP_MAP.habit.status === 'online'
+    });
+
+    // 习惯打卡进度（与中枢 streak 联动）：今日完成数 / 总数 / 聚合连胜
+    const habits = store.getHabits();
+    const todayStr = dateUtil.todayStr();
+    let habitDone = 0;
+    habits.forEach(h => { if (h.done && h.done[todayStr]) habitDone += 1; });
+    this.setData({
+      habitTotal: habits.length,
+      habitDone,
+      habitStreak: (profile.streaks.habit && profile.streaks.habit.count) || 0
     });
 
     // 中枢 tab 角标：有待复习时显示红点数字（订阅提醒的零后端替代方案）
