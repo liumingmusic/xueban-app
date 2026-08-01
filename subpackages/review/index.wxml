@@ -1,0 +1,25 @@
+<view class="page-head ph-review">
+  <view class="ph-wm">复</view>
+  <view class="ph-block">习</view>
+  <view class="ph-body">
+    <view class="ph-title">今日复习</view>
+    <view class="ph-chip">间隔重复 · 对抗遗忘</view>
+  </view>
+</view>
+
+<view wx:if="{{empty}}" class="empty-box fade-in">
+  <view class="empty-emoji">🌿</view>
+  <view class="empty-title">今天没有待复习的内容</view>
+  <view class="empty-sub">去学习新内容，学过的会自动进入复习队列</view>
+</view>
+
+<view wx:else class="list">
+  <view wx:for="{{list}}" wx:key="module" class="card rv-item fade-in">
+    <view class="rv-tag" style="background: var(--c-{{module === 'poem' ? 'poetry' : module === 'idiom' ? 'idiom' : 'quote'}});">{{moduleCn}}</view>
+    <view class="rv-label">{{label}}</view>
+    <view class="rv-meta">已复习 {{level}} 轮</view>
+    <button class="btn mini" data-module="{{module}}" data-id="{{id}}" bindtap="onDone">完成复习</button>
+  </view>
+</view>
+
+<view class="foot-space"></view>

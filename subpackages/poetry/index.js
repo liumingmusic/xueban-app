@@ -201,7 +201,7 @@ Page({
       this.setData({ collected: false });
       wx.showToast({ title: '已取消收藏', icon: 'none' });
     } else {
-      store.markMastered('poem', poem.id);
+      store.markMastered('poem', poem.id, poem.title);
       this.setData({ collected: true });
       wx.showToast({ title: '已收入档案', icon: 'success' });
     }

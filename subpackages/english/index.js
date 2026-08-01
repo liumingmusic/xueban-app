@@ -117,7 +117,7 @@ Page({
 
   markKnown() {
     const w = this.data.word;
-    store.markMastered('word', w.word);
+    store.markMastered('word', w.word, w.word);
     store.removeWrong('english', w.word);
     store.moduleCheckin('english');
     this.setData({ known: true, inWrong: false });
@@ -338,7 +338,7 @@ Page({
   zhanWord() {
     const sq = this.data.sq;
     if (!sq) return;
-    store.markMastered('word', sq.w.word);
+    store.markMastered('word', sq.w.word, sq.w.word);
     store.removeWrong('english', sq.w.word);
     const es = store.englishStudied(sq.w.word);
     this.setData({ dailyDone: es.dailyDone });

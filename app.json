@@ -14,7 +14,8 @@
     { "root": "subpackages/quiz", "pages": ["index"] },
     { "root": "subpackages/quote", "pages": ["index"] },
     { "root": "subpackages/habit", "pages": ["index"] },
-    { "root": "subpackages/movie", "pages": ["index"] }
+    { "root": "subpackages/movie", "pages": ["index"] },
+    { "root": "subpackages/review", "pages": ["index"] }
   ],
   "window": {
     "navigationBarBackgroundColor": "#FBF7F0",

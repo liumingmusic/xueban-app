@@ -149,7 +149,7 @@ Page({
   markLearned() {
     const { idiom, learned } = this.data;
     if (learned) { store.unmarkMastered('idiom', idiom.id); this.setData({ learned: false }); wx.showToast({ title: '已取消已学', icon: 'none' }); }
-    else { store.markMastered('idiom', idiom.id); store.moduleCheckin('idiom'); this.setData({ learned: true }); wx.showToast({ title: '已学会，记入档案！', icon: 'success' }); }
+    else { store.markMastered('idiom', idiom.id, idiom.word); store.moduleCheckin('idiom'); this.setData({ learned: true }); wx.showToast({ title: '已学会，记入档案！', icon: 'success' }); }
   },
   toggleToLearn() {
     const now = store.toggleToLearn(this.data.idiom.id);

@@ -18,6 +18,7 @@ Page({
     quote: null,
     quizWrongCount: 0,
     quizTotal: 0,
+    reviewDue: 0,
     habitOnline: false
   },
 
@@ -39,6 +40,7 @@ Page({
       quote,
       quizWrongCount: (profile.wrongBank.quiz || []).length,
       quizTotal: digest.quizCount,
+      reviewDue: store.getDueReviews().length,
       // 打卡提醒卡片：habit 上线后才显示（当前为 placeholder，隐藏）
       habitOnline: APP_MAP.habit && APP_MAP.habit.status === 'online'
     });
@@ -51,6 +53,7 @@ Page({
   goQuote() { wx.navigateTo({ url: '/subpackages/quote/index' }); },
   goQuiz() { wx.navigateTo({ url: '/subpackages/quiz/index?mode=daily' }); },
   goHabit() { wx.navigateTo({ url: '/subpackages/habit/index' }); },
+  goReview() { wx.navigateTo({ url: '/subpackages/review/index' }); },
 
   onShareAppMessage() {
     return {

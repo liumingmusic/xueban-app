@@ -36,13 +36,17 @@ function updateProfile(patch) {
 }
 
 /* ---------- 已学 ---------- */
-function markMastered(module, id) {
+// 间隔重复（SRS）梯度：学会后依次在第 1/2/4/7/15/30 天复习
+const SRS_LADDER = [1, 2, 4, 7, 15, 30];
+
+function markMastered(module, id, label) {
   const p = getProfile();
   if (!p.mastered[module]) p.mastered[module] = [];
   if (p.mastered[module].indexOf(id) === -1) {
     p.mastered[module].push(id);
     touchActivity(p);
     saveProfile(p);
+    addReview({ module, id, label });
     return true;
   }
   return false;
@@ -52,7 +56,7 @@ function unmarkMastered(module, id) {
   const p = getProfile();
   const arr = p.mastered[module] || [];
   const i = arr.indexOf(id);
-  if (i > -1) { arr.splice(i, 1); saveProfile(p); }
+  if (i > -1) { arr.splice(i, 1); removeReview(module, id); saveProfile(p); }
 }
 
 function isMastered(module, id) {
@@ -82,20 +86,61 @@ function removeWrong(module, id) {
   if (i > -1) { arr.splice(i, 1); saveProfile(p); }
 }
 
-/* ---------- 复习队列 ---------- */
+/* ---------- 复习队列（SRS） ---------- */
+// item: { module, id, label }
 function addReview(item) {
   const p = getProfile();
-  if (!p.reviewQueue.some(r => r.id === item.id)) {
-    p.reviewQueue.unshift(item);
+  if (!p.reviewQueue) p.reviewQueue = [];
+  const dup = p.reviewQueue.find(r => r.module === item.module && r.id === item.id);
+  if (!dup) {
+    const today = dateUtil.todayStr();
+    p.reviewQueue.unshift({
+      module: item.module,
+      id: item.id,
+      label: item.label || '',
+      level: 0,
+      interval: SRS_LADDER[0],
+      nextReview: dateUtil.addDays(today, SRS_LADDER[0]),
+      addedAt: today
+    });
     if (p.reviewQueue.length > 100) p.reviewQueue.length = 100;
     saveProfile(p);
   }
 }
 
-function removeReview(id) {
+function removeReview(module, id) {
   const p = getProfile();
-  const i = p.reviewQueue.findIndex(r => r.id === id);
+  const i = p.reviewQueue.findIndex(r => r.module === module && r.id === id);
   if (i > -1) { p.reviewQueue.splice(i, 1); saveProfile(p); }
+}
+
+// 今天及之前到期的待复习项
+function getDueReviews(today) {
+  today = today || dateUtil.todayStr();
+  const p = getProfile();
+  return (p.reviewQueue || []).filter(r => r.nextReview <= today);
+}
+
+// 完成一次复习：按 SRS 梯度把下次复习日推后
+function reviewDone(module, id) {
+  const p = getProfile();
+  const r = (p.reviewQueue || []).find(x => x.module === module && x.id === id);
+  if (!r) return null;
+  const today = dateUtil.todayStr();
+  let nextLevel = r.level + 1;
+  if (nextLevel >= SRS_LADDER.length) nextLevel = SRS_LADDER.length - 1;
+  const interval = SRS_LADDER[nextLevel];
+  r.level = nextLevel;
+  r.interval = interval;
+  r.lastReview = today;
+  r.nextReview = dateUtil.addDays(today, interval);
+  saveProfile(p);
+  return r;
+}
+
+function getReviewQueue() {
+  const p = getProfile();
+  return p.reviewQueue || [];
 }
 
 /* ---------- 连续天数 ---------- */
@@ -366,7 +411,7 @@ module.exports = {
   init, getProfile, saveProfile, updateProfile,
   markMastered, unmarkMastered, isMastered,
   addWrong, removeWrong,
-  addReview, removeReview,
+  addReview, removeReview, getDueReviews, reviewDone, getReviewQueue,
   appCheckin, moduleCheckin, touchActivity,
   toggleFavorite, isFavorite, getFavorites,
   toggleToLearn, isToLearn,

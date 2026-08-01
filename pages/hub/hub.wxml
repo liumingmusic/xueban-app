@@ -39,6 +39,13 @@
   <view class="quote-from">—— {{quote.from}}{{quote.author ? ' · ' + quote.author : ''}}</view>
 </view>
 
+<!-- 今日复习（SRS）：有待复习项时出现 -->
+<view wx:if="{{reviewDue > 0}}" class="card fade-in review-card" bindtap="goReview" hover-class="press">
+  <view class="card-title"><view class="dot" style="background: var(--c-quiz);"></view>今日复习</view>
+  <view class="quiz-line">有 <text class="quiz-num">{{reviewDue}}</text> 个已学内容待复习，巩固记忆不遗忘</view>
+  <view class="go-hint">开始复习 ›</view>
+</view>
+
 <!-- 闯关挑战：错题回流 + 新题 -->
 <view class="card fade-in" bindtap="goQuiz" hover-class="press">
   <view class="card-title"><view class="dot" style="background: var(--c-quiz);"></view>闯关挑战</view>

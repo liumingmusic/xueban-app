@@ -51,4 +51,11 @@ function daysBetween(a, b) {
   return Math.round((tb - ta) / 86400000);
 }
 
-module.exports = { pad, todayStr, monthDay, formatCn, greeting, hashStr, dailyIndex, daysBetween };
+// 在 YYYY-MM-DD 上加 n 天（n 可为负），返回 YYYY-MM-DD
+function addDays(dateStr, n) {
+  const d = new Date(dateStr + 'T00:00:00');
+  d.setDate(d.getDate() + n);
+  return todayStr(d);
+}
+
+module.exports = { pad, todayStr, monthDay, formatCn, greeting, hashStr, dailyIndex, daysBetween, addDays };
