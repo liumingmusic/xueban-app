@@ -41,6 +41,8 @@ Page({
     this.setData({ fontIdx: f });
   },
 
+  goManage() { wx.navigateTo({ url: '/pages/modules/modules' }); },
+
   // 导出：写入本地文件 + 复制到剪贴板
   exportData() {
     const json = store.exportJson();

@@ -6,7 +6,8 @@
     "pages/stats/stats",
     "pages/mine/mine",
     "pages/guide/guide",
-    "pages/search/search"
+    "pages/search/search",
+    "pages/modules/modules"
   ],
   "subpackages": [
     { "root": "subpackages/poetry", "pages": ["index"] },

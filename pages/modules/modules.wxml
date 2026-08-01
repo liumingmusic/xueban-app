@@ -1,0 +1,30 @@
+<view class="app-root {{themeClass}} {{fontClass}}">
+<view class="page-head ph-poetry fade-in">
+  <view class="ph-wm">理</view>
+  <view class="ph-block">理</view>
+  <view class="ph-body">
+    <view class="ph-title">管理首页</view>
+    <view class="ph-chip">模块顺序与显隐</view>
+  </view>
+</view>
+
+<view class="card fade-in">
+  <view class="card-title"><view class="dot" style="background: var(--c-poetry);"></view>首页模块</view>
+  <view wx:for="{{list}}" wx:key="key" class="mod-row">
+    <view class="mod-icon">{{item.icon}}</view>
+    <view class="mod-body">
+      <view class="mod-name">{{item.name}}</view>
+      <view class="mod-desc">{{item.desc}}</view>
+    </view>
+    <view class="mod-ops">
+      <view class="ord {{index === 0 ? 'dis' : ''}}" data-i="{{index}}" bindtap="moveUp">↑</view>
+      <view class="ord {{index === list.length - 1 ? 'dis' : ''}}" data-i="{{index}}" bindtap="moveDown">↓</view>
+      <switch class="mod-switch" checked="{{item.show}}" data-i="{{index}}" bindchange="toggle" color="#2f8f78" />
+    </view>
+  </view>
+</view>
+
+<view class="tip">关闭的模块不会出现在首页；用 ↑ ↓ 调整顺序，排在前面的更靠上。</view>
+<view class="btn ghost reset-btn" bindtap="reset">恢复默认布局</view>
+<view class="foot-space"></view>
+</view>

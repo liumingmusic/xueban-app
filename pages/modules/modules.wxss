@@ -1,0 +1,25 @@
+.mod-row {
+  display: flex; align-items: center; gap: 16rpx;
+  padding: 20rpx 0; border-bottom: 1rpx solid var(--line);
+}
+.mod-row:last-child { border-bottom: none; }
+.mod-icon {
+  flex: none; width: 72rpx; height: 72rpx; border-radius: 18rpx;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 38rpx; background: var(--ph-tint, rgba(47,143,120,.12));
+}
+.mod-body { flex: 1; min-width: 0; }
+.mod-name { font-size: 30rpx; color: var(--ink); font-weight: 600; }
+.mod-desc { font-size: 23rpx; color: var(--ink-3); margin-top: 4rpx; }
+.mod-ops { flex: none; display: flex; align-items: center; gap: 10rpx; }
+.ord {
+  width: 56rpx; height: 56rpx; border-radius: 12rpx;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 34rpx; color: var(--c-poetry);
+  background: var(--bg); border: 1rpx solid var(--line);
+}
+.ord.dis { color: var(--ink-3); opacity: .35; }
+.mod-switch { transform: scale(0.8); }
+
+.tip { font-size: 23rpx; color: var(--ink-3); padding: 20rpx 28rpx 8rpx; line-height: 1.7; }
+.reset-btn { margin: 16rpx 24rpx 0; }

@@ -14,5 +14,13 @@ module.exports = {
     "settings": { "restEnabled": true, "restEvery": 10 }
   },
   "guided": false,
+  "hubLayout": [
+    { "key": "poem", "show": true },
+    { "key": "idiom", "show": true },
+    { "key": "quote", "show": true },
+    { "key": "quiz", "show": true },
+    { "key": "review", "show": true },
+    { "key": "habit", "show": true }
+  ],
   "createdAt": ""
 };

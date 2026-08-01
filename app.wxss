@@ -148,6 +148,20 @@ page {
   transition: width .3s ease;
 }
 
+/* ---------- 统一空状态（主题感知，暗色模式自动适配） ---------- */
+.empty { text-align: center; padding: 80rpx 40rpx; color: var(--ink-3); }
+.empty-emoji { font-size: 72rpx; line-height: 1; }
+.empty-text { margin-top: 18rpx; font-size: 28rpx; color: var(--ink-2); }
+.empty-sub { margin-top: 10rpx; font-size: 22rpx; color: var(--ink-3); }
+
+/* 弱网 / 离线提示条（各数据页复用，主题感知） */
+.offline-tip {
+  display: inline-block; margin-top: 10rpx;
+  font-size: 22rpx; color: #b45309;
+  background: rgba(180,83,9,.10); border-radius: 999rpx; padding: 4rpx 16rpx;
+}
+.app-root.dark .offline-tip { color: #e0a458; background: rgba(224,164,88,.16); }
+
 /* ============================================
    主题根容器 + 暗色模式 + 字号三档
    注意：CSS 变量在 page 上定义（亮色默认），

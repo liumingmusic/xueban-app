@@ -8,6 +8,15 @@ const APPS = require('../../data/apps.js');
 const APP_MAP = {};
 APPS.forEach(a => { APP_MAP[a.id] = a; });
 
+const DEFAULT_LAYOUT = [
+  { key: 'poem', show: true },
+  { key: 'idiom', show: true },
+  { key: 'quote', show: true },
+  { key: 'quiz', show: true },
+  { key: 'review', show: true },
+  { key: 'habit', show: true }
+];
+
 Page({
   data: {
     greeting: '',
@@ -61,6 +70,22 @@ Page({
       habitStreak: (profile.streaks.habit && profile.streaks.habit.count) || 0
     });
 
+    // 个性化首页：按 hubLayout（顺序 + 显隐）构建模块卡片
+    const layout = (profile.hubLayout && profile.hubLayout.length) ? profile.hubLayout : DEFAULT_LAYOUT;
+    const reviewDue = store.getDueReviews().length;
+    const habitOnline = !!(APP_MAP.habit && APP_MAP.habit.status === 'online');
+    const sections = [];
+    layout.forEach(it => {
+      if (!it.show) return;
+      if (it.key === 'poem') sections.push({ key: 'poem', poem });
+      else if (it.key === 'idiom') sections.push({ key: 'idiom', idiom, idiomLearned: (profile.mastered.idiom || []).indexOf(idiom.id) > -1 });
+      else if (it.key === 'quote') sections.push({ key: 'quote', quote });
+      else if (it.key === 'quiz') sections.push({ key: 'quiz', quizWrongCount, quizTotal });
+      else if (it.key === 'review' && reviewDue > 0) sections.push({ key: 'review', reviewDue });
+      else if (it.key === 'habit' && habitOnline) sections.push({ key: 'habit', habitDone, habitTotal: habits.length, habitStreak: (profile.streaks.habit && profile.streaks.habit.count) || 0, habitOnline: true });
+    });
+    this.setData({ sections });
+
     // 中枢 tab 角标：有待复习时显示红点数字（订阅提醒的零后端替代方案）
     const due = store.getDueReviews().length;
     if (due > 0) {
@@ -77,13 +102,22 @@ Page({
 
   noop() {}, // 阻止 related-rail 点击冒泡触发整卡跳转
 
-  goPoetry() { wx.navigateTo({ url: '/subpackages/poetry/index' }); },
-  goIdiom() { wx.navigateTo({ url: '/subpackages/idiom/index' }); },
-  goQuote() { wx.navigateTo({ url: '/subpackages/quote/index' }); },
-  goQuiz() { wx.navigateTo({ url: '/subpackages/quiz/index?mode=daily' }); },
-  goHabit() { wx.navigateTo({ url: '/subpackages/habit/index' }); },
   goSearch() { wx.navigateTo({ url: '/pages/search/search' }); },
-  goReview() { wx.navigateTo({ url: '/subpackages/review/index' }); },
+  goManage() { wx.navigateTo({ url: '/pages/modules/modules' }); },
+
+  // 个性化首页：按模块 key 统一跳转
+  goSection(e) {
+    const k = e.currentTarget.dataset.go;
+    const map = {
+      poem: '/subpackages/poetry/index',
+      idiom: '/subpackages/idiom/index',
+      quote: '/subpackages/quote/index',
+      quiz: '/subpackages/quiz/index?mode=daily',
+      review: '/subpackages/review/index',
+      habit: '/subpackages/habit/index'
+    };
+    if (map[k]) wx.navigateTo({ url: map[k] });
+  },
 
   onShareAppMessage() {
     const p = store.getProfile();

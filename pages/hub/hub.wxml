@@ -9,72 +9,74 @@
   <view class="ph-search" bindtap="goSearch" hover-class="press">🔍</view>
 </view>
 
-<!-- 今日诗词 -->
-<view class="card fade-in" bindtap="goPoetry" hover-class="press">
-  <view class="card-title"><view class="dot" style="background: var(--c-poetry);"></view>今日诗词</view>
-  <view class="poem-title">{{poem.title}}</view>
-  <view class="poem-meta">{{poem.dynasty}} · {{poem.author}}</view>
-  <view class="poem-lines">
-    <view wx:for="{{poem.first}}" wx:key="index" class="poem-line">{{item}}</view>
-  </view>
-  <view class="go-hint">读全篇 ›</view>
-  <related-rail tags="{{poem.tags}}" exclude="poetry" catchtap="noop" />
-</view>
+<!-- 个性化模块区：按 hubLayout（顺序 + 显隐）渲染 -->
+<view wx:for="{{sections}}" wx:key="key" class="card fade-in" data-go="{{item.key}}" bindtap="goSection" hover-class="press">
 
-<!-- 今日成语 -->
-<view class="card fade-in" bindtap="goIdiom" hover-class="press">
-  <view class="card-title">
-    <view class="dot" style="background: var(--c-idiom);"></view>今日成语
-    <text class="state {{idiomLearned ? 'ok' : ''}}">{{idiomLearned ? '已学 ✓' : '未学'}}</text>
-  </view>
-  <view class="idiom-word">{{idiom.word}}</view>
-  <view class="idiom-pinyin">{{idiom.pinyin}}</view>
-  <view class="idiom-brief">{{idiom.brief}}…</view>
-  <view class="go-hint">听典故 ›</view>
-  <related-rail tags="{{idiom.tags}}" exclude="idiom" catchtap="noop" />
-</view>
-
-<!-- 每日一句 -->
-<view class="card fade-in" bindtap="goQuote" hover-class="press">
-  <view class="card-title"><view class="dot" style="background: var(--c-quote);"></view>每日一句</view>
-  <view class="quote-text">「{{quote.text}}」</view>
-  <view class="quote-from">—— {{quote.from}}{{quote.author ? ' · ' + quote.author : ''}}</view>
-</view>
-
-<!-- 今日复习（SRS）：有待复习项时出现 -->
-<view wx:if="{{reviewDue > 0}}" class="card fade-in review-card" bindtap="goReview" hover-class="press">
-  <view class="card-title"><view class="dot" style="background: var(--c-quiz);"></view>今日复习</view>
-  <view class="quiz-line">有 <text class="quiz-num">{{reviewDue}}</text> 个已学内容待复习，巩固记忆不遗忘</view>
-  <view class="go-hint">开始复习 ›</view>
-</view>
-
-<!-- 闯关挑战：错题回流 + 新题 -->
-<view class="card fade-in" bindtap="goQuiz" hover-class="press">
-  <view class="card-title"><view class="dot" style="background: var(--c-quiz);"></view>闯关挑战</view>
-  <view wx:if="{{quizWrongCount > 0}}" class="quiz-line">
-    错题本还有 <text class="quiz-num">{{quizWrongCount}}</text> 道题等你消灭，今天再战一轮？
-  </view>
-  <view wx:else class="quiz-line">
-    题库共 <text class="quiz-num">{{quizTotal}}</text> 道题，今天来一组每日挑战吧！
-  </view>
-  <view class="go-hint">开始闯关 ›</view>
-</view>
-
-<!-- 打卡提醒：习惯打卡进度（与中枢 streak 联动） -->
-<view wx:if="{{habitOnline}}" class="card fade-in" bindtap="goHabit" hover-class="press">
-  <view class="card-title"><view class="dot" style="background: var(--c-habit);"></view>习惯打卡</view>
-
-  <block wx:if="{{habitTotal === 0}}">
-    <view class="quiz-line">还没有习惯，添加第一个开始坚持吧</view>
-  </block>
-  <block wx:else>
-    <view class="quiz-line">今日打卡 {{habitDone}}/{{habitTotal}} · 最长连胜 🔥 {{habitStreak}} 天</view>
-    <view class="habit-bar">
-      <view class="habit-bar-fill" style="width: {{habitTotal ? (habitDone * 100 / habitTotal) : 0}}%;"></view>
+  <block wx:if="{{item.key === 'poem'}}">
+    <view class="card-title"><view class="dot" style="background: var(--c-poetry);"></view>今日诗词</view>
+    <view class="poem-title">{{item.poem.title}}</view>
+    <view class="poem-meta">{{item.poem.dynasty}} · {{item.poem.author}}</view>
+    <view class="poem-lines">
+      <view wx:for="{{item.poem.first}}" wx:for-item="ln" wx:key="index" class="poem-line">{{ln}}</view>
     </view>
-    <view wx:if="{{habitDone < habitTotal}}" class="go-hint">还差 {{habitTotal - habitDone}} 个，去打卡 ›</view>
-    <view wx:else class="go-hint">今日已全勤，太棒了 ✓</view>
+    <view class="go-hint">读全篇 ›</view>
+    <related-rail tags="{{item.poem.tags}}" exclude="poetry" catchtap="noop" />
   </block>
+
+  <block wx:elif="{{item.key === 'idiom'}}">
+    <view class="card-title">
+      <view class="dot" style="background: var(--c-idiom);"></view>今日成语
+      <text class="state {{item.idiomLearned ? 'ok' : ''}}">{{item.idiomLearned ? '已学 ✓' : '未学'}}</text>
+    </view>
+    <view class="idiom-word">{{item.idiom.word}}</view>
+    <view class="idiom-pinyin">{{item.idiom.pinyin}}</view>
+    <view class="idiom-brief">{{item.idiom.brief}}…</view>
+    <view class="go-hint">听典故 ›</view>
+    <related-rail tags="{{item.idiom.tags}}" exclude="idiom" catchtap="noop" />
+  </block>
+
+  <block wx:elif="{{item.key === 'quote'}}">
+    <view class="card-title"><view class="dot" style="background: var(--c-quote);"></view>每日一句</view>
+    <view class="quote-text">「{{item.quote.text}}」</view>
+    <view class="quote-from">—— {{item.quote.from}}{{item.quote.author ? ' · ' + item.quote.author : ''}}</view>
+  </block>
+
+  <block wx:elif="{{item.key === 'review'}}">
+    <view class="card-title"><view class="dot" style="background: var(--c-quiz);"></view>今日复习</view>
+    <view class="quiz-line">有 <text class="quiz-num">{{item.reviewDue}}</text> 个已学内容待复习，巩固记忆不遗忘</view>
+    <view class="go-hint">开始复习 ›</view>
+  </block>
+
+  <block wx:elif="{{item.key === 'quiz'}}">
+    <view class="card-title"><view class="dot" style="background: var(--c-quiz);"></view>闯关挑战</view>
+    <view wx:if="{{item.quizWrongCount > 0}}" class="quiz-line">
+      错题本还有 <text class="quiz-num">{{item.quizWrongCount}}</text> 道题等你消灭，今天再战一轮？
+    </view>
+    <view wx:else class="quiz-line">
+      题库共 <text class="quiz-num">{{item.quizTotal}}</text> 道题，今天来一组每日挑战吧！
+    </view>
+    <view class="go-hint">开始闯关 ›</view>
+  </block>
+
+  <block wx:elif="{{item.key === 'habit'}}">
+    <view class="card-title"><view class="dot" style="background: var(--c-habit);"></view>习惯打卡</view>
+    <block wx:if="{{item.habitTotal === 0}}">
+      <view class="quiz-line">还没有习惯，添加第一个开始坚持吧</view>
+    </block>
+    <block wx:else>
+      <view class="quiz-line">今日打卡 {{item.habitDone}}/{{item.habitTotal}} · 最长连胜 🔥 {{item.habitStreak}} 天</view>
+      <view class="habit-bar">
+        <view class="habit-bar-fill" style="width: {{item.habitTotal ? (item.habitDone * 100 / item.habitTotal) : 0}}%;"></view>
+      </view>
+      <view wx:if="{{item.habitDone < item.habitTotal}}" class="go-hint">还差 {{item.habitTotal - item.habitDone}} 个，去打卡 ›</view>
+      <view wx:else class="go-hint">今日已全勤，太棒了 ✓</view>
+    </block>
+  </block>
+
+</view>
+
+<view wx:if="{{sections.length === 0}}" class="card fade-in manage-hint" bindtap="goManage" hover-class="press">
+  <view class="quiz-line">首页模块都已隐藏，点此去「管理首页」重新开启</view>
 </view>
 
 <view class="foot-space"></view>

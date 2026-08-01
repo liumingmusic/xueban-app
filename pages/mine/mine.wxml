@@ -23,6 +23,11 @@
     <text class="row-text">暗色模式</text>
     <switch class="theme-switch" checked="{{darkOn}}" bindchange="onThemeToggle" color="#2f8f78" />
   </view>
+  <view class="row" bindtap="goManage" hover-class="press">
+    <text class="row-icon">🧩</text>
+    <text class="row-text">管理首页模块</text>
+    <text class="row-arrow">›</text>
+  </view>
   <view class="row row-noborder">
     <text class="row-icon">🔠</text>
     <text class="row-text">字号</text>
