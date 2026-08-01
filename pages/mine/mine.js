@@ -90,5 +90,13 @@ Page({
         });
       }
     });
+  },
+
+  onShareAppMessage() {
+    return {
+      title: '我的学习足迹 · 雪伴',
+      path: '/pages/mine/mine',
+      imageUrl: '/assets/branding/share-card.jpg'
+    };
   }
 });

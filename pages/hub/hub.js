@@ -50,5 +50,13 @@ Page({
   goIdiom() { wx.navigateTo({ url: '/subpackages/idiom/index' }); },
   goQuote() { wx.navigateTo({ url: '/subpackages/quote/index' }); },
   goQuiz() { wx.navigateTo({ url: '/subpackages/quiz/index?mode=daily' }); },
-  goHabit() { wx.navigateTo({ url: '/subpackages/habit/index' }); }
+  goHabit() { wx.navigateTo({ url: '/subpackages/habit/index' }); },
+
+  onShareAppMessage() {
+    return {
+      title: '雪伴 · 每日学习小帮手',
+      path: '/pages/hub/hub',
+      imageUrl: '/assets/branding/share-card.jpg'
+    };
+  }
 });
