@@ -115,6 +115,6 @@ Page({
   },
 
   onShareAppMessage() {
-    return { title: '历史上的今天 · ' + this.data.dateCn, path: '/subpackages/history/index' };
+    return { title: '历史上的今天 · ' + this.data.dateCn, path: '/subpackages/history/index', imageUrl: '/assets/branding/share-card.jpg' };
   }
 });

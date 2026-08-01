@@ -105,6 +105,6 @@ Page({
 
   onShareAppMessage() {
     const q = this.data.quote;
-    return { title: '「' + q.text + '」—— ' + (q.from || ''), path: '/subpackages/quote/index' };
+    return { title: '「' + q.text + '」—— ' + (q.from || ''), path: '/subpackages/quote/index', imageUrl: '/assets/branding/share-card.jpg' };
   }
 });

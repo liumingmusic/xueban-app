@@ -162,6 +162,6 @@ Page({
 
   onShareAppMessage() {
     const i = this.data.idiom;
-    return { title: i.word + ' — ' + i.explanation.slice(0, 20), path: '/subpackages/idiom/index?id=' + i.id };
+    return { title: i.word + ' — ' + i.explanation.slice(0, 20), path: '/subpackages/idiom/index?id=' + i.id, imageUrl: '/assets/branding/share-card.jpg' };
   }
 });

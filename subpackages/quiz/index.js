@@ -415,7 +415,8 @@ Page({
   onShareAppMessage() {
     return {
       title: '知识闯关：' + (this.data.bankCount || 5690) + ' 题 K12 题库，快来挑战！',
-      path: '/subpackages/quiz/index'
+      path: '/subpackages/quiz/index',
+      imageUrl: '/assets/branding/share-card.jpg'
     };
   }
 });

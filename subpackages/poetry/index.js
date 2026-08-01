@@ -217,6 +217,6 @@ Page({
 
   onShareAppMessage() {
     const p = this.data.poem;
-    return { title: p.title + ' — ' + p.author, path: '/subpackages/poetry/index?id=' + p.id };
+    return { title: p.title + ' — ' + p.author, path: '/subpackages/poetry/index?id=' + p.id, imageUrl: '/assets/branding/share-card.jpg' };
   }
 });
