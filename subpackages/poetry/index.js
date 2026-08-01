@@ -5,6 +5,7 @@ const dateUtil = require('../../utils/date');
 const theme = require('../../utils/theme');
 const store = require('../../utils/store');
 const lunar = require('../../utils/lunar');
+const tts = require('../../utils/tts');
 const POEMS = require('./poems.js');
 const AUTHORS = require('./authors.js');
 const CIPAI = require('./cipai.js');
@@ -39,6 +40,7 @@ Page({
     collected: false,
     showTrans: false,
     vertical: false,    // 竖排排版
+    reading: false,     // 朗读进行中
     fromList: false,
     lunarLabel: '',     // 农历干支+生肖
     todayStr: '',
@@ -214,7 +216,15 @@ Page({
   },
 
   readAloud() {
-    wx.showToast({ title: '朗读功能需开通同声传译插件，敬请期待', icon: 'none' });
+    const p = this.data.poem;
+    if (!p) return;
+    const text = Array.isArray(p.content) ? p.content.join('') : (p.content || '');
+    tts.speak(text, {
+      lang: 'zh',
+      onStart: () => this.setData({ reading: true }),
+      onEnd: () => this.setData({ reading: false }),
+      onError: () => this.setData({ reading: false })
+    });
   },
 
   onShareAppMessage() {

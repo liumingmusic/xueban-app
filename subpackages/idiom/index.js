@@ -2,6 +2,7 @@
 const dateUtil = require('../../utils/date');
 const theme = require('../../utils/theme');
 const store = require('../../utils/store');
+const tts = require('../../utils/tts');
 const IDIOMS = require('./idioms.js');
 
 const STAGES = ['全部', '小学', '初中', '高中'];
@@ -27,6 +28,7 @@ Page({
     view: 'detail', tab: 'today',
     idiom: null,
     favorited: false, learned: false, tolearn: false,
+    reading: false,     // 朗读进行中
     fromList: false,
     query: '',
     stages: STAGES, stageIdx: 0,
@@ -160,7 +162,17 @@ Page({
   },
 
   random() { this.show(IDIOMS[Math.floor(Math.random() * IDIOMS.length)], true); },
-  readAloud() { wx.showToast({ title: '朗读功能需开通同声传译插件，敬请期待', icon: 'none' }); },
+  readAloud() {
+    const i = this.data.idiom;
+    if (!i) return;
+    const text = i.word + '：' + (i.explanation || '');
+    tts.speak(text, {
+      lang: 'zh',
+      onStart: () => this.setData({ reading: true }),
+      onEnd: () => this.setData({ reading: false }),
+      onError: () => this.setData({ reading: false })
+    });
+  },
 
   onShareAppMessage() {
     const i = this.data.idiom;

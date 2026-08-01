@@ -82,7 +82,7 @@
         <button class="btn mini {{favorited ? '' : 'ghost'}}" bindtap="toggleFavorite">{{favorited ? '★ 已收藏' : '☆ 收藏'}}</button>
         <button class="btn mini {{learned ? '' : 'ghost'}}" bindtap="markLearned">{{learned ? '已认识 ✓' : '标记已学'}}</button>
         <button class="btn mini {{tolearn ? '' : 'ghost'}}" bindtap="toggleToLearn">{{tolearn ? '待学习 ✓' : '待学习'}}</button>
-        <button class="btn mini ghost" bindtap="readAloud">🔊 朗读</button>
+        <button class="btn mini ghost" bindtap="readAloud" disabled="{{reading}}">{{reading ? '🔊 朗读中…' : '🔊 朗读'}}</button>
         <button class="btn mini ghost" open-type="share">↗ 分享</button>
       </view>
 
