@@ -39,6 +39,10 @@ Page({
     theme.apply(this);
     const profile = store.getProfile();
 
+    // 本地变量：供 setData 与下方 forEach 共用（Page 方法内 data 字段不在词法作用域）
+    const quizWrongCount = (profile.wrongBank.quiz || []).length;
+    const quizTotal = digest.quizCount;
+
     // 每日稳定选取（与各分包同算法同序，选中同一条）
     const poem = digest.poems[dateUtil.dailyIndex(digest.poems.length, 'poem')];
     const idiom = digest.idioms[dateUtil.dailyIndex(digest.idioms.length, 'idiom')];
@@ -52,8 +56,8 @@ Page({
       idiom,
       idiomLearned: (profile.mastered.idiom || []).indexOf(idiom.id) > -1,
       quote,
-      quizWrongCount: (profile.wrongBank.quiz || []).length,
-      quizTotal: digest.quizCount,
+      quizWrongCount,
+      quizTotal,
       reviewDue: store.getDueReviews().length,
       // 打卡提醒卡片：habit 上线后才显示（当前为 placeholder，隐藏）
       habitOnline: APP_MAP.habit && APP_MAP.habit.status === 'online'
