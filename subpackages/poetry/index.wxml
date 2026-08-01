@@ -145,25 +145,37 @@
       <view class="sec-title">创作背景</view>
       <view class="sec-text">{{poem.background}}</view>
     </view>
-    <view wx:if="{{poem.allusions}}" class="card">
+    <view wx:if="{{poem.allusions.length}}" class="card">
       <view class="sec-title">化用典故</view>
-      <view class="sec-text">{{poem.allusions}}</view>
+      <view wx:for="{{poem.allusions}}" wx:key="phrase" class="al-item">
+        <view class="al-phrase">「{{item.phrase}}」</view>
+        <view class="al-source">{{item.source}}</view>
+        <view class="sec-text">{{item.explain}}</view>
+      </view>
     </view>
-    <view wx:if="{{poem.famousLines}}" class="card">
+    <view wx:if="{{poem.famousLines.length}}" class="card">
       <view class="sec-title">名句赏析</view>
-      <view class="sec-text">{{poem.famousLines}}</view>
+      <view wx:for="{{poem.famousLines}}" wx:key="line" class="fl-item">
+        <view class="fl-line">「{{item.line}}」</view>
+        <view class="sec-text">{{item.comment}}</view>
+      </view>
     </view>
-    <view wx:if="{{poem.criticism}}" class="card">
+    <view wx:if="{{poem.criticism.length}}" class="card">
       <view class="sec-title">历代评价</view>
-      <view class="sec-text">{{poem.criticism}}</view>
+      <view wx:for="{{poem.criticism}}" wx:key="source" class="cr-item">
+        <view class="cr-source">{{item.source}}</view>
+        <view class="sec-text">{{item.comment}}</view>
+      </view>
     </view>
     <view wx:if="{{poem.mood}}" class="card">
       <view class="sec-title">意境</view>
       <view class="sec-text">{{poem.mood}}</view>
     </view>
-    <view wx:if="{{poem.usage}}" class="card">
+    <view wx:if="{{poem.usage.length}}" class="card">
       <view class="sec-title">适用场景</view>
-      <view class="sec-text">{{poem.usage}}</view>
+      <view class="usage-list">
+        <view wx:for="{{poem.usage}}" wx:key="index" class="usage-tag">· {{item}}</view>
+      </view>
     </view>
     <view wx:if="{{poem.howToUse}}" class="card">
       <view class="sec-title">使用方式</view>

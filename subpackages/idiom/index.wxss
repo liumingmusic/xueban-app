@@ -9,7 +9,7 @@
 .pinyin { font-size: 28rpx; color: var(--c-idiom); text-align: center; margin: 8rpx 0 20rpx; }
 .tags.center { text-align: center; }
 
-.ops { display: flex; gap: 16rpx; justify-content: center; margin-top: 20rpx; }
+.ops { display: flex; flex-wrap: nowrap; gap: 12rpx; justify-content: center; margin-top: 20rpx; }
 .ops .btn { margin: 0; }
 
 .sec-title {

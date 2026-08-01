@@ -15,7 +15,7 @@
 .cn { font-size: 34rpx; text-align: center; }
 .en { font-size: 26rpx; color: var(--ink-2); text-align: center; margin-top: 10rpx; }
 
-.ops { display: flex; gap: 16rpx; justify-content: center; margin-top: 28rpx; }
+.ops { display: flex; flex-wrap: nowrap; gap: 12rpx; justify-content: center; margin-top: 28rpx; }
 .ops .btn { margin: 0; }
 .warn { color: #b45309; border-color: #b45309; }
 .warn.in { opacity: 0.5; }

@@ -145,18 +145,20 @@ page {
   justify-content: center;
   min-height: 88rpx;
   padding: 0 44rpx;
-  border-radius: 999rpx;
+  border-radius: 16rpx;
   font-size: 30rpx;
   background: var(--c-poetry);
   color: #fff;
   line-height: 1;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .btn.ghost {
   background: transparent;
   color: var(--c-poetry);
   border: 2rpx solid var(--c-poetry);
 }
-.btn.mini { min-height: 72rpx; padding: 0 32rpx; font-size: 26rpx; }
+.btn.mini { min-height: 72rpx; padding: 0 18rpx; font-size: 24rpx; flex: 0 0 auto; }
 .btn[disabled] { opacity: 0.4; }
 
 /* ---------- 状态徽章 ---------- */
