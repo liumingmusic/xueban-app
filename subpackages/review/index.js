@@ -1,5 +1,6 @@
 // 今日复习：展示到期待复习项，完成后按 SRS 推后下次日期
 const store = require('../../utils/store');
+const theme = require('../../utils/theme');
 const dateUtil = require('../../utils/date');
 
 // 模块中文名映射
@@ -13,6 +14,7 @@ Page({
   },
 
   onShow() {
+    theme.apply(this);
     this.loadDue();
   },
 

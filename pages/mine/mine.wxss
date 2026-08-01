@@ -26,6 +26,19 @@
 .row.danger .row-text { color: #e64340; }
 .press { opacity: 0.7; }
 
+/* 外观设置：开关行 / 字号分段 */
+.row-switch { justify-content: space-between; }
+.row-switch .row-text { flex: 1; }
+.row-noborder { border-bottom: none; }
+.font-seg {
+  flex: 0 0 auto; display: flex; gap: 10rpx; padding: 0; white-space: nowrap;
+}
+.font-seg .seg-item {
+  padding: 8rpx 22rpx; font-size: 24rpx; color: var(--ink-2);
+  background: var(--bg); border: 1rpx solid var(--line); border-radius: 999rpx;
+}
+.font-seg .seg-item.on { color: #fff; background: var(--c-habit); border-color: var(--c-habit); }
+
 .web-hint { font-size: 22rpx; color: var(--ink-2); margin-bottom: 8rpx; }
 /* 关于 */
 .about-card { display: flex; flex-direction: column; align-items: center; padding: 36rpx 24rpx 28rpx; }

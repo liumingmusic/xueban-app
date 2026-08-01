@@ -2,6 +2,7 @@
 //          + 百词斩式背诵流（看词选义/看义选词/听音选义/拼写 · 每日计划 · 斩掉/跳过 · 词书掌握度）
 // API 域名 api.dictionaryapi.dev 需在公众平台配置 request 合法域名
 const dateUtil = require('../../utils/date');
+const theme = require('../../utils/theme');
 const store = require('../../utils/store');
 const request = require('../../utils/request');
 const remote = require('../../utils/remote');
@@ -360,4 +361,8 @@ Page({
     const w = this.data.word;
     return { title: w.word + ' — ' + w.cn, path: '/subpackages/english/index?id=' + w.word, imageUrl: '/assets/branding/share-card.jpg' };
   }
-});
+
+  ,
+  onShow() {
+    theme.apply(this);
+  }});

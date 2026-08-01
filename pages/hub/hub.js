@@ -1,5 +1,6 @@
 // 今日中枢：当日聚合落地页（全部本地数据，不依赖外网）
 const dateUtil = require('../../utils/date');
+const theme = require('../../utils/theme');
 const store = require('../../utils/store');
 const digest = require('../../data/daily-digest.js');
 const APPS = require('../../data/apps.js');
@@ -23,6 +24,7 @@ Page({
   },
 
   onShow() {
+    theme.apply(this);
     const profile = store.getProfile();
 
     // 每日稳定选取（与各分包同算法同序，选中同一条）

@@ -1,6 +1,7 @@
 // 每日一句：Hitokoto 一言 API + 分包内离线文案保底
 // API 域名 v1.hitokoto.cn 需在公众平台配置 request 合法域名
 const dateUtil = require('../../utils/date');
+const theme = require('../../utils/theme');
 const store = require('../../utils/store');
 const request = require('../../utils/request');
 const LOCAL = require('./quotes.js').quotes;
@@ -27,7 +28,8 @@ Page({
     this.setData({ quote: this.dailyQuote() });
     store.moduleCheckin('quote');
   },
-  onShow() { if (this.data.quote) this.setData({ favorited: this.isFav(this.data.quote) }); },
+  onShow() {
+    theme.apply(this); if (this.data.quote) this.setData({ favorited: this.isFav(this.data.quote) }); },
 
   dailyQuote() { return LOCAL[dateUtil.dailyIndex(LOCAL.length, 'quote')]; },
 

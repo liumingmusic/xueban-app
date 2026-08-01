@@ -1,16 +1,22 @@
 // 我：档案概览 / 数据导出导入 / 网页版跳转
 const store = require('../../utils/store');
+const theme = require('../../utils/theme');
 const APPS = require('../../data/apps.js');
 
 Page({
   data: {
     summary: {},
-    webApps: []
+    webApps: [],
+    darkOn: false,
+    fontIdx: 1
   },
 
   onShow() {
+    theme.apply(this);
     const p = store.getProfile();
     this.setData({
+      darkOn: theme.getTheme() === 'dark',
+      fontIdx: theme.getFont(),
       summary: {
         createdAt: p.createdAt,
         mastered: (p.mastered.idiom || []).length + (p.mastered.word || []).length + (p.mastered.poem || []).length,
@@ -19,6 +25,20 @@ Page({
       },
       webApps: APPS.filter(a => a.status === 'web')
     });
+  },
+
+  onThemeToggle(e) {
+    const on = !!e.detail.value;
+    theme.setTheme(on ? 'dark' : 'light');
+    theme.apply(this);
+    this.setData({ darkOn: on });
+  },
+
+  onFontTap(e) {
+    const f = +e.currentTarget.dataset.f;
+    theme.setFont(f);
+    theme.apply(this);
+    this.setData({ fontIdx: f });
   },
 
   // 导出：写入本地文件 + 复制到剪贴板

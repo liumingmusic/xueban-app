@@ -1,3 +1,4 @@
+<view class="app-root {{themeClass}} {{fontClass}}">
 <view class="wrap fade-in">
   <view class="page-head ph-history">
     <view class="ph-wm">史</view>
@@ -90,4 +91,5 @@
     </view>
   </block>
   <view class="foot-space"></view>
+</view>
 </view>

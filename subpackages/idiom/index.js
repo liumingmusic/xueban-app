@@ -1,5 +1,6 @@
 // 成语故事：每日一成语 + 全量手册浏览（搜索/筛选/三态标记/近反义跳转/回看）
 const dateUtil = require('../../utils/date');
+const theme = require('../../utils/theme');
 const store = require('../../utils/store');
 const IDIOMS = require('./idioms.js');
 
@@ -51,7 +52,8 @@ Page({
     this.show(idiom, false);
   },
 
-  onShow() { if (this.data.idiom) this.refreshMarks(); },
+  onShow() {
+    theme.apply(this); if (this.data.idiom) this.refreshMarks(); },
 
   refreshMarks() {
     const id = this.data.idiom.id;

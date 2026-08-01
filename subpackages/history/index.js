@@ -1,6 +1,7 @@
 // 历史上的今天：Wikimedia On This Day API（zh），失败降级到分包内快照
 // API 域名 api.wikimedia.org 需在公众平台配置 request 合法域名
 const dateUtil = require('../../utils/date');
+const theme = require('../../utils/theme');
 const store = require('../../utils/store');
 const request = require('../../utils/request');
 const FALLBACK = require('./fallback.js');
@@ -117,4 +118,8 @@ Page({
   onShareAppMessage() {
     return { title: '历史上的今天 · ' + this.data.dateCn, path: '/subpackages/history/index', imageUrl: '/assets/branding/share-card.jpg' };
   }
-});
+
+  ,
+  onShow() {
+    theme.apply(this);
+  }});

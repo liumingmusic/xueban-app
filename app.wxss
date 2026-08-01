@@ -135,6 +135,51 @@ page {
   color: var(--ph-accent, #2f8f78);
   background: var(--ph-tint, rgba(47,143,120,.12));
 }
+
+/* ============================================
+   主题根容器 + 暗色模式 + 字号三档
+   注意：CSS 变量在 page 上定义（亮色默认），
+   暗色通过 .app-root.dark 覆盖变量，作用于整棵内容子树。
+   ============================================ */
+.app-root { background: var(--bg); min-height: 100vh; }
+
+.app-root.dark {
+  --bg: #15171c;
+  --card: #1f232b;
+  --ink: #ECEAE4;
+  --ink-2: #A6ACB3;
+  --ink-3: #6E747C;
+  --line: #2D323B;
+  --ph-tint: rgba(120, 185, 160, 0.16);
+  --ph-accent: #5FB89B;
+}
+/* 暗色下若干卡片阴影/描边收敛，避免发灰 */
+.app-root.dark .card { box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.35); }
+.app-root.dark .search-in,
+.app-root.dark .result-row { box-shadow: none; }
+
+/* 字号三档：作用于高频文本类，避免侵入布局 */
+.app-root.fs0 .ph-title { font-size: 42rpx; }
+.app-root.fs0 .card-title { font-size: 28rpx; }
+.app-root.fs0 .card { font-size: 28rpx; }
+.app-root.fs0 .poem-title { font-size: 32rpx; }
+.app-root.fs0 .poem-line { font-size: 27rpx; }
+.app-root.fs0 .result-title { font-size: 28rpx; }
+.app-root.fs0 .result-extra { font-size: 23rpx; }
+.app-root.fs0 .q-text-big { font-size: 38rpx; }
+.app-root.fs0 .tip-row { font-size: 23rpx; }
+.app-root.fs0 .empty-text { font-size: 28rpx; }
+
+.app-root.fs2 .ph-title { font-size: 52rpx; }
+.app-root.fs2 .card-title { font-size: 34rpx; }
+.app-root.fs2 .card { font-size: 34rpx; }
+.app-root.fs2 .poem-title { font-size: 40rpx; }
+.app-root.fs2 .poem-line { font-size: 33rpx; }
+.app-root.fs2 .result-title { font-size: 34rpx; }
+.app-root.fs2 .result-extra { font-size: 27rpx; }
+.app-root.fs2 .q-text-big { font-size: 50rpx; }
+.app-root.fs2 .tip-row { font-size: 28rpx; }
+.app-root.fs2 .empty-text { font-size: 34rpx; }
 .page-head .sub { font-size: 24rpx; color: var(--ink-2); }
 
 /* ---------- 标签 chip ---------- */

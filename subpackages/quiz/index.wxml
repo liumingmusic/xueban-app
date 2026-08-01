@@ -1,4 +1,5 @@
 <!-- 选择学段学科 -->
+<view class="app-root {{themeClass}} {{fontClass}}">
 <view wx:if="{{phase === 'setup'}}" class="wrap fade-in">
   <view class="page-head ph-quiz">
     <view class="ph-wm">知</view>
@@ -170,3 +171,4 @@
   </view>
 </view>
 <view class="foot-space"></view>
+</view>

@@ -1,3 +1,4 @@
+<view class="app-root {{themeClass}} {{fontClass}}">
 <view class="page-head ph-poetry fade-in">
   <view class="ph-wm">我</view>
   <view class="ph-block">我</view>
@@ -12,6 +13,25 @@
   <view class="about-name">学伴小筑</view>
   <view class="about-tagline">学海无涯 · 同行为伴</view>
   <view class="about-desc">一站式聚合诗词 / 成语 / 英语 / 历史 / 闯关 / 一句 / 习惯 / 观影 八大学习模块，水墨青绿，宋韵雅致。本地优先，离线可用。</view>
+</view>
+
+<!-- 外观设置 -->
+<view class="card fade-in">
+  <view class="card-title"><view class="dot" style="background: var(--c-habit);"></view>外观设置</view>
+  <view class="row row-switch">
+    <text class="row-icon">🌙</text>
+    <text class="row-text">暗色模式</text>
+    <switch class="theme-switch" checked="{{darkOn}}" bindchange="onThemeToggle" color="#2f8f78" />
+  </view>
+  <view class="row row-noborder">
+    <text class="row-icon">🔠</text>
+    <text class="row-text">字号</text>
+    <view class="seg font-seg">
+      <view class="seg-item {{fontIdx===0?'on':''}}" data-f="0" bindtap="onFontTap">小</view>
+      <view class="seg-item {{fontIdx===1?'on':''}}" data-f="1" bindtap="onFontTap">标准</view>
+      <view class="seg-item {{fontIdx===2?'on':''}}" data-f="2" bindtap="onFontTap">大</view>
+    </view>
+  </view>
 </view>
 
 <!-- 档案概览 -->
@@ -62,3 +82,4 @@
 
 <view class="ver">学伴小筑 v1.0.0 · 原生小程序</view>
 <view class="foot-space"></view>
+</view>

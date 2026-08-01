@@ -3,6 +3,7 @@
 // 进阶：积分/等级/连胜、题库总览（难度占比+学科钻取）、错题重练（你的答案回显）、
 //       休息卡护眼、OpenTDB 英文拓展、清空进度
 const store = require('../../utils/store');
+const theme = require('../../utils/theme');
 const request = require('../../utils/request');
 const remote = require('../../utils/remote');
 
@@ -419,4 +420,8 @@ Page({
       imageUrl: '/assets/branding/share-card.jpg'
     };
   }
-});
+
+  ,
+  onShow() {
+    theme.apply(this);
+  }});

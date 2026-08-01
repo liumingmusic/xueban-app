@@ -1,5 +1,6 @@
 // 习惯：全站"坚持类"数据聚合中心（读 learner_profile.streaks / progress）
 const store = require('../../utils/store');
+const theme = require('../../utils/theme');
 
 const MODULE_NAMES = {
   poetry: { name: '诗词赏读', icon: '📜' },
@@ -20,6 +21,7 @@ Page({
   },
 
   onShow() {
+    theme.apply(this);
     const p = store.getProfile();
     const mods = [];
     const ms = (p.streaks && p.streaks.modules) || {};

@@ -1,5 +1,6 @@
 // 观影追踪：电影记录本 · 类型统计 · 月历标记
 const dateUtil = require('../../utils/date');
+const theme = require('../../utils/theme');
 const store = require('../../utils/store');
 
 const GENRES = ['剧情', '喜剧', '动作', '科幻', '爱情', '动画', '悬疑', '惊悚', '纪录', '奇幻', '战争', '犯罪'];
@@ -44,7 +45,8 @@ Page({
     note: ''
   },
 
-  onShow() { this.load(); },
+  onShow() {
+    theme.apply(this); this.load(); },
 
   load() {
     const raw = store.getMovies();

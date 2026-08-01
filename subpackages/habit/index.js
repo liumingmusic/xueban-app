@@ -1,5 +1,6 @@
 // 习惯打卡：微习惯管理 · 今日打卡 · 连胜 · 年度热力图
 const dateUtil = require('../../utils/date');
+const theme = require('../../utils/theme');
 const store = require('../../utils/store');
 
 const EMOJIS = ['💪', '📚', '🏃', '💧', '😴', '🧘', '✍️', '🎯', '🌿', '🎸', '💡', '🦷', '🍎', '🧹'];
@@ -61,7 +62,8 @@ Page({
     colors: COLORS
   },
 
-  onShow() { this.load(); },
+  onShow() {
+    theme.apply(this); this.load(); },
 
   load() {
     const raw = store.getHabits();

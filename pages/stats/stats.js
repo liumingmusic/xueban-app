@@ -1,5 +1,6 @@
 // 数据：全站成长可视化（读 mastered / wrongBank / streaks / activity）
 const store = require('../../utils/store');
+const theme = require('../../utils/theme');
 const dateUtil = require('../../utils/date');
 
 Page({
@@ -13,6 +14,7 @@ Page({
   },
 
   onShow() {
+    theme.apply(this);
     const p = store.getProfile();
 
     const counts = [

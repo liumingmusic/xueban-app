@@ -1,5 +1,6 @@
 // 新手引导：首次进入展示，结束置 guided=true
 const store = require('../../utils/store');
+const theme = require('../../utils/theme');
 
 const SLIDES = [
   {
@@ -35,4 +36,8 @@ Page({
     store.updateProfile({ guided: true });
     wx.navigateBack();
   }
-});
+
+  ,
+  onShow() {
+    theme.apply(this);
+  }});

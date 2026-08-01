@@ -1,4 +1,5 @@
 const digest = require('../../data/daily-digest.js');
+const theme = require('../../utils/theme');
 const remote = require('../../utils/remote');
 const store = require('../../utils/store');
 
@@ -123,4 +124,8 @@ Page({
     else if (mod === 'quote') url = '/subpackages/quote/index';
     if (url) wx.navigateTo({ url });
   }
-});
+
+  ,
+  onShow() {
+    theme.apply(this);
+  }});

@@ -1,3 +1,4 @@
+<view class="app-root {{themeClass}} {{fontClass}}">
 <view class="page-head ph-poetry fade-in">
   <view class="ph-wm">学</view>
   <view class="ph-block">枢</view>
@@ -67,3 +68,4 @@
 </view>
 
 <view class="foot-space"></view>
+</view>

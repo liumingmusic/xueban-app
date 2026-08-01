@@ -2,6 +2,7 @@
 // 视图：今日(单首) / 诗库(搜索+筛选) / 词牌(分类+词牌详情) / 回看(过去14天)
 // 进阶：作者生平详情、农历干支+生肖、竖排排版
 const dateUtil = require('../../utils/date');
+const theme = require('../../utils/theme');
 const store = require('../../utils/store');
 const lunar = require('../../utils/lunar');
 const POEMS = require('./poems.js');
@@ -73,6 +74,7 @@ Page({
   },
 
   onShow() {
+    theme.apply(this);
     if (this.data.poem) {
       this.setData({ collected: store.isMastered('poem', this.data.poem.id) });
     }

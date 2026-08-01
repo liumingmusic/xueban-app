@@ -1,3 +1,4 @@
+<view class="app-root {{themeClass}} {{fontClass}}">
 <view class="guide">
   <view class="skip" bindtap="skip">跳过 ›</view>
 
@@ -14,4 +15,5 @@
   </view>
 
   <button class="btn next" bindtap="next">{{idx === slides.length - 1 ? '开始使用' : '下一步'}}</button>
+</view>
 </view>
