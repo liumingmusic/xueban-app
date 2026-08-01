@@ -13,5 +13,6 @@ module.exports = {
     "points": 0, "streak": 0, "lastPlayDate": "", "calendar": {},
     "settings": { "restEnabled": true, "restEvery": 10 }
   },
+  "guided": false,
   "createdAt": ""
 };

@@ -52,11 +52,13 @@ Page({
     this.setData({
       counts, maxCount, wrongs,
       heatWeeks: weeks,
+      reviewDue: store.getDueReviews().length,
       reviewCount: (p.reviewQueue || []).length,
       createdAt: p.createdAt
     });
   },
 
   goQuiz() { wx.navigateTo({ url: '/subpackages/quiz/index?mode=wrong' }); },
-  goEnglish() { wx.navigateTo({ url: '/subpackages/english/index?tab=review' }); }
+  goEnglish() { wx.navigateTo({ url: '/subpackages/english/index?tab=review' }); },
+  goReview() { wx.navigateTo({ url: '/subpackages/review/index' }); }
 });

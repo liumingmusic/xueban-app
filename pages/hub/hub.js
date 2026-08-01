@@ -44,6 +44,19 @@ Page({
       // 打卡提醒卡片：habit 上线后才显示（当前为 placeholder，隐藏）
       habitOnline: APP_MAP.habit && APP_MAP.habit.status === 'online'
     });
+
+    // 中枢 tab 角标：有待复习时显示红点数字（订阅提醒的零后端替代方案）
+    const due = store.getDueReviews().length;
+    if (due > 0) {
+      wx.setTabBarBadge({ index: 0, text: String(due) });
+    } else {
+      wx.removeTabBarBadge({ index: 0 });
+    }
+
+    // 新手引导：首次进入自动展示，跳过/完成后置 guided=true 不再打扰
+    if (!store.getProfile().guided) {
+      wx.navigateTo({ url: '/pages/guide/guide' });
+    }
   },
 
   noop() {}, // 阻止 related-rail 点击冒泡触发整卡跳转
@@ -56,8 +69,12 @@ Page({
   goReview() { wx.navigateTo({ url: '/subpackages/review/index' }); },
 
   onShareAppMessage() {
+    const p = store.getProfile();
+    const streak = (p.streaks.app && p.streaks.app.count) || 0;
+    const due = store.getDueReviews().length;
+    const poemN = (p.mastered.poem || []).length;
     return {
-      title: '雪伴 · 每日学习小帮手',
+      title: `我在雪伴连续学习 ${streak} 天，已掌握 ${poemN} 首诗词，今天还有 ${due} 个待复习！`,
       path: '/pages/hub/hub',
       imageUrl: '/assets/branding/share-card.jpg'
     };

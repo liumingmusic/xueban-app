@@ -1,0 +1,17 @@
+<view class="guide">
+  <view class="skip" bindtap="skip">跳过 ›</view>
+
+  <swiper class="swiper" current="{{idx}}" bindchange="onSlide" indicator-dots="{{false}}">
+    <swiper-item wx:for="{{slides}}" wx:key="title" class="slide">
+      <view class="emoji">{{item.emoji}}</view>
+      <view class="title">{{item.title}}</view>
+      <view class="desc">{{item.desc}}</view>
+    </swiper-item>
+  </swiper>
+
+  <view class="dots">
+    <view wx:for="{{slides}}" wx:key="index" class="dot {{idx === index ? 'on' : ''}}"></view>
+  </view>
+
+  <button class="btn next" bindtap="next">{{idx === slides.length - 1 ? '开始使用' : '下一步'}}</button>
+</view>

@@ -31,9 +31,9 @@
       <view class="wrong-num" style="color: {{wrongs[1].color}};">{{wrongs[1].num}}</view>
       <view class="wrong-label">{{wrongs[1].label}} ›</view>
     </view>
-    <view class="wrong-cell">
-      <view class="wrong-num" style="color: #3a78a8;">{{reviewCount}}</view>
-      <view class="wrong-label">复习队列</view>
+    <view class="wrong-cell" bindtap="goReview" hover-class="press">
+      <view class="wrong-num" style="color: #3a78a8;">{{reviewDue}}</view>
+      <view class="wrong-label">今日待复习 ›</view>
     </view>
   </view>
 </view>

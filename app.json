@@ -4,7 +4,8 @@
     "pages/cover/cover",
     "pages/habit-hub/habit-hub",
     "pages/stats/stats",
-    "pages/mine/mine"
+    "pages/mine/mine",
+    "pages/guide/guide"
   ],
   "subpackages": [
     { "root": "subpackages/poetry", "pages": ["index"] },
