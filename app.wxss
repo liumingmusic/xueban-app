@@ -123,6 +123,18 @@ page {
 
 /* 兼容旧标记（如有未更新处） */
 .page-head .h1 { font-size: 46rpx; font-weight: 700; }
+
+/* 中枢页右上搜索入口 */
+.ph-search {
+  position: relative; z-index: 1;
+  flex: none;
+  width: 64rpx; height: 64rpx; margin-left: auto;
+  border-radius: 999rpx;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32rpx;
+  color: var(--ph-accent, #2f8f78);
+  background: var(--ph-tint, rgba(47,143,120,.12));
+}
 .page-head .sub { font-size: 24rpx; color: var(--ink-2); }
 
 /* ---------- 标签 chip ---------- */

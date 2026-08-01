@@ -1,0 +1,60 @@
+.search-page { padding: 0 0 40rpx; min-height: 100vh; background: var(--bg); }
+
+/* 搜索条 */
+.search-bar { padding: 20rpx 24rpx 8rpx; }
+.search-in {
+  display: flex; align-items: center; gap: 14rpx;
+  background: var(--card); border: 1rpx solid var(--line);
+  border-radius: 16rpx; padding: 0 22rpx; height: 76rpx; box-sizing: border-box;
+}
+.search-ico { font-size: 30rpx; opacity: 0.6; }
+.search-field { flex: 1; height: 76rpx; line-height: 76rpx; font-size: 28rpx; color: var(--ink); }
+.search-clear { font-size: 28rpx; color: var(--ink-3); padding: 0 6rpx; }
+
+/* 分段筛选 */
+.seg { display: flex; gap: 12rpx; padding: 16rpx 24rpx; white-space: nowrap; }
+.seg-item {
+  flex: 0 0 auto; padding: 10rpx 26rpx; font-size: 26rpx; color: var(--ink-2);
+  background: var(--card); border: 1rpx solid var(--line); border-radius: 999rpx; white-space: nowrap;
+}
+.seg-item.on { color: #fff; background: var(--c-poetry); border-color: var(--c-poetry); }
+
+.result-meta { padding: 8rpx 24rpx 4rpx; font-size: 24rpx; color: var(--ink-3); }
+
+/* 分组 */
+.group { margin: 8rpx 24rpx 16rpx; }
+.group-title {
+  display: flex; align-items: center; gap: 12rpx;
+  font-size: 26rpx; font-weight: 600; color: var(--ink-2);
+  padding: 14rpx 4rpx 10rpx;
+}
+.dot { width: 14rpx; height: 14rpx; border-radius: 999rpx; }
+
+.result-row {
+  display: flex; align-items: center; gap: 16rpx;
+  background: var(--card); border: 1rpx solid var(--line);
+  border-radius: 16rpx; padding: 20rpx 22rpx; margin-bottom: 14rpx;
+}
+.result-main { flex: 1; min-width: 0; }
+.result-title { font-size: 30rpx; color: var(--ink); font-weight: 600; }
+.result-extra {
+  margin-top: 6rpx; font-size: 24rpx; color: var(--ink-3);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.result-sub {
+  flex: 0 0 auto; font-size: 22rpx; color: var(--ink-2);
+  background: var(--bg); border-radius: 8rpx; padding: 4rpx 12rpx; max-width: 200rpx;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.result-arrow { flex: 0 0 auto; font-size: 36rpx; color: var(--ink-3); }
+
+/* 空态 / 引导 */
+.empty { text-align: center; padding: 120rpx 40rpx; }
+.empty-emoji { font-size: 80rpx; }
+.empty-text { margin-top: 20rpx; font-size: 30rpx; color: var(--ink-2); }
+.empty-sub { margin-top: 10rpx; font-size: 24rpx; color: var(--ink-3); }
+
+.search-tip { padding: 30rpx 36rpx; }
+.tip-title { font-size: 28rpx; font-weight: 600; color: var(--ink); margin-bottom: 14rpx; }
+.tip-row { font-size: 25rpx; color: var(--ink-3); line-height: 1.9; }
+.tip-note { margin-top: 16rpx; font-size: 23rpx; color: #b8860b; }

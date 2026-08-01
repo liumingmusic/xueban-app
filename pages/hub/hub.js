@@ -66,6 +66,7 @@ Page({
   goQuote() { wx.navigateTo({ url: '/subpackages/quote/index' }); },
   goQuiz() { wx.navigateTo({ url: '/subpackages/quiz/index?mode=daily' }); },
   goHabit() { wx.navigateTo({ url: '/subpackages/habit/index' }); },
+  goSearch() { wx.navigateTo({ url: '/pages/search/search' }); },
   goReview() { wx.navigateTo({ url: '/subpackages/review/index' }); },
 
   onShareAppMessage() {

@@ -5,6 +5,7 @@
     <view class="ph-title">{{greeting}}</view>
     <view class="ph-chip">{{dateCn}}</view>
   </view>
+  <view class="ph-search" bindtap="goSearch" hover-class="press">🔍</view>
 </view>
 
 <!-- 今日诗词 -->
