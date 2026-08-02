@@ -9,12 +9,17 @@ const MODULES = [
   { key: 'word', name: '单词', color: 'var(--c-english)' },
   { key: 'quote', name: '每日一句', color: 'var(--c-quote)' }
 ];
+const COLOR = { poem: 'var(--c-poetry)', idiom: 'var(--c-idiom)', word: 'var(--c-english)', quote: 'var(--c-quote)' };
 
 Page({
   data: {
     keyword: '',
     filter: 'all',
     modules: [{ key: 'all', name: '全部' }].concat(MODULES),
+    examples: [
+      { kw: '静夜思' }, { kw: '李白' }, { kw: '画龙点睛' },
+      { kw: '守株待兔' }, { kw: 'apple' }, { kw: 'book' }, { kw: '努力' }
+    ],
     groups: [],
     total: 0,
     wordsReady: false,
@@ -63,6 +68,12 @@ Page({
     this.setData({ keyword: '', groups: [], total: 0, searched: false });
   },
 
+  onExample(e) {
+    const kw = e.currentTarget.dataset.kw;
+    this.setData({ keyword: kw, filter: 'all' });
+    this.doSearch();
+  },
+
   doSearch() {
     const kw = (this.data.keyword || '').trim().toLowerCase();
     if (!kw) { this.setData({ groups: [], total: 0, searched: false }); return; }
@@ -77,7 +88,7 @@ Page({
         id: p.id, title: p.title, sub: (p.dynasty || '') + ' · ' + (p.author || ''),
         extra: (p.first || []).join('')
       }));
-      if (items.length) groups.push({ key: 'poem', name: '诗词', items });
+      if (items.length) groups.push({ key: 'poem', name: '诗词', color: COLOR.poem, items });
     }
 
     if (f === 'all' || f === 'idiom') {
@@ -87,7 +98,7 @@ Page({
       }).slice(0, 20).map(it => ({
         id: it.id, title: it.word, sub: it.pinyin || '', extra: (it.brief || '').slice(0, 24)
       }));
-      if (items.length) groups.push({ key: 'idiom', name: '成语', items });
+      if (items.length) groups.push({ key: 'idiom', name: '成语', color: COLOR.idiom, items });
     }
 
     if (f === 'all' || f === 'word') {
@@ -97,7 +108,7 @@ Page({
       }).slice(0, 20).map(w => ({
         id: w.word, title: w.word, sub: w.level || '', extra: w.cn || ''
       }));
-      if (items.length) groups.push({ key: 'word', name: '单词', items });
+      if (items.length) groups.push({ key: 'word', name: '单词', color: COLOR.word, items });
     }
 
     if (f === 'all' || f === 'quote') {
@@ -108,7 +119,7 @@ Page({
         id: 'q' + i, title: '「' + (q.text || '').slice(0, 18) + '」',
         sub: q.from || '', extra: q.author || ''
       }));
-      if (items.length) groups.push({ key: 'quote', name: '每日一句', items });
+      if (items.length) groups.push({ key: 'quote', name: '每日一句', color: COLOR.quote, items });
     }
 
     const total = groups.reduce((s, g) => s + g.items.length, 0);
@@ -123,9 +134,9 @@ Page({
     else if (mod === 'word') url = '/subpackages/english/index?id=' + encodeURIComponent(id);
     else if (mod === 'quote') url = '/subpackages/quote/index';
     if (url) wx.navigateTo({ url });
-  }
+  },
 
-  ,
   onShow() {
     theme.apply(this);
-  }});
+  }
+});

@@ -1,16 +1,27 @@
 <view class="app-root {{themeClass}} {{fontClass}}">
 <view class="search-page">
-  <view class="search-bar">
-    <view class="search-in">
+  <view class="search-head">
+    <view class="search-bar">
       <text class="search-ico">🔍</text>
       <input class="search-field" placeholder="搜索诗词 / 成语 / 单词 / 金句" confirm-type="search" value="{{keyword}}" bindinput="onInput" />
-      <text wx:if="{{keyword}}" class="search-clear" bindtap="onClear">✕</text>
+      <text wx:if="{{keyword}}" class="search-clear" catchtap="onClear">✕</text>
     </view>
   </view>
 
   <scroll-view scroll-x class="seg" wx:if="{{!searched}}">
-    <view wx:for="{{modules}}" wx:key="key" class="seg-item {{filter === item.key ? 'on' : ''}}" data-k="{{item.key}}" bindtap="onFilter">{{item.name}}</view>
+    <view wx:for="{{modules}}" wx:key="key"
+      class="seg-item {{filter === item.key ? 'on' : ''}}"
+      style="{{filter === item.key ? (item.key === 'all' ? 'background:var(--ink-2);border-color:var(--ink-2)' : 'background:' + item.color + ';border-color:' + item.color) : ''}}"
+      data-k="{{item.key}}" bindtap="onFilter">{{item.name}}</view>
   </scroll-view>
+
+  <view wx:if="{{!searched}}" class="tip-card">
+    <view class="tip-title">试试搜这些</view>
+    <view class="chips">
+      <view wx:for="{{examples}}" wx:key="kw" class="chip" data-kw="{{item.kw}}" bindtap="onExample" hover-class="press">{{item.kw}}</view>
+    </view>
+    <view class="tip-rule" wx:if="{{wordsOffline}}">⚠️ 单词库未联网，暂仅搜索已缓存词书</view>
+  </view>
 
   <view wx:if="{{searched && total === 0}}" class="empty">
     <view class="empty-emoji">📭</view>
@@ -21,10 +32,10 @@
   <view wx:if="{{searched && total > 0}}" class="result-meta">共找到 {{total}} 条结果</view>
 
   <view wx:for="{{groups}}" wx:key="key" class="group">
-    <view class="group-title"><view class="dot" style="background: {{item.color || 'var(--c-poetry)'}};"></view>{{item.name}}</view>
+    <view class="group-title"><view class="dot" style="background: {{item.color}};"></view>{{item.name}}</view>
     <view
       wx:for="{{item.items}}" wx:for-item="r" wx:key="id"
-      class="result-row"
+      class="result-row" style="--accent: {{item.color}};"
       data-mod="{{item.key}}" data-id="{{r.id}}" bindtap="tapItem" hover-class="press">
       <view class="result-main">
         <view class="result-title">{{r.title}}</view>
@@ -33,15 +44,6 @@
       <view wx:if="{{r.sub}}" class="result-sub">{{r.sub}}</view>
       <view class="result-arrow">›</view>
     </view>
-  </view>
-
-  <view wx:if="{{!searched}}" class="search-tip">
-    <view class="tip-title">可以搜这些</view>
-    <view class="tip-row">· 诗词：标题、作者、朝代、名句、标签</view>
-    <view class="tip-row">· 成语：词语、拼音、释义、标签</view>
-    <view class="tip-row">· 单词：英文、中文释义</view>
-    <view class="tip-row">· 金句：正文、出处、作者</view>
-    <view class="tip-note" wx:if="{{wordsOffline}}">⚠️ 单词库未联网，暂仅搜索已缓存词书</view>
   </view>
 </view>
 </view>
