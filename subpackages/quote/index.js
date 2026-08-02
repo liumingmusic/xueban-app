@@ -108,5 +108,10 @@ Page({
   onShareAppMessage() {
     const q = this.data.quote;
     return { title: '「' + q.text + '」—— ' + (q.from || ''), path: '/subpackages/quote/index', imageUrl: '/assets/branding/share-card.jpg' };
+  },
+
+  onShareTimeline() {
+    const q = this.data.quote;
+    return { title: '「' + q.text + '」—— ' + (q.from || ''), query: '', imageUrl: '/assets/branding/share-card.jpg' };
   }
 });

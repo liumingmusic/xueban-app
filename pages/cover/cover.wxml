@@ -7,9 +7,26 @@
   </view>
 </view>
 
+<view wx:if="{{hasRecent}}" class="group fade-in">
+  <view class="group-title">最近在学</view>
+  <view class="recent-row">
+    <view wx:for="{{recent}}" wx:key="key" class="recent-chip" data-url="{{item.entry}}" bindtap="goRecent" hover-class="press">
+      <text class="recent-icon">{{item.icon}}</text>
+      <view class="recent-body">
+        <view class="recent-name">{{item.name}}</view>
+        <view class="recent-sub">累计 {{item.count}} 次</view>
+      </view>
+    </view>
+  </view>
+</view>
+
 <view wx:for="{{groups}}" wx:key="category" wx:for-item="group" class="group fade-in">
   <view class="group-title">{{group.category}}</view>
   <app-card wx:for="{{group.apps}}" wx:key="id" app="{{item}}" />
+</view>
+
+<view wx:if="{{!hasRecent}}" class="group fade-in">
+  <view class="recent-empty">还没有学习记录，去「中枢」开始第一天吧</view>
 </view>
 
 <view class="foot-space"></view>

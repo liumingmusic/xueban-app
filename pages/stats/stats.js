@@ -10,7 +10,11 @@ Page({
     heatWeeks: [],
     reviewCount: 0,
     createdAt: '',
-    maxCount: 1
+    maxCount: 1,
+    quizPoints: 0,
+    quizStreak: 0,
+    quizLevel: '启蒙',
+    isEmpty: false
   },
 
   onShow() {
@@ -51,12 +55,27 @@ Page({
       weeks.push(days);
     }
 
+    // 闯关战绩（quizState 已记录但未充分展示）
+    const qs = p.quizState || { points: 0, streak: 0 };
+
+    // 空状态：无任何学习痕迹时给首用引导
+    const isEmpty = (p.mastered.idiom || []).length === 0
+      && (p.mastered.word || []).length === 0
+      && (p.mastered.poem || []).length === 0
+      && (p.wrongBank.quiz || []).length === 0
+      && (p.wrongBank.english || []).length === 0
+      && (p.reviewQueue || []).length === 0;
+
     this.setData({
       counts, maxCount, wrongs,
       heatWeeks: weeks,
       reviewDue: store.getDueReviews().length,
       reviewCount: (p.reviewQueue || []).length,
-      createdAt: p.createdAt
+      createdAt: p.createdAt,
+      quizPoints: qs.points,
+      quizStreak: qs.streak,
+      quizLevel: store.quizLevel(qs.points),
+      isEmpty
     });
   },
 

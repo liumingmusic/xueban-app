@@ -6,6 +6,10 @@ const digest = require('../../data/daily-digest.js');
 const APPS = require('../../data/apps.js');
 const remote = require('../../utils/remote');
 const HISTORY_TODAY = require('../../data/history-today.js');
+const analytics = require('../../utils/analytics');
+
+// 计入「今日目标」的每日学习模块（与 moduleCheckin 触达的模块对齐）
+const DAILY_GOAL_MODS = ['poem', 'idiom', 'quote', 'english', 'quiz'];
 
 const APP_MAP = {};
 APPS.forEach(a => { APP_MAP[a.id] = a; });
@@ -39,7 +43,14 @@ Page({
     habitStreak: 0,
     englishWord: null,
     englishOffline: false,
-    historyEvents: []
+    historyEvents: [],
+    // 今日目标卡
+    goalDone: 0,
+    goalTarget: 5,
+    // 闯关战绩（quizState 已记录但未充分展示）
+    quizPoints: 0,
+    quizStreak: 0,
+    quizLevel: '启蒙'
   },
 
   onShow() {
@@ -49,6 +60,13 @@ Page({
     // 本地变量：供 setData 与下方 renderSections 共用（Page 方法内 data 字段不在词法作用域）
     const quizWrongCount = (profile.wrongBank.quiz || []).length;
     const quizTotal = digest.quizCount;
+    const todayStr = dateUtil.todayStr();
+
+    // 今日目标：今日已打卡的每日模块数 / 目标数
+    const ms = (profile.streaks && profile.streaks.modules) || {};
+    let goalDone = 0;
+    DAILY_GOAL_MODS.forEach(m => { if (ms[m] && ms[m].last === todayStr) goalDone += 1; });
+    const quizState = profile.quizState || { points: 0, streak: 0 };
 
     // 每日稳定选取（与各分包同算法同序，选中同一条）
     const poem = digest.poems[dateUtil.dailyIndex(digest.poems.length, 'poem')];
@@ -67,12 +85,18 @@ Page({
       quizTotal,
       reviewDue: store.getDueReviews().length,
       // 打卡提醒卡片：habit 上线后才显示
-      habitOnline: APP_MAP.habit && APP_MAP.habit.status === 'online'
+      habitOnline: APP_MAP.habit && APP_MAP.habit.status === 'online',
+      // 今日目标
+      goalDone,
+      goalTarget: profile.dailyGoal || DAILY_GOAL_MODS.length,
+      // 闯关战绩
+      quizPoints: quizState.points,
+      quizStreak: quizState.streak,
+      quizLevel: store.quizLevel(quizState.points)
     });
 
     // 习惯打卡进度（与中枢 streak 联动）：今日完成数 / 总数 / 聚合连胜
     const habits = store.getHabits();
-    const todayStr = dateUtil.todayStr();
     let habitDone = 0;
     habits.forEach(h => { if (h.done && h.done[todayStr]) habitDone += 1; });
     this.setData({
@@ -86,6 +110,9 @@ Page({
 
     // 个性化首页：按 hubLayout（顺序 + 显隐）构建模块卡片
     this.renderSections(profile);
+
+    // 埋点：中枢曝光（每次进入 tab 上报一次）
+    analytics.track('hub_view', { goal_done: goalDone, streak: this.data.streak });
 
     // 每日单词为远程数据（带缓存），异步加载后自动刷新 english 卡片
     this.loadDailyWord();
@@ -119,7 +146,7 @@ Page({
       if (it.key === 'poem') sections.push({ key: 'poem', poem: this.data.poem });
       else if (it.key === 'idiom') sections.push({ key: 'idiom', idiom: this.data.idiom, idiomLearned: this.data.idiomLearned });
       else if (it.key === 'quote') sections.push({ key: 'quote', quote: this.data.quote });
-      else if (it.key === 'quiz') sections.push({ key: 'quiz', quizWrongCount: this.data.quizWrongCount, quizTotal: this.data.quizTotal });
+      else if (it.key === 'quiz') sections.push({ key: 'quiz', quizWrongCount: this.data.quizWrongCount, quizTotal: this.data.quizTotal, quizPoints: this.data.quizPoints, quizStreak: this.data.quizStreak, quizLevel: this.data.quizLevel });
       else if (it.key === 'review' && reviewDue > 0) sections.push({ key: 'review', reviewDue });
       else if (it.key === 'habit' && habitOnline) sections.push({ key: 'habit', habitDone, habitTotal: habits.length, habitStreak: (profile.streaks.habit && profile.streaks.habit.count) || 0, habitOnline: true });
       else if (it.key === 'english') sections.push({ key: 'english', word: this.data.englishWord, offline: this.data.englishOffline });
@@ -163,7 +190,10 @@ Page({
       english: '/subpackages/english/index',
       history: '/subpackages/history/index'
     };
-    if (map[k]) wx.navigateTo({ url: map[k] });
+    if (map[k]) {
+      analytics.track('module_open', { module: k });
+      wx.navigateTo({ url: map[k] });
+    }
   },
 
   onShareAppMessage() {
@@ -174,6 +204,17 @@ Page({
     return {
       title: `我在雪伴连续学习 ${streak} 天，已掌握 ${poemN} 首诗词，今天还有 ${due} 个待复习！`,
       path: '/pages/hub/hub',
+      imageUrl: '/assets/branding/share-card.jpg'
+    };
+  },
+
+  // 朋友圈分享（纯前端，无需后端）
+  onShareTimeline() {
+    const p = store.getProfile();
+    const streak = (p.streaks.app && p.streaks.app.count) || 0;
+    return {
+      title: `学伴小筑 · 我已连续学习 ${streak} 天，今天也要进步一点点`,
+      query: '',
       imageUrl: '/assets/branding/share-card.jpg'
     };
   }

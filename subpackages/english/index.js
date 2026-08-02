@@ -360,9 +360,13 @@ Page({
   onShareAppMessage() {
     const w = this.data.word;
     return { title: w.word + ' — ' + w.cn, path: '/subpackages/english/index?id=' + w.word, imageUrl: '/assets/branding/share-card.jpg' };
-  }
+  },
 
-  ,
+  onShareTimeline() {
+    const w = this.data.word;
+    return { title: w.word + ' — ' + w.cn, query: 'id=' + w.word, imageUrl: '/assets/branding/share-card.jpg' };
+  },
+
   onShow() {
     theme.apply(this);
   }});

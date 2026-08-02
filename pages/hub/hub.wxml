@@ -9,6 +9,25 @@
   <view class="ph-search" bindtap="goSearch" hover-class="press">🔍</view>
 </view>
 
+<!-- 今日目标卡 -->
+<view class="card goal-card fade-in">
+  <view class="goal-top">
+    <view class="goal-side">
+      <view class="goal-streak">🔥 {{streak}} 天</view>
+      <view class="goal-side-sub">连续学习</view>
+    </view>
+    <view class="goal-divider"></view>
+    <view class="goal-side goal-right">
+      <view class="goal-count"><text class="goal-num">{{goalDone}}</text>/{{goalTarget}}</view>
+      <view class="goal-side-sub">今日学习模块</view>
+    </view>
+  </view>
+  <view class="goal-bar">
+    <view class="goal-bar-fill" style="width: {{goalTarget ? (goalDone * 100 / goalTarget) : 0}}%;"></view>
+  </view>
+  <view class="goal-tip">{{goalDone >= goalTarget ? '今日目标已达成，太棒了 ✓' : '还差 ' + (goalTarget - goalDone) + ' 个，点下方卡片开始吧'}}</view>
+</view>
+
 <!-- 个性化模块区：按 hubLayout（顺序 + 显隐）渲染 -->
 <view wx:for="{{sections}}" wx:key="key" class="card fade-in" data-go="{{item.key}}" bindtap="goSection" hover-class="press">
 
@@ -49,6 +68,11 @@
 
   <block wx:elif="{{item.key === 'quiz'}}">
     <view class="card-title"><view class="dot" style="background: var(--c-quiz);"></view>闯关挑战</view>
+    <view class="quiz-score">
+      <view class="qs-cell"><view class="qs-num">{{item.quizPoints}}</view><view class="qs-label">积分</view></view>
+      <view class="qs-cell"><view class="qs-num">{{item.quizStreak}}</view><view class="qs-label">连胜</view></view>
+      <view class="qs-cell"><view class="qs-num">{{item.quizLevel}}</view><view class="qs-label">段位</view></view>
+    </view>
     <view wx:if="{{item.quizWrongCount > 0}}" class="quiz-line">
       错题本还有 <text class="quiz-num">{{item.quizWrongCount}}</text> 道题等你消灭，今天再战一轮？
     </view>

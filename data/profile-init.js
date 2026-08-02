@@ -1,4 +1,5 @@
 module.exports = {
+  "dailyGoal": 5,
   "mastered": { "idiom": [], "word": [], "poem": [] },
   "wrongBank": { "quiz": [], "english": [] },
   "streaks": { "habit": {}, "lastCheckin": "", "app": { "last": "", "count": 0 }, "modules": {} },

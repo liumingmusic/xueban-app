@@ -60,6 +60,13 @@ page {
   margin-right: 12rpx;
 }
 
+/* 卡片底部「去 xxx ›」引导链接（全局，所有页面可用） */
+.go-hint {
+  font-size: 24rpx;
+  color: var(--c-poetry);
+  margin-top: 12rpx;
+}
+
 /* ---------- 钤印横幅 · 新版页头 ---------- */
 .page-head {
   position: relative;

@@ -33,11 +33,6 @@
 .quiz-line { font-size: 28rpx; }
 .quiz-num { font-size: 36rpx; font-weight: 700; color: var(--c-quiz); padding: 0 4rpx; }
 
-.go-hint {
-  font-size: 24rpx;
-  color: var(--c-poetry);
-  margin-top: 12rpx;
-}
 .foot-space { height: 40rpx; }
 
 /* 每日单词卡 */
@@ -48,3 +43,32 @@
 .hist-item { display: flex; gap: 14rpx; align-items: flex-start; padding: 7rpx 0; }
 .hist-year { flex: 0 0 auto; font-size: 24rpx; font-weight: 700; color: var(--c-history); font-variant-numeric: tabular-nums; }
 .hist-text { flex: 1; font-size: 26rpx; color: var(--ink-2); line-height: 1.5; }
+
+/* 闯关战绩分栏 */
+.quiz-score { display: flex; gap: 12rpx; margin: 4rpx 0 12rpx; }
+.qs-cell {
+  flex: 1; text-align: center; padding: 14rpx 0; border-radius: 16rpx;
+  background: rgba(37, 99, 235, 0.10);
+}
+.qs-num { font-size: 40rpx; font-weight: 700; color: var(--c-quiz); line-height: 1.2; }
+.qs-label { font-size: 22rpx; color: var(--ink-2); margin-top: 4rpx; }
+
+/* 今日目标卡 */
+.goal-card { background: linear-gradient(135deg, rgba(47, 143, 120, 0.12) 0%, var(--card) 60%); }
+.goal-top { display: flex; align-items: center; }
+.goal-side { flex: 1; text-align: center; }
+.goal-divider { width: 1rpx; height: 56rpx; background: var(--line); }
+.goal-streak { font-size: 38rpx; font-weight: 700; color: var(--c-history); }
+.goal-count { font-size: 38rpx; font-weight: 700; color: var(--c-poetry); }
+.goal-num { font-size: 48rpx; }
+.goal-side-sub { font-size: 22rpx; color: var(--ink-2); margin-top: 4rpx; }
+.goal-bar {
+  height: 16rpx; background: var(--bg); border-radius: 999rpx; overflow: hidden;
+  margin: 18rpx 0 10rpx;
+}
+.goal-bar-fill {
+  height: 100%; border-radius: 999rpx;
+  background: linear-gradient(90deg, var(--c-poetry), var(--c-english));
+  transition: width 0.5s ease;
+}
+.goal-tip { font-size: 24rpx; color: var(--ink-2); text-align: center; }

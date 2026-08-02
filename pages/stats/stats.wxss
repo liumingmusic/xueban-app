@@ -27,3 +27,18 @@
 }
 .heat-legend .heat-cell { width: 28rpx; height: 28rpx; }
 .foot-space { height: 40rpx; }
+
+/* 闯关战绩分栏（与中枢复用同名类） */
+.quiz-score { display: flex; gap: 12rpx; margin: 4rpx 0 12rpx; }
+.qs-cell {
+  flex: 1; text-align: center; padding: 14rpx 0; border-radius: 16rpx;
+  background: rgba(37, 99, 235, 0.10);
+}
+.qs-num { font-size: 40rpx; font-weight: 700; color: #2563eb; line-height: 1.2; }
+.qs-label { font-size: 22rpx; color: var(--ink-2); margin-top: 4rpx; }
+
+/* 空状态 */
+.empty-state { text-align: center; padding: 56rpx 24rpx; }
+.empty-emoji { font-size: 72rpx; }
+.empty-title { font-size: 32rpx; font-weight: 700; margin-top: 12rpx; }
+.empty-sub { font-size: 26rpx; color: var(--ink-2); margin-top: 8rpx; }

@@ -8,6 +8,24 @@
   </view>
 </view>
 
+<!-- 空状态：首用引导 -->
+<view wx:if="{{isEmpty}}" class="card empty-state fade-in">
+  <view class="empty-emoji">🌱</view>
+  <view class="empty-title">还没有学习记录</view>
+  <view class="empty-sub">去「中枢」翻开今天的第一首诗吧</view>
+</view>
+
+<!-- 闯关战绩 -->
+<view class="card fade-in">
+  <view class="card-title"><view class="dot" style="background: var(--c-quiz);"></view>闯关战绩</view>
+  <view class="quiz-score">
+    <view class="qs-cell"><view class="qs-num">{{quizPoints}}</view><view class="qs-label">积分</view></view>
+    <view class="qs-cell"><view class="qs-num">{{quizStreak}}</view><view class="qs-label">连胜</view></view>
+    <view class="qs-cell"><view class="qs-num">{{quizLevel}}</view><view class="qs-label">段位</view></view>
+  </view>
+  <view class="go-hint" bindtap="goQuiz" hover-class="press">去闯关 ›</view>
+</view>
+
 <!-- 掌握量 -->
 <view class="card fade-in">
   <view class="card-title"><view class="dot" style="background: var(--c-poetry);"></view>掌握量</view>

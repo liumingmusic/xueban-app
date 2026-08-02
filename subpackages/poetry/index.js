@@ -230,5 +230,10 @@ Page({
   onShareAppMessage() {
     const p = this.data.poem;
     return { title: p.title + ' — ' + p.author, path: '/subpackages/poetry/index?id=' + p.id, imageUrl: '/assets/branding/share-card.jpg' };
+  },
+
+  onShareTimeline() {
+    const p = this.data.poem;
+    return { title: p.title + ' — ' + p.author, query: 'id=' + p.id, imageUrl: '/assets/branding/share-card.jpg' };
   }
 });

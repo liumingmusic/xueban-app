@@ -5,4 +5,20 @@
   letter-spacing: 4rpx;
   margin: 24rpx 8rpx 16rpx;
 }
+
+/* 最近在学 */
+.recent-row { display: flex; flex-wrap: wrap; gap: 16rpx; }
+.recent-chip {
+  flex: 0 0 calc(50% - 8rpx);
+  display: flex; align-items: center; gap: 16rpx;
+  padding: 20rpx; border-radius: 20rpx;
+  background: var(--card); box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.04);
+}
+.recent-icon { font-size: 44rpx; }
+.recent-name { font-size: 28rpx; font-weight: 700; }
+.recent-sub { font-size: 22rpx; color: var(--ink-2); margin-top: 4rpx; }
+.recent-empty {
+  font-size: 26rpx; color: var(--ink-2);
+  text-align: center; padding: 40rpx 0;
+}
 .foot-space { height: 40rpx; }

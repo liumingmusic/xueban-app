@@ -177,5 +177,10 @@ Page({
   onShareAppMessage() {
     const i = this.data.idiom;
     return { title: i.word + ' — ' + i.explanation.slice(0, 20), path: '/subpackages/idiom/index?id=' + i.id, imageUrl: '/assets/branding/share-card.jpg' };
+  },
+
+  onShareTimeline() {
+    const i = this.data.idiom;
+    return { title: i.word + ' — 成语之美，今日一词', query: 'id=' + i.id, imageUrl: '/assets/branding/share-card.jpg' };
   }
 });

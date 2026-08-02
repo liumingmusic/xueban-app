@@ -124,5 +124,17 @@ Page({
       path: '/pages/mine/mine',
       imageUrl: '/assets/branding/share-card.jpg'
     };
+  },
+
+  onShareTimeline() {
+    const p = store.getProfile();
+    const idiomN = (p.mastered.idiom || []).length;
+    const wordN = (p.mastered.word || []).length;
+    const poemN = (p.mastered.poem || []).length;
+    return {
+      title: `我的学习足迹 · 雪伴：已学 ${idiomN} 个成语 / ${wordN} 个单词 / ${poemN} 首诗词`,
+      query: '',
+      imageUrl: '/assets/branding/share-card.jpg'
+    };
   }
 });

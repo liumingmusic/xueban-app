@@ -6,6 +6,7 @@ const store = require('../../utils/store');
 const theme = require('../../utils/theme');
 const request = require('../../utils/request');
 const remote = require('../../utils/remote');
+const analytics = require('../../utils/analytics');
 
 const STAGES = ['全部', '小学', '初中', '高中'];
 const ROUND = 10; // 每轮题数
@@ -360,6 +361,7 @@ Page({
     store.moduleCheckin('quiz');
     const qs = store.quizRecordRound({ points: this.data.roundPoints, answered: this.data.total });
     const p = store.getProfile();
+    analytics.track('quiz_finish', { points: this.data.roundPoints, answered: this.data.total, streak: qs.streak });
     this.setData({
       wrongCount: (p.wrongBank.quiz || []).length,
       points: qs.points,
@@ -419,9 +421,16 @@ Page({
       path: '/subpackages/quiz/index',
       imageUrl: '/assets/branding/share-card.jpg'
     };
-  }
+  },
 
-  ,
+  onShareTimeline() {
+    return {
+      title: '知识闯关：' + (this.data.bankCount || 5690) + ' 题 K12 题库，敢来挑战吗？',
+      query: '',
+      imageUrl: '/assets/branding/share-card.jpg'
+    };
+  },
+
   onShow() {
     theme.apply(this);
   }});
