@@ -247,9 +247,11 @@ page {
 .btn::after { border: none; }
 .btn.ghost::after { border: none; }
 
-/* ---------- 详情页操作区（紧凑不换行，防小屏溢出） ---------- */
-.ops { display: flex; flex-wrap: nowrap; gap: 12rpx; justify-content: center; align-items: center; }
-.ops .btn.mini { padding: 0 14rpx; font-size: 22rpx; }
+/* ---------- 详情页操作区：两行式（主行 2 个 + 次行其余），按钮等宽，避免挤成一排 ---------- */
+.ops { display: flex; gap: 14rpx; }
+.ops-primary { margin-top: 24rpx; }
+.ops-secondary { margin-top: 14rpx; }
+.ops .btn, .ops .btn.mini { flex: 1 1 0; margin: 0; width: 100%; font-size: 24rpx; padding: 0; }
 
 /* ---------- 状态徽章 ---------- */
 .badge {

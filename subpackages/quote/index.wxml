@@ -53,11 +53,13 @@
         <view class="q-text-big">「{{quote.text}}」</view>
         <view class="q-from">—— {{quote.from}}<text wx:if="{{quote.author}}"> · {{quote.author}}</text></view>
 
-        <view class="ops">
+        <view class="ops ops-primary">
           <button class="btn mini {{favorited ? '' : 'ghost'}}" bindtap="toggleFav">{{favorited ? '★ 已收藏' : '☆ 收藏'}}</button>
+          <button class="btn mini ghost" open-type="share">↗ 分享</button>
+        </view>
+        <view class="ops ops-secondary">
           <button class="btn mini ghost" bindtap="copy">复制</button>
           <button class="btn mini ghost" bindtap="another">换一句</button>
-          <button class="btn mini ghost" open-type="share">↗ 分享</button>
         </view>
       </block>
     </view>

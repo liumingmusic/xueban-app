@@ -3,13 +3,15 @@ const links = require('../../utils/links');
 
 Component({
   properties: {
-    tags: { type: Array, value: [] },
+    // 不限定类型，由 observer 统一规整成数组，避免上游传 undefined / 字符串时触发框架类型告警
+    tags: { type: null, value: [] },
     exclude: { type: String, value: '' }
   },
   data: { related: [] },
   observers: {
     'tags, exclude'(tags, exclude) {
-      this.setData({ related: links.getRelated(tags, exclude) });
+      const arr = Array.isArray(tags) ? tags : (tags == null ? [] : [tags]);
+      this.setData({ related: links.getRelated(arr, exclude) });
     }
   },
   methods: {

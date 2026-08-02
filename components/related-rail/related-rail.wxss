@@ -1,9 +1,10 @@
 .rail {
   display: flex;
   align-items: center;
-  margin-top: 24rpx;
+  margin: 24rpx var(--gap) 0;
   padding-top: 20rpx;
   border-top: 1rpx dashed var(--line, #EFE8DC);
+  box-sizing: border-box;
 }
 .rail-label {
   font-size: 22rpx;

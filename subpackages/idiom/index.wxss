@@ -9,8 +9,10 @@
 .pinyin { font-size: 28rpx; color: var(--c-idiom); text-align: center; margin: 8rpx 0 20rpx; }
 .tags.center { text-align: center; }
 
-.ops { display: flex; flex-wrap: nowrap; gap: 12rpx; justify-content: center; margin-top: 20rpx; }
-.ops .btn { margin: 0; }
+.ops { display: flex; gap: 14rpx; }
+.ops-primary { margin-top: 20rpx; }
+.ops-secondary { margin-top: 14rpx; }
+.ops .btn, .ops .btn.mini { flex: 1 1 0; margin: 0; width: 100%; font-size: 24rpx; padding: 0; }
 
 .sec-title {
   font-size: 26rpx; color: var(--c-idiom); font-weight: 600;

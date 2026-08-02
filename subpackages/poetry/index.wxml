@@ -116,11 +116,13 @@
         <text wx:for="{{poem.tags}}" wx:key="index" class="chip">{{item}}</text>
       </view>
 
-      <view class="ops">
+      <view class="ops ops-primary">
         <button class="btn mini {{collected ? '' : 'ghost'}}" bindtap="toggleCollect">{{collected ? '已收藏 ✓' : '☆ 收藏'}}</button>
+        <button class="btn mini ghost" bindtap="readAloud" disabled="{{reading}}">{{reading ? '🔊 朗读中…' : '🔊 朗读'}}</button>
+      </view>
+      <view class="ops ops-secondary">
         <button class="btn mini ghost" bindtap="toggleTrans">{{showTrans ? '收起译文' : '看译文'}}</button>
         <button class="btn mini ghost" bindtap="toggleVertical">{{vertical ? '横排' : '竖排'}}</button>
-        <button class="btn mini ghost" bindtap="readAloud" disabled="{{reading}}">{{reading ? '🔊 朗读中…' : '🔊 朗读'}}</button>
         <button class="btn mini ghost" open-type="share">↗ 分享</button>
       </view>
 

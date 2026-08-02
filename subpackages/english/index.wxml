@@ -149,11 +149,13 @@
       <view class="cn">{{word.cn}}</view>
       <view wx:if="{{word.en}}" class="en">{{word.en}}</view>
 
-      <view class="ops">
+      <view class="ops ops-primary">
         <button class="btn mini ghost" bindtap="play">🔊 发音</button>
+        <button class="btn mini {{favorited ? '' : 'ghost'}}" bindtap="toggleFavorite">{{favorited ? '★ 已收藏' : '☆ 收藏'}}</button>
+      </view>
+      <view class="ops ops-secondary">
         <button class="btn mini {{known ? '' : 'ghost'}}" bindtap="markKnown">{{known ? '认识 ✓' : '认识'}}</button>
         <button class="btn mini ghost warn {{inWrong ? 'in' : ''}}" bindtap="markUnknown">{{inWrong ? '生词本' : '不认识'}}</button>
-        <button class="btn mini {{favorited ? '' : 'ghost'}}" bindtap="toggleFavorite">{{favorited ? '★ 已收藏' : '☆ 收藏'}}</button>
         <button class="btn mini ghost" open-type="share">↗ 分享</button>
       </view>
 
