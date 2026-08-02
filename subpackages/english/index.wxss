@@ -30,6 +30,23 @@
 .ex-en { font-size: 28rpx; font-family: Georgia, serif; }
 .ex-cn { font-size: 24rpx; color: var(--ink-2); }
 
+/* 同义词 / 反义词 标签云 */
+.tag-cloud { display: flex; flex-wrap: wrap; gap: 16rpx; margin-top: 4rpx; }
+.tag {
+  font-size: 26rpx; padding: 10rpx 22rpx; border-radius: 999rpx;
+  border: 1rpx solid var(--line); background: var(--bg);
+}
+.tag.syn { color: var(--c-english); border-color: rgba(124,92,255,0.35); }
+.tag.ant { color: #c2410c; border-color: rgba(194,65,12,0.35); }
+.tag:active { opacity: 0.6; }
+
+/* 用法 */
+.usage {
+  font-size: 27rpx; line-height: 1.6; color: var(--ink-1);
+  background: var(--bg); border-left: 6rpx solid var(--c-english);
+  border-radius: 8rpx; padding: 18rpx 22rpx;
+}
+
 .rev-row {
   display: flex; align-items: center;
   padding: 16rpx 0; border-bottom: 1rpx solid var(--line);

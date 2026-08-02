@@ -180,6 +180,13 @@ Page({
     const w = this.words.find(x => x.word === e.currentTarget.dataset.id);
     if (w) this.show(w, true);
   },
+  // 同义词/反义词标签点击：跳到该词卡片（词库有则跳，无则提示）
+  tapWord(e) {
+    const target = e.currentTarget.dataset.word;
+    const w = this.words && this.words.find(x => x.word === target);
+    if (w) { this.setData({ isToday: false }); this.show(w, true); }
+    else wx.showToast({ title: '词库暂无「' + target + '」', icon: 'none' });
+  },
   tapReview(e) {
     const id = e.currentTarget.dataset.id;
     const w = this.words.find(x => x.word === id);

@@ -167,6 +167,25 @@
         </view>
       </view>
 
+      <view wx:if="{{word.synonyms.length}}" class="section">
+        <view class="sec-title">同义词</view>
+        <view class="tag-cloud">
+          <text wx:for="{{word.synonyms}}" wx:key="*this" class="tag syn" data-word="{{item}}" bindtap="tapWord">{{item}}</text>
+        </view>
+      </view>
+
+      <view wx:if="{{word.antonyms.length}}" class="section">
+        <view class="sec-title">反义词</view>
+        <view class="tag-cloud">
+          <text wx:for="{{word.antonyms}}" wx:key="*this" class="tag ant" data-word="{{item}}" bindtap="tapWord">{{item}}</text>
+        </view>
+      </view>
+
+      <view wx:if="{{word.usage}}" class="section">
+        <view class="sec-title">用法</view>
+        <view class="usage">{{word.usage}}</view>
+      </view>
+
       <related-rail tags="{{['英语']}}" exclude="english" />
     </view>
 
