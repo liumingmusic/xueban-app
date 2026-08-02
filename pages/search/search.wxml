@@ -8,12 +8,12 @@
     </view>
   </view>
 
-  <scroll-view scroll-x class="seg" wx:if="{{!searched}}">
+  <view class="seg" wx:if="{{!searched}}">
     <view wx:for="{{modules}}" wx:key="key"
       class="seg-item {{filter === item.key ? 'on' : ''}}"
       style="{{filter === item.key ? (item.key === 'all' ? 'background:var(--ink-2);border-color:var(--ink-2)' : 'background:' + item.color + ';border-color:' + item.color) : ''}}"
       data-k="{{item.key}}" bindtap="onFilter">{{item.name}}</view>
-  </scroll-view>
+  </view>
 
   <view wx:if="{{!searched}}" class="tip-card">
     <view class="tip-title">试试搜这些</view>

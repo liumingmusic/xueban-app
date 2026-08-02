@@ -21,7 +21,11 @@
 }
 
 /* 分段筛选（选中态用各模块自身主题色） */
-.seg { display: flex; gap: 14rpx; padding: 22rpx 24rpx 6rpx; white-space: nowrap; }
+.seg {
+  display: flex; gap: 14rpx; padding: 22rpx 24rpx 6rpx;
+  white-space: nowrap; overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
 .seg-item {
   flex: 0 0 auto; padding: 12rpx 30rpx; font-size: 26rpx; color: var(--ink-2);
   background: var(--card); border: 1rpx solid var(--line); border-radius: 999rpx; white-space: nowrap;
