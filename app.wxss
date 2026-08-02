@@ -21,6 +21,10 @@ page {
   --c-habit: #3a9d6e;       /* 打卡 */
   --c-movie: #7c5cff;       /* 观影 */
 
+  /* 骨架屏微光占位色 */
+  --sk-base: #E9E3D8;      /* 底色 */
+  --sk-hi: #F6F2EA;        /* 高光 */
+
   /* 尺寸令牌 */
   --radius: 24rpx;
   --gap: 24rpx;
@@ -178,11 +182,16 @@ page {
   --line: #2D323B;
   --ph-tint: rgba(120, 185, 160, 0.16);
   --ph-accent: #5FB89B;
+  --sk-base: #262B33;
+  --sk-hi: #323942;
 }
 /* 暗色下若干卡片阴影/描边收敛，避免发灰 */
 .app-root.dark .card { box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.35); }
 .app-root.dark .search-in,
 .app-root.dark .result-row { box-shadow: none; }
+
+/* 骨架屏容器：与卡片同款留白 */
+.sk-card-wrap { padding: var(--pad); }
 
 /* 字号三档：作用于高频文本类，避免侵入布局 */
 .app-root.fs0 .ph-title { font-size: 42rpx; }

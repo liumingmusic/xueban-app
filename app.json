@@ -9,6 +9,9 @@
     "pages/search/search",
     "pages/modules/modules"
   ],
+  "usingComponents": {
+    "skeleton": "/components/skeleton/skeleton"
+  },
   "subpackages": [
     { "root": "subpackages/poetry", "pages": ["index"] },
     { "root": "subpackages/idiom", "pages": ["index"] },

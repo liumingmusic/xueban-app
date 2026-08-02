@@ -1,0 +1,6 @@
+<view wx:if="{{show}}" class="sk sk-{{variant}}">
+  <view wx:if="{{variant === 'card' || circle}}" class="sk-circle"></view>
+  <view class="sk-body">
+    <view wx:for="{{bars}}" wx:key="*this" class="sk-bar"></view>
+  </view>
+</view>

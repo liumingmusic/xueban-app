@@ -19,9 +19,8 @@
     <view class="poster-btn" bindtap="copyPoster">🖼️ 海报</view>
   </view>
 
-  <view wx:if="{{loading}}" class="loading-box">
-    <view class="loading-spin"></view>
-    <view class="loading-text">正在翻史书…</view>
+  <view wx:if="{{loading}}" class="card sk-card-wrap">
+    <skeleton variant="list" rows="6" />
   </view>
 
   <block wx:else>

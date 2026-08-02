@@ -81,7 +81,8 @@
       <view class="go-hint">学这个词 ›</view>
     </block>
     <block wx:else>
-      <view class="quiz-line">{{item.offline ? '离线中，今日单词稍后加载' : '正在加载今日单词…'}}</view>
+      <skeleton wx:if="{{!item.offline}}" variant="text" rows="2" />
+      <view wx:else class="quiz-line">离线中，今日单词稍后加载</view>
     </block>
   </block>
 

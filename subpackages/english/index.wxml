@@ -7,7 +7,7 @@
   </view>
 </view>
 
-<view wx:if="{{remoteState==='loading'}}" class="remote-tip">⏳ 正在从云端加载词库…</view>
+<view wx:if="{{remoteState==='loading'}}" class="card sk-card-wrap"><skeleton variant="card" rows="4" /></view>
 <view wx:elif="{{remoteState==='empty'}}" class="remote-tip offline">
   <text>📡 离线且未下载词库，请联网后重试</text>
   <view class="retry-btn" bindtap="loadWords">重试</view>

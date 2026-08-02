@@ -1,0 +1,34 @@
+/* 骨架屏：微光 shimmer 占位，颜色走全局变量，自动适配亮/暗色 */
+.sk { width: 100%; box-sizing: border-box; }
+.sk-card { display: flex; align-items: flex-start; gap: 20rpx; }
+
+.sk-circle {
+  width: 72rpx; height: 72rpx; border-radius: 50%; flex: 0 0 auto;
+  background: linear-gradient(90deg, var(--sk-base) 25%, var(--sk-hi) 37%, var(--sk-base) 63%);
+  background-size: 400% 100%;
+  animation: sk-shimmer 1.4s ease infinite;
+}
+
+.sk-body { flex: 1 1 auto; min-width: 0; }
+
+.sk-bar {
+  height: 26rpx; border-radius: 8rpx; margin-bottom: 18rpx;
+  background: linear-gradient(90deg, var(--sk-base) 25%, var(--sk-hi) 37%, var(--sk-base) 63%);
+  background-size: 400% 100%;
+  animation: sk-shimmer 1.4s ease infinite;
+}
+.sk-bar:last-child { margin-bottom: 0; }
+
+/* 列表变体：模拟多行文本，首/末行更短，像真实内容 */
+.sk-list .sk-bar { width: 88%; }
+.sk-list .sk-bar:first-child { width: 58%; }
+.sk-list .sk-bar:last-child { width: 40%; }
+
+/* 卡片变体：首条当作标题（略高略短），其余为正文行 */
+.sk-card .sk-bar:first-child { width: 46%; height: 34rpx; }
+.sk-card .sk-bar { width: 94%; }
+
+@keyframes sk-shimmer {
+  0%   { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
