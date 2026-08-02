@@ -14,6 +14,7 @@ const ROOT = path.join(__dirname, '..');
 let errors = 0;
 const err = m => { console.log('  [FAIL]', m); errors++; };
 const ok = m => console.log('  [ ok ]', m);
+const warn = m => console.log('  [WARN]', m);
 
 function walk(dir, fn) {
   fs.readdirSync(dir).forEach(f => {
@@ -91,6 +92,7 @@ const MB = 1024 * 1024;
 const main = dirSize(ROOT, true);
 console.log('  主包:', (main / MB).toFixed(2) + 'MB', main < 2 * MB ? 'OK (<2MB)' : '!! 超限');
 if (main >= 2 * MB) errors++;
+else if (main >= 1.5 * MB) warn('主包已 ' + (main / MB).toFixed(2) + 'MB，接近 2MB 上限，新增主包代码请谨慎（优先放进分包）');
 let total = main;
 fs.readdirSync(path.join(ROOT, 'subpackages')).forEach(sp => {
   const s = dirSize(path.join(ROOT, 'subpackages', sp), false);

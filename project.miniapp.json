@@ -3,7 +3,6 @@
   "name": "学伴小筑",
   "version": "1.00",
   "versionCode": 1,
-  "i18nFilePath": "i18n",
   "mini-ohos": {
     "sdkVersion": "0.5.1"
   },

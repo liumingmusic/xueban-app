@@ -199,26 +199,39 @@ function touchActivity(p) {
 }
 
 /* ---------- 收藏（跨模块通用） ---------- */
-function toggleFavorite(module, id) {
+// 兼容旧数据：历史收藏可能存的是纯 id 字符串，也可能存 {_id,title,sub,color} 对象
+function favIndexOf(arr, id) {
+  for (let k = 0; k < arr.length; k++) {
+    const x = arr[k];
+    if (x === id) return k;
+    if (x && typeof x === 'object' && x._id === id) return k;
+  }
+  return -1;
+}
+
+// meta: { title, sub, color } 可选，传入后收藏项会携带展示信息（供「我的收藏」页直接渲染）
+function toggleFavorite(module, id, meta) {
   const p = getProfile();
   if (!p.favorites) p.favorites = {};
   if (!p.favorites[module]) p.favorites[module] = [];
   const arr = p.favorites[module];
-  const i = arr.indexOf(id);
+  const i = favIndexOf(arr, id);
   if (i > -1) { arr.splice(i, 1); saveProfile(p); return false; }
-  arr.unshift(id);
+  arr.unshift(meta ? Object.assign({ _id: id }, meta) : id);
   saveProfile(p);
   return true;
 }
 
 function isFavorite(module, id) {
   const p = getProfile();
-  return !!(p.favorites && p.favorites[module] && p.favorites[module].indexOf(id) > -1);
+  return favIndexOf((p.favorites && p.favorites[module]) || [], id) > -1;
 }
 
+// 统一归一为 { _id, title, sub, color }，无 meta 的旧数据回退为占位标题
 function getFavorites(module) {
   const p = getProfile();
-  return (p.favorites && p.favorites[module]) || [];
+  const arr = (p.favorites && p.favorites[module]) || [];
+  return arr.map(x => (x && typeof x === 'object') ? x : { _id: x });
 }
 
 /* ---------- 成语：待学习标记（与已认识互斥由调用方保证） ---------- */

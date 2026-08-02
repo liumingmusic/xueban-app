@@ -4,6 +4,7 @@ const theme = require('../../utils/theme');
 const store = require('../../utils/store');
 const tts = require('../../utils/tts');
 const IDIOMS = require('./idioms.js');
+const shareCard = require('../../utils/shareCard');
 
 const STAGES = ['全部', '小学', '初中', '高中'];
 const INITIALS = ['全部', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'W', 'X', 'Y', 'Z'];
@@ -69,6 +70,7 @@ Page({
   show(idiom, fromList) {
     this.setData({ idiom, view: 'detail', fromList: !!fromList });
     wx.setNavigationBarTitle({ title: idiom.word });
+    shareCard.prepareCard(this, { title: idiom.word, subtitle: (idiom.explanation || '').slice(0, 24), tag: '成语', color: '#7c5cff' });
     this.refreshMarks();
   },
 
@@ -146,7 +148,7 @@ Page({
 
   toggleFavorite() {
     const { idiom } = this.data;
-    const now = store.toggleFavorite('idiom', idiom.id);
+    const now = store.toggleFavorite('idiom', idiom.id, { title: idiom.word, sub: (idiom.explanation || '').slice(0, 30), color: '#7c5cff' });
     this.setData({ favorited: now });
     wx.showToast({ title: now ? '已收藏' : '已取消收藏', icon: now ? 'success' : 'none' });
   },
@@ -176,7 +178,7 @@ Page({
 
   onShareAppMessage() {
     const i = this.data.idiom;
-    return { title: i.word + ' — ' + i.explanation.slice(0, 20), path: '/subpackages/idiom/index?id=' + i.id, imageUrl: '/assets/branding/share-card.jpg' };
+    return shareCard.buildShare(this, { title: i.word + ' — ' + i.explanation.slice(0, 20), path: '/subpackages/idiom/index?id=' + i.id });
   },
 
   onShareTimeline() {

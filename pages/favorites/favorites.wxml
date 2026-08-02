@@ -1,0 +1,46 @@
+<view class="app-root {{themeClass}} {{fontClass}}">
+<view class="page-head ph-quote fade-in">
+  <view class="ph-wm">藏</view>
+  <view class="ph-block">藏</view>
+  <view class="ph-body">
+    <view class="ph-title">我的收藏</view>
+    <view class="ph-chip">一处看尽 · 跨模块珍藏</view>
+  </view>
+</view>
+
+<!-- 空状态 -->
+<view wx:if="{{isEmpty}}" class="card empty-state fade-in">
+  <view class="empty-emoji">📚</view>
+  <view class="empty-title">还没有收藏任何内容</view>
+  <view class="empty-sub">在诗词 / 成语 / 英语 / 金句 里点「收藏」就会来到这里</view>
+</view>
+
+<!-- 分组：成语 / 单词 / 金句 -->
+<view wx:for="{{groups}}" wx:key="key" class="group fade-in">
+  <view class="group-title">
+    <view class="dot" style="background: {{item.color}};"></view>{{item.name}}
+    <text class="group-count">{{item.items.length}}</text>
+  </view>
+  <view wx:for="{{item.items}}" wx:for-item="it" wx:key="id" class="card fav-item" hover-class="press"
+        data-key="{{item.key}}" data-id="{{it.id}}" bindtap="openItem">
+    <view class="fav-bar" style="background: {{it.color}};"></view>
+    <view class="fav-body">
+      <view class="fav-title">{{it.title}}</view>
+      <view wx:if="{{it.sub}}" class="fav-sub">{{it.sub}}</view>
+    </view>
+    <view class="fav-arrow">›</view>
+  </view>
+</view>
+
+<!-- 已掌握诗词（markMastered，仅存 id） -->
+<view wx:if="{{poemCount > 0}}" class="card fav-item fade-in" hover-class="press" bindtap="goPoem">
+  <view class="fav-bar" style="background: #b45309;"></view>
+  <view class="fav-body">
+    <view class="fav-title">已掌握诗词 {{poemCount}} 首</view>
+    <view class="fav-sub">点此前往诗词模块查看</view>
+  </view>
+  <view class="fav-arrow">›</view>
+</view>
+
+<view class="foot-space"></view>
+</view>

@@ -5,6 +5,7 @@ const theme = require('../../utils/theme');
 const store = require('../../utils/store');
 const request = require('../../utils/request');
 const LOCAL = require('./quotes.js').quotes;
+const shareCard = require('../../utils/shareCard');
 
 function fmtDate(d) {
   const y = d.getFullYear(); const m = ('0' + (d.getMonth() + 1)).slice(-2); const day = ('0' + d.getDate()).slice(-2);
@@ -26,12 +27,20 @@ Page({
 
   onLoad() {
     this.setData({ quote: this.dailyQuote() });
+    this.genShareCard();
     store.moduleCheckin('quote');
   },
   onShow() {
     theme.apply(this); if (this.data.quote) this.setData({ favorited: this.isFav(this.data.quote) }); },
 
   dailyQuote() { return LOCAL[dateUtil.dailyIndex(LOCAL.length, 'quote')]; },
+
+  // 生成当前句子的动态分享卡片（失败静默回落）
+  genShareCard() {
+    const q = this.data.quote;
+    if (!q) return;
+    shareCard.prepareCard(this, { title: '「' + q.text + '」', subtitle: q.from || '', tag: '金句', color: '#2f8f78' });
+  },
 
   async fetchOnline() {
     this.setData({ loading: true });
@@ -41,8 +50,10 @@ Page({
         quote: { text: d.hitokoto, from: d.from || '一言', author: d.from_who || '', type: '在线' },
         offline: false, isToday: false, favorited: false, view: 'detail'
       });
+      this.genShareCard();
     } catch (e) {
       this.setData({ quote: LOCAL[Math.floor(Math.random() * LOCAL.length)], offline: true, isToday: false, favorited: false, view: 'detail' });
+      this.genShareCard();
     } finally {
       this.setData({ loading: false });
     }
@@ -52,6 +63,7 @@ Page({
 
   backToday() {
     this.setData({ quote: this.dailyQuote(), isToday: true, offline: false, favorited: this.isFav(this.dailyQuote()), view: 'detail' });
+    this.genShareCard();
   },
 
   // 收藏（页内管理 quoteFavs 数组，存完整文案便于列表回填）
@@ -95,7 +107,7 @@ Page({
   openQuote(e) {
     const text = e.currentTarget.dataset.text;
     const q = (this.data.favList.find(x => x.text === text)) || (this.data.historyList.find(x => x.text === text));
-    if (q) { this.setData({ quote: q, favorited: this.isFav(q), view: 'detail', fromList: true }); }
+    if (q) { this.setData({ quote: q, favorited: this.isFav(q), view: 'detail', fromList: true }); this.genShareCard(); }
   },
   delFav(e) {
     const text = e.currentTarget.dataset.text;
@@ -107,7 +119,7 @@ Page({
 
   onShareAppMessage() {
     const q = this.data.quote;
-    return { title: '「' + q.text + '」—— ' + (q.from || ''), path: '/subpackages/quote/index', imageUrl: '/assets/branding/share-card.jpg' };
+    return shareCard.buildShare(this, { title: '「' + q.text + '」—— ' + (q.from || ''), path: '/subpackages/quote/index' });
   },
 
   onShareTimeline() {

@@ -62,6 +62,9 @@
 <!-- 数据管理 -->
 <view class="card fade-in">
   <view class="card-title"><view class="dot" style="background: var(--c-quote);"></view>数据管理</view>
+  <view class="row" bindtap="goFavorites" hover-class="press">
+    <text class="row-icon">⭐</text><text class="row-text">我的收藏</text><text class="row-arrow">›</text>
+  </view>
   <view class="row" bindtap="exportData" hover-class="press">
     <text class="row-icon">📤</text><text class="row-text">导出档案（JSON 到剪贴板与本地文件）</text><text class="row-arrow">›</text>
   </view>

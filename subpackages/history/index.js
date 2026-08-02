@@ -5,6 +5,7 @@ const theme = require('../../utils/theme');
 const store = require('../../utils/store');
 const request = require('../../utils/request');
 const FALLBACK = require('./fallback.js');
+const shareCard = require('../../utils/shareCard');
 
 // 提取条目：附维基条目缩略图（懒加载）与外部链接（点按复制）
 function pick(arr) {
@@ -56,6 +57,7 @@ Page({
   onLoad() {
     const now = new Date();
     this.setData({ dateCn: dateUtil.formatCn(), dateStr: dateUtil.pad(now.getMonth() + 1) + '-' + dateUtil.pad(now.getDate()) });
+    shareCard.prepareCard(this, { title: '历史上的今天', subtitle: dateUtil.formatCn(), tag: '历史', color: '#c2410c' });
     this.fetch();
     store.moduleCheckin('history');
   },
@@ -116,7 +118,7 @@ Page({
   },
 
   onShareAppMessage() {
-    return { title: '历史上的今天 · ' + this.data.dateCn, path: '/subpackages/history/index', imageUrl: '/assets/branding/share-card.jpg' };
+    return shareCard.buildShare(this, { title: '历史上的今天 · ' + this.data.dateCn, path: '/subpackages/history/index' });
   },
 
   onShareTimeline() {

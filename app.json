@@ -7,7 +7,8 @@
     "pages/mine/mine",
     "pages/guide/guide",
     "pages/search/search",
-    "pages/modules/modules"
+    "pages/modules/modules",
+    "pages/favorites/favorites"
   ],
   "usingComponents": {
     "skeleton": "/components/skeleton/skeleton"

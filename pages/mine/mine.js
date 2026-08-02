@@ -42,6 +42,7 @@ Page({
   },
 
   goManage() { wx.navigateTo({ url: '/pages/modules/modules' }); },
+  goFavorites() { wx.navigateTo({ url: '/pages/favorites/favorites' }); },
 
   // 导出：写入本地文件 + 复制到剪贴板
   exportData() {

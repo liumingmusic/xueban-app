@@ -6,6 +6,7 @@ const theme = require('../../utils/theme');
 const store = require('../../utils/store');
 const request = require('../../utils/request');
 const remote = require('../../utils/remote');
+const shareCard = require('../../utils/shareCard');
 
 const LEVELS = ['全部', 'PRIMARY', 'JUNIOR', 'SENIOR', 'CET4', 'CET6', 'KAOYAN', 'IELTS'];
 const LEVEL_LABELS = ['全部', '小学', '初中', '高中', '四级', '六级', '考研', '雅思'];
@@ -97,6 +98,7 @@ Page({
       audioUrl: word.audio || '', view: 'detail'
     });
     this.fetchAudio(id);
+    shareCard.prepareCard(this, { title: word.word, subtitle: word.cn, tag: '英语', color: '#7c5cff' });
   },
 
   async fetchAudio(w) {
@@ -137,7 +139,7 @@ Page({
 
   toggleFavorite() {
     const w = this.data.word;
-    const now = store.toggleFavorite('word', w.word);
+    const now = store.toggleFavorite('word', w.word, { title: w.word, sub: w.cn, color: '#7c5cff' });
     this.setData({ favorited: now });
     wx.showToast({ title: now ? '已收藏' : '已取消收藏', icon: now ? 'success' : 'none' });
   },
@@ -359,7 +361,7 @@ Page({
 
   onShareAppMessage() {
     const w = this.data.word;
-    return { title: w.word + ' — ' + w.cn, path: '/subpackages/english/index?id=' + w.word, imageUrl: '/assets/branding/share-card.jpg' };
+    return shareCard.buildShare(this, { title: w.word + ' — ' + w.cn, path: '/subpackages/english/index?id=' + w.word });
   },
 
   onShareTimeline() {

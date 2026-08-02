@@ -9,6 +9,7 @@ const tts = require('../../utils/tts');
 const POEMS = require('./poems.js');
 const AUTHORS = require('./authors.js');
 const CIPAI = require('./cipai.js');
+const shareCard = require('../../utils/shareCard');
 
 const STAGES = ['全部', '小学', '初中', '高中', '其他'];
 const DYNASTIES = ['全部', '唐', '宋', '诗经', '元', '明', '其他'];
@@ -94,6 +95,12 @@ Page({
       fromList: !!fromList
     });
     wx.setNavigationBarTitle({ title: poem.title });
+    shareCard.prepareCard(this, {
+      title: poem.title,
+      subtitle: (poem.dynasty ? poem.dynasty + ' · ' : '') + poem.author,
+      tag: '诗词',
+      color: '#b45309'
+    });
   },
 
   switchTab(e) {
@@ -229,7 +236,7 @@ Page({
 
   onShareAppMessage() {
     const p = this.data.poem;
-    return { title: p.title + ' — ' + p.author, path: '/subpackages/poetry/index?id=' + p.id, imageUrl: '/assets/branding/share-card.jpg' };
+    return shareCard.buildShare(this, { title: p.title + ' — ' + p.author, path: '/subpackages/poetry/index?id=' + p.id });
   },
 
   onShareTimeline() {
