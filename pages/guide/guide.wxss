@@ -1,6 +1,6 @@
 /* 新手引导 */
 .guide {
-  min-height: 100vh;
+  height: 100vh;
   background: var(--bg);
   display: flex;
   flex-direction: column;
@@ -16,7 +16,8 @@
 }
 .swiper {
   width: 100%;
-  flex: 1;
+  flex: 1 1 auto;
+  min-height: 480rpx; /* 兜底：防止 flex 高度塌缩时整片空白 */
 }
 .slide {
   display: flex;

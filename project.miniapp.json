@@ -1,0 +1,72 @@
+{
+  "miniVersion": "v2",
+  "name": "学伴小筑",
+  "version": "1.00",
+  "versionCode": 1,
+  "i18nFilePath": "i18n",
+  "mini-ohos": {
+    "sdkVersion": "0.5.1"
+  },
+  "mini-android": {
+    "resourcePath": "miniapp/android/nativeResources",
+    "sdkVersion": "1.7.0",
+    "toolkitVersion": "0.11.0",
+    "useExtendedSdk": {
+      "media": false,
+      "bluetooth": false,
+      "network": false,
+      "scanner": false,
+      "xweb": false
+    },
+    "icons": {
+      "hdpi": "/Users/Zhuanz/WorkBuddy/2026-07-27-22-26-52/branding-export/logo-icon.png",
+      "xhdpi": "/Users/Zhuanz/WorkBuddy/2026-07-27-22-26-52/branding-export/logo-icon.png",
+      "xxhdpi": "/Users/Zhuanz/WorkBuddy/2026-07-27-22-26-52/generated-images/A_clean_and_bold_app_icon_desi_2026-08-01T10-18-14.png",
+      "xxxhdpi": "/Users/Zhuanz/WorkBuddy/2026-07-27-22-26-52/generated-images/A_clean_and_bold_app_icon_desi_2026-08-01T10-18-14.png"
+    },
+    "splashscreen": {
+      "hdpi": "/Users/Zhuanz/WorkBuddy/2026-07-27-22-26-52/branding-export/logo-icon.png",
+      "xhdpi": "/Users/Zhuanz/WorkBuddy/2026-07-27-22-26-52/branding-export/logo-icon.png",
+      "xxhdpi": "/Users/Zhuanz/WorkBuddy/2026-07-27-22-26-52/branding-export/logo-icon.png"
+    },
+    "enableVConsole": "open",
+    "privacy": {
+      "enable": true
+    },
+    "abi": {
+      "arm64-v8a": true,
+      "armeabi-v7a": true
+    }
+  },
+  "mini-ios": {
+    "sdkVersion": "1.7.0",
+    "toolkitVersion": "0.0.9",
+    "useExtendedSdk": {
+      "WeAppOpenFuns": true,
+      "WeAppNetwork": false,
+      "WeAppBluetooth": false,
+      "WeAppMedia": false,
+      "WeAppLBS": false,
+      "WeAppOthers": false
+    },
+    "enableVConsole": "open",
+    "icons": {
+      "mainIcon120": "",
+      "mainIcon180": "",
+      "spotlightIcon80": "",
+      "spotlightIcon120": "",
+      "settingsIcon58": "",
+      "settingsIcon87": "",
+      "notificationIcon40": "",
+      "notificationIcon60": "",
+      "appStore1024": ""
+    },
+    "splashScreen": {
+      "customImage": ""
+    },
+    "privacy": {
+      "enable": false
+    },
+    "enableOpenUrlNavigate": true
+  }
+}
