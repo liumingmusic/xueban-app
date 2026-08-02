@@ -20,7 +20,9 @@ module.exports = {
     { "key": "quote", "show": true },
     { "key": "quiz", "show": true },
     { "key": "review", "show": true },
-    { "key": "habit", "show": true }
+    { "key": "habit", "show": true },
+    { "key": "english", "show": true },
+    { "key": "history", "show": true }
   ],
   "createdAt": ""
 };

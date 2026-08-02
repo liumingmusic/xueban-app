@@ -8,7 +8,9 @@ const META = {
   quote: { name: '每日一句', icon: '💬', desc: '每日一句金句' },
   quiz: { name: '闯关挑战', icon: '🎯', desc: 'K12 题库每日挑战' },
   review: { name: '今日复习', icon: '🔁', desc: 'SRS 待复习提醒' },
-  habit: { name: '习惯打卡', icon: '🌿', desc: '微习惯坚持与连胜' }
+  habit: { name: '习惯打卡', icon: '🌿', desc: '微习惯坚持与连胜' },
+  english: { name: '每日单词', icon: '🔤', desc: '每日一词，音标例句' },
+  history: { name: '历史上的今天', icon: '📅', desc: '当日历史事件掠影' }
 };
 
 const DEFAULT_LAYOUT = [
@@ -17,7 +19,9 @@ const DEFAULT_LAYOUT = [
   { key: 'quote', show: true },
   { key: 'quiz', show: true },
   { key: 'review', show: true },
-  { key: 'habit', show: true }
+  { key: 'habit', show: true },
+  { key: 'english', show: true },
+  { key: 'history', show: true }
 ];
 
 function toView(layout) {

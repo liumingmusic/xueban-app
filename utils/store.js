@@ -24,6 +24,15 @@ function getProfile() {
   for (const k of Object.keys(base)) {
     if (p[k] === undefined) p[k] = base[k];
   }
+  // 兼容旧档案：补齐 hubLayout 中缺失的在线内容模块（默认显示，追加在末尾不破坏用户已排顺序）
+  if (Array.isArray(p.hubLayout)) {
+    const NEED = ['english', 'history'];
+    let changed = false;
+    for (const k of NEED) {
+      if (!p.hubLayout.some(x => x.key === k)) { p.hubLayout.push({ key: k, show: true }); changed = true; }
+    }
+    if (changed) saveProfile(p);
+  }
   return p;
 }
 

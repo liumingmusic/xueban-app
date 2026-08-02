@@ -73,6 +73,27 @@
     </block>
   </block>
 
+  <block wx:elif="{{item.key === 'english'}}">
+    <view class="card-title"><view class="dot" style="background: var(--c-english);"></view>每日单词</view>
+    <block wx:if="{{item.word}}">
+      <view class="word-main">{{item.word.word}}</view>
+      <view class="word-sub">{{item.word.cn}}</view>
+      <view class="go-hint">学这个词 ›</view>
+    </block>
+    <block wx:else>
+      <view class="quiz-line">{{item.offline ? '离线中，今日单词稍后加载' : '正在加载今日单词…'}}</view>
+    </block>
+  </block>
+
+  <block wx:elif="{{item.key === 'history'}}">
+    <view class="card-title"><view class="dot" style="background: var(--c-history);"></view>历史上的今天</view>
+    <view wx:for="{{item.events}}" wx:for-item="ev" wx:key="year" class="hist-item">
+      <text class="hist-year">{{ev.year}}</text>
+      <text class="hist-text">{{ev.text}}</text>
+    </view>
+    <view class="go-hint">看今日全部 ›</view>
+  </block>
+
 </view>
 
 <view wx:if="{{sections.length === 0}}" class="card fade-in manage-hint" bindtap="goManage" hover-class="press">

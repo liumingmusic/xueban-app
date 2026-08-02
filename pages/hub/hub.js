@@ -4,6 +4,8 @@ const theme = require('../../utils/theme');
 const store = require('../../utils/store');
 const digest = require('../../data/daily-digest.js');
 const APPS = require('../../data/apps.js');
+const remote = require('../../utils/remote');
+const HISTORY_TODAY = require('../../data/history-today.js');
 
 const APP_MAP = {};
 APPS.forEach(a => { APP_MAP[a.id] = a; });
@@ -14,7 +16,9 @@ const DEFAULT_LAYOUT = [
   { key: 'quote', show: true },
   { key: 'quiz', show: true },
   { key: 'review', show: true },
-  { key: 'habit', show: true }
+  { key: 'habit', show: true },
+  { key: 'english', show: true },
+  { key: 'history', show: true }
 ];
 
 Page({
@@ -32,14 +36,17 @@ Page({
     habitOnline: false,
     habitTotal: 0,
     habitDone: 0,
-    habitStreak: 0
+    habitStreak: 0,
+    englishWord: null,
+    englishOffline: false,
+    historyEvents: []
   },
 
   onShow() {
     theme.apply(this);
     const profile = store.getProfile();
 
-    // 本地变量：供 setData 与下方 forEach 共用（Page 方法内 data 字段不在词法作用域）
+    // 本地变量：供 setData 与下方 renderSections 共用（Page 方法内 data 字段不在词法作用域）
     const quizWrongCount = (profile.wrongBank.quiz || []).length;
     const quizTotal = digest.quizCount;
 
@@ -59,7 +66,7 @@ Page({
       quizWrongCount,
       quizTotal,
       reviewDue: store.getDueReviews().length,
-      // 打卡提醒卡片：habit 上线后才显示（当前为 placeholder，隐藏）
+      // 打卡提醒卡片：habit 上线后才显示
       habitOnline: APP_MAP.habit && APP_MAP.habit.status === 'online'
     });
 
@@ -74,21 +81,14 @@ Page({
       habitStreak: (profile.streaks.habit && profile.streaks.habit.count) || 0
     });
 
+    // 历史预览（本地同步数据，零网络，不转圈）
+    this.setData({ historyEvents: HISTORY_TODAY.events });
+
     // 个性化首页：按 hubLayout（顺序 + 显隐）构建模块卡片
-    const layout = (profile.hubLayout && profile.hubLayout.length) ? profile.hubLayout : DEFAULT_LAYOUT;
-    const reviewDue = store.getDueReviews().length;
-    const habitOnline = !!(APP_MAP.habit && APP_MAP.habit.status === 'online');
-    const sections = [];
-    layout.forEach(it => {
-      if (!it.show) return;
-      if (it.key === 'poem') sections.push({ key: 'poem', poem });
-      else if (it.key === 'idiom') sections.push({ key: 'idiom', idiom, idiomLearned: (profile.mastered.idiom || []).indexOf(idiom.id) > -1 });
-      else if (it.key === 'quote') sections.push({ key: 'quote', quote });
-      else if (it.key === 'quiz') sections.push({ key: 'quiz', quizWrongCount, quizTotal });
-      else if (it.key === 'review' && reviewDue > 0) sections.push({ key: 'review', reviewDue });
-      else if (it.key === 'habit' && habitOnline) sections.push({ key: 'habit', habitDone, habitTotal: habits.length, habitStreak: (profile.streaks.habit && profile.streaks.habit.count) || 0, habitOnline: true });
-    });
-    this.setData({ sections });
+    this.renderSections(profile);
+
+    // 每日单词为远程数据（带缓存），异步加载后自动刷新 english 卡片
+    this.loadDailyWord();
 
     // 中枢 tab 角标：有待复习时显示红点数字（订阅提醒的零后端替代方案）
     const due = store.getDueReviews().length;
@@ -102,6 +102,47 @@ Page({
     if (!store.getProfile().guided) {
       wx.navigateTo({ url: '/pages/guide/guide' });
     }
+  },
+
+  // 按 profile.hubLayout 构建首页模块卡片（english 单词异步回来后会再次调用刷新）
+  renderSections(profile) {
+    const layout = (profile.hubLayout && profile.hubLayout.length) ? profile.hubLayout : DEFAULT_LAYOUT;
+    const reviewDue = store.getDueReviews().length;
+    const habitOnline = !!(APP_MAP.habit && APP_MAP.habit.status === 'online');
+    const habits = store.getHabits();
+    const todayStr = dateUtil.todayStr();
+    let habitDone = 0;
+    habits.forEach(h => { if (h.done && h.done[todayStr]) habitDone += 1; });
+    const sections = [];
+    layout.forEach(it => {
+      if (!it.show) return;
+      if (it.key === 'poem') sections.push({ key: 'poem', poem: this.data.poem });
+      else if (it.key === 'idiom') sections.push({ key: 'idiom', idiom: this.data.idiom, idiomLearned: this.data.idiomLearned });
+      else if (it.key === 'quote') sections.push({ key: 'quote', quote: this.data.quote });
+      else if (it.key === 'quiz') sections.push({ key: 'quiz', quizWrongCount: this.data.quizWrongCount, quizTotal: this.data.quizTotal });
+      else if (it.key === 'review' && reviewDue > 0) sections.push({ key: 'review', reviewDue });
+      else if (it.key === 'habit' && habitOnline) sections.push({ key: 'habit', habitDone, habitTotal: habits.length, habitStreak: (profile.streaks.habit && profile.streaks.habit.count) || 0, habitOnline: true });
+      else if (it.key === 'english') sections.push({ key: 'english', word: this.data.englishWord, offline: this.data.englishOffline });
+      else if (it.key === 'history') sections.push({ key: 'history', events: this.data.historyEvents });
+    });
+    this.setData({ sections });
+  },
+
+  // 每日单词：远程拉取（带 Storage 缓存），取当日词条；失败降级为离线态
+  async loadDailyWord() {
+    try {
+      const r = await remote.fetchRemote('word');
+      if (r.data && r.data.length) {
+        const w = r.data[dateUtil.dailyIndex(r.data.length, 'word')];
+        const norm = { word: w.word, cn: (Array.isArray(w.cn) ? w.cn[0] : w.cn) || w.en || '' };
+        this.setData({ englishWord: norm, englishOffline: r.offline });
+      } else {
+        this.setData({ englishWord: null, englishOffline: true });
+      }
+    } catch (e) {
+      this.setData({ englishWord: null, englishOffline: true });
+    }
+    this.renderSections(store.getProfile());
   },
 
   noop() {}, // 阻止 related-rail 点击冒泡触发整卡跳转
@@ -118,7 +159,9 @@ Page({
       quote: '/subpackages/quote/index',
       quiz: '/subpackages/quiz/index?mode=daily',
       review: '/subpackages/review/index',
-      habit: '/subpackages/habit/index'
+      habit: '/subpackages/habit/index',
+      english: '/subpackages/english/index',
+      history: '/subpackages/history/index'
     };
     if (map[k]) wx.navigateTo({ url: map[k] });
   },
