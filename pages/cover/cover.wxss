@@ -7,15 +7,33 @@
 }
 
 /* 最近在学 */
-.recent-row { display: flex; flex-wrap: wrap; gap: 16rpx; }
+.recent-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
 .recent-chip {
+  box-sizing: border-box;
   flex: 0 0 calc(50% - 8rpx);
+  min-height: 104rpx;
   display: flex; align-items: center; gap: 16rpx;
-  padding: 20rpx; border-radius: 20rpx;
+  padding: 22rpx 20rpx; border-radius: 20rpx;
   background: var(--card); box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.04);
 }
-.recent-icon { font-size: 44rpx; }
-.recent-name { font-size: 28rpx; font-weight: 700; }
+.recent-icon {
+  flex: none;
+  width: 56rpx;
+  font-size: 40rpx;
+  text-align: center;
+}
+.recent-body {
+  flex: 1;
+  min-width: 0;
+}
+.recent-name {
+  font-size: 28rpx; font-weight: 700;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
 .recent-sub { font-size: 22rpx; color: var(--ink-2); margin-top: 4rpx; }
 .recent-empty {
   font-size: 26rpx; color: var(--ink-2);

@@ -119,7 +119,7 @@
     </view>
 
     <view class="bottom-ops">
-      <button class="btn ghost" bindtap="random">换一个</button>
+      <button class="swap-btn" bindtap="random">🎲 换一个</button>
     </view>
     <view class="foot-space"></view>
   </block>

@@ -200,7 +200,7 @@
     <related-rail tags="{{poem.tags}}" exclude="poetry" />
 
     <view class="bottom-ops">
-      <button class="btn ghost" bindtap="random">换一首</button>
+      <button class="swap-btn" bindtap="random">🎲 换一首</button>
     </view>
     <view class="foot-space"></view>
   </block>

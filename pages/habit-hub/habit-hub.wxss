@@ -19,4 +19,17 @@
 .entry { position: relative; }
 .entry-text { font-size: 26rpx; color: var(--ink-2); padding-right: 40rpx; }
 .entry-arrow { position: absolute; right: 32rpx; top: 50%; transform: translateY(-50%); font-size: 44rpx; color: var(--ink-2); }
+.card-tip { font-size: 23rpx; color: var(--ink-3); margin: -6rpx 0 14rpx; line-height: 1.6; }
+.add-custom {
+  margin-top: 16rpx;
+  text-align: center;
+  font-size: 26rpx; color: var(--c-poetry);
+  padding: 18rpx 0;
+  border: 2rpx dashed var(--c-poetry);
+  border-radius: 16rpx;
+}
+.add-custom:active { background: var(--ph-tint, rgba(47,143,120,.10)); }
+.app-root.dark .add-custom { border-color: #5FB89B; color: #8fd4bd; }
+.app-root.dark .add-custom:active { background: rgba(95,184,155,.16); }
+
 .foot-space { height: 40rpx; }

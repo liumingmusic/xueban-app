@@ -263,6 +263,29 @@ page {
 .btn::after { border: none; }
 .btn.ghost::after { border: none; }
 
+/* 详情页底部「换一首 / 换一个 / 换一词」——柔和大圆角胶囊，弱化存在感，与上方操作区分层 */
+.swap-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 84rpx;
+  max-width: 460rpx;
+  margin: 0 auto;
+  padding: 0 44rpx;
+  border-radius: 999rpx;
+  font-size: 28rpx;
+  line-height: 1;
+  background: var(--ph-tint, rgba(47,143,120,.10));
+  color: var(--c-poetry);
+  border: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.swap-btn::after { border: none; }
+.swap-btn:active { background: var(--c-poetry); color: #fff; }
+.app-root.dark .swap-btn { background: rgba(95,184,155,.16); color: #8fd4bd; }
+.app-root.dark .swap-btn:active { background: #5FB89B; color: #15171c; }
+
 /* ---------- 详情页操作区：两行式（主行 2 个 + 次行其余），按钮等宽，避免挤成一排 ---------- */
 .ops { display: flex; gap: 14rpx; }
 .ops-primary { margin-top: 24rpx; }

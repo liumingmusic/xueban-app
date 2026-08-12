@@ -28,6 +28,22 @@
   </view>
 </view>
 
+<!-- 自定义打卡：背书 / 写作业 / 运动…… 用户自建，前置以便快速打卡 -->
+<view class="card fade-in">
+  <view class="card-title"><view class="dot" style="background: var(--c-habit);"></view>自定义打卡</view>
+  <view class="card-tip">背书、写作业、运动…… 任意你想坚持的事，自建一项即可每日打卡。</view>
+  <view wx:if="{{!custom.length}}" class="empty">还没有自定义打卡，点下方「＋ 添加」开始</view>
+  <view wx:for="{{custom}}" wx:key="id" class="mod-row">
+    <text class="mod-icon">{{item.emoji}}</text>
+    <view class="mod-body">
+      <view class="mod-name">{{item.name}}</view>
+      <view class="mod-sub">🔥 {{item.streak}} 天连胜 · 累计 {{item.total}} 天</view>
+    </view>
+    <button class="btn mini {{item.todayDone ? '' : 'ghost'}}" data-id="{{item.id}}" bindtap="customCheckin">{{item.todayDone ? '今日已打 ✓' : '打卡'}}</button>
+  </view>
+  <view class="add-custom" bindtap="addCustom">＋ 添加自定义打卡</view>
+</view>
+
 <!-- 习惯打卡 -->
 <view class="card fade-in entry" bindtap="goHabit" hover-class="row-hover">
   <view class="card-title"><view class="dot" style="background: var(--c-habit);"></view>习惯打卡</view>

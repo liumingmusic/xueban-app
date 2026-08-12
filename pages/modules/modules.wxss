@@ -22,4 +22,15 @@
 .mod-switch { transform: scale(0.8); }
 
 .tip { font-size: 23rpx; color: var(--ink-3); padding: 20rpx 28rpx 8rpx; line-height: 1.7; }
-.reset-btn { margin: 16rpx 24rpx 0; }
+/* 恢复默认布局：中性重置语义（灰描边/灰字/浅底），全宽居中，不再孤立突兀 */
+.btn.reset-btn {
+  width: calc(100% - 48rpx);
+  margin: 24rpx 24rpx 0;
+  box-sizing: border-box;
+  justify-content: center;
+  background: var(--bg);
+  color: var(--ink-2);
+  border-color: var(--line);
+}
+.btn.reset-btn:active { background: var(--line); }
+.app-root.dark .btn.reset-btn { background: #20252e; color: var(--ink-2); border-color: var(--line); }

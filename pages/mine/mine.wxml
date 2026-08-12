@@ -1,9 +1,9 @@
 <view class="app-root {{themeClass}} {{fontClass}}">
 <view class="page-head ph-poetry fade-in">
-  <view class="ph-wm">我</view>
+  <view class="ph-wm">伴</view>
   <view class="ph-block">我</view>
   <view class="ph-body">
-    <view class="ph-title">我</view>
+    <view class="ph-title">我的</view>
   </view>
 </view>
 
