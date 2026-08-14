@@ -103,11 +103,20 @@ Page({
 
     if (f === 'all' || f === 'word') {
       const items = this._words.filter(w => {
-        const hay = (w.word + ' ' + (w.cn || '') + ' ' + (w.en || '')).toLowerCase();
+        const exs = (w.examples || []).map(e => (e.en || '') + ' ' + (e.cn || '')).join(' ');
+        const hay = (w.word + ' ' + (w.cn || '') + ' ' + (w.en || '') + ' ' + exs).toLowerCase();
         return hay.indexOf(kw) > -1;
-      }).slice(0, 20).map(w => ({
-        id: w.word, title: w.word, sub: w.level || '', extra: w.cn || ''
-      }));
+      }).slice(0, 20).map(w => {
+        // 副标题：优先展示命中的例句片段，否则展示中文释义
+        let extra = w.cn || '';
+        const base = (w.word + ' ' + (w.cn || '') + ' ' + (w.en || '')).toLowerCase();
+        if (base.indexOf(kw) === -1) {
+          const hit = (w.examples || []).find(e =>
+            ((e.en || '') + ' ' + (e.cn || '')).toLowerCase().indexOf(kw) > -1);
+          if (hit) extra = (hit.en || '') + (hit.cn ? (' · ' + hit.cn) : '');
+        }
+        return { id: w.word, title: w.word, sub: w.level || '', extra };
+      });
       if (items.length) groups.push({ key: 'word', name: '单词', color: COLOR.word, items });
     }
 
