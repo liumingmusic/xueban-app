@@ -23,11 +23,7 @@
     <view class="tip-rule" wx:if="{{wordsOffline}}">⚠️ 单词库未联网，暂仅搜索已缓存词书</view>
   </view>
 
-  <view wx:if="{{searched && total === 0}}" class="empty">
-    <view class="empty-emoji">📭</view>
-    <view class="empty-text">没有找到「{{keyword}}」相关的内容</view>
-    <view class="empty-sub">换个关键词试试，或检查单词是否已联网加载</view>
-  </view>
+  <empty-state wx:if="{{searched && total === 0}}" icon="📭" title="没有找到「{{keyword}}」相关的内容" sub="换个关键词试试，或检查单词是否已联网加载" />
 
   <view wx:if="{{searched && total > 0}}" class="result-meta">共找到 {{total}} 条结果</view>
 

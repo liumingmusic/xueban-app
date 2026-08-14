@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "学伴小筑",
   "usingComponents": {
-    "app-card": "/components/app-card/app-card"
+    "app-card": "/components/app-card/app-card",
+    "empty-state": "/components/empty-state/empty-state"
   }
 }

@@ -7,6 +7,7 @@ const store = require('../../utils/store');
 const request = require('../../utils/request');
 const remote = require('../../utils/remote');
 const shareCard = require('../../utils/shareCard');
+const analytics = require('../../utils/analytics');
 
 const LEVELS = ['全部', 'PRIMARY', 'JUNIOR', 'SENIOR', 'CET4', 'CET6', 'KAOYAN', 'IELTS'];
 const LEVEL_LABELS = ['全部', '小学', '初中', '高中', '四级', '六级', '考研', '雅思'];
@@ -48,6 +49,7 @@ Page({
 
   onLoad(options) {
     this.loadWords(options);
+    analytics.track('content_view', { module: 'word', id: (options && options.id) || 'daily' });
     if (options && options.ref === 'share') {
       wx.showToast({ title: (store.getProfile().guided ? '好友分享 · 欢迎回来' : '欢迎通过分享加入学伴小筑 🌿'), icon: 'none' });
     }

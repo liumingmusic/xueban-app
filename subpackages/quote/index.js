@@ -3,7 +3,7 @@
 const dateUtil = require('../../utils/date');
 const theme = require('../../utils/theme');
 const store = require('../../utils/store');
-const request = require('../../utils/request');
+const analytics = require('../../utils/analytics');
 const LOCAL = require('./quotes.js').quotes;
 const shareCard = require('../../utils/shareCard');
 
@@ -29,6 +29,7 @@ Page({
     this.setData({ quote: this.dailyQuote() });
     this.genShareCard();
     store.moduleCheckin('quote');
+    analytics.track('content_view', { module: 'quote', id: 'daily' });
     if (options && options.ref === 'share') {
       wx.showToast({ title: (store.getProfile().guided ? '好友分享 · 欢迎回来' : '欢迎通过分享加入学伴小筑 🌿'), icon: 'none' });
     }
@@ -45,24 +46,16 @@ Page({
     shareCard.prepareCard(this, { title: '「' + q.text + '」', subtitle: q.from || '', tag: '金句', color: '#2f8f78' });
   },
 
-  async fetchOnline() {
-    this.setData({ loading: true });
-    try {
-      const d = await request.get('https://v1.hitokoto.cn/?c=d&c=i&c=k&encode=json', { timeout: 6000 });
-      this.setData({
-        quote: { text: d.hitokoto, from: d.from || '一言', author: d.from_who || '', type: '在线' },
-        offline: false, isToday: false, favorited: false, view: 'detail'
-      });
-      this.genShareCard();
-    } catch (e) {
-      this.setData({ quote: LOCAL[Math.floor(Math.random() * LOCAL.length)], offline: true, isToday: false, favorited: false, view: 'detail' });
-      this.genShareCard();
-    } finally {
-      this.setData({ loading: false });
-    }
+  // 本地随机一句（离线可用、即时、排除当前句）
+  changeOne() {
+    const pool = LOCAL;
+    if (pool.length <= 1) return;
+    let idx;
+    do { idx = Math.floor(Math.random() * pool.length); } while (pool[idx].text === this.data.quote.text);
+    const q = pool[idx];
+    this.setData({ quote: q, isToday: false, offline: false, favorited: this.isFav(q), view: 'detail', fromList: false });
+    this.genShareCard();
   },
-
-  another() { this.fetchOnline(); },
 
   backToday() {
     this.setData({ quote: this.dailyQuote(), isToday: true, offline: false, favorited: this.isFav(this.dailyQuote()), view: 'detail' });

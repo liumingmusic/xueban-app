@@ -26,7 +26,7 @@
     </view>
     <view class="card">
       <view class="sec-title">✅ 已认识（{{myLearned.length}}）</view>
-      <view wx:if="{{!myLearned.length}}" class="empty">还没有标记「已学会」的成语</view>
+      <empty-state wx:if="{{!myLearned.length}}" title="还没有标记「已学会」的成语" />
       <view wx:for="{{myLearned}}" wx:key="id" class="row flat" data-id="{{item.id}}" bindtap="openIdiom" hover-class="row-hover">
         <view class="row-title">{{item.word}}</view>
         <view class="row-meta">{{item.pinyin}}<text wx:if="{{item.stage}}"> · {{item.stage}}</text></view>
@@ -34,7 +34,7 @@
     </view>
     <view class="card">
       <view class="sec-title">📌 待学习（{{myToLearn.length}}）</view>
-      <view wx:if="{{!myToLearn.length}}" class="empty">待学习清单是空的</view>
+      <empty-state wx:if="{{!myToLearn.length}}" title="待学习清单是空的" />
       <view wx:for="{{myToLearn}}" wx:key="id" class="row flat" data-id="{{item.id}}" bindtap="openIdiom" hover-class="row-hover">
         <view class="row-title">{{item.word}}</view>
         <view class="row-meta">{{item.pinyin}}<text wx:if="{{item.stage}}"> · {{item.stage}}</text></view>
@@ -53,7 +53,7 @@
         <view class="row-title">{{item.word}}</view>
         <view class="row-meta">{{item.pinyin}}<text wx:if="{{item.stage}}"> · {{item.stage}}</text></view>
       </view>
-      <view wx:if="{{!list.length}}" class="empty">没有匹配的成语，换个关键词试试</view>
+      <empty-state wx:if="{{!list.length}}" title="没有匹配的成语，换个关键词试试" />
     </view>
   </block>
 

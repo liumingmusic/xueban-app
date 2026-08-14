@@ -56,7 +56,7 @@
         </view>
         <view class="ops ops-secondary">
           <button class="btn mini ghost" bindtap="copy">复制</button>
-          <button class="btn mini ghost" bindtap="another">换一句</button>
+          <button class="btn mini ghost" bindtap="changeOne">换一句</button>
         </view>
       </block>
     </view>

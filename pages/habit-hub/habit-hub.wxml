@@ -17,7 +17,7 @@
 <!-- 各模块坚持 -->
 <view class="card fade-in">
   <view class="card-title"><view class="dot" style="background: var(--c-poetry);"></view>模块打卡</view>
-  <view wx:if="{{modules.length === 0}}" class="empty">还没有模块打卡记录，去「发现」里学点什么吧</view>
+  <empty-state wx:if="{{modules.length === 0}}" title="还没有模块打卡记录" sub="去「发现」里学点什么吧" />
   <view wx:for="{{modules}}" wx:key="id" class="mod-row">
     <text class="mod-icon">{{item.icon}}</text>
     <view class="mod-body">
@@ -32,7 +32,7 @@
 <view class="card fade-in">
   <view class="card-title"><view class="dot" style="background: var(--c-habit);"></view>自定义打卡</view>
   <view class="card-tip">背书、写作业、运动…… 任意你想坚持的事，自建一项即可每日打卡。</view>
-  <view wx:if="{{!custom.length}}" class="empty">还没有自定义打卡，点下方「＋ 添加」开始</view>
+  <empty-state wx:if="{{!custom.length}}" title="还没有自定义打卡" sub="点下方「＋ 添加」开始" />
   <view wx:for="{{custom}}" wx:key="id" class="mod-row">
     <text class="mod-icon">{{item.emoji}}</text>
     <view class="mod-body">

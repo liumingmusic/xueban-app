@@ -4,6 +4,8 @@
  * - buildShare(page, fallback)：在 onShareAppMessage 里取用，未生成时回落 fallback（静态图）
  * 任何异常都会静默回落，绝不阻塞或崩溃分享流程。
  */
+const analytics = require('./analytics');
+
 const FALLBACK = '/assets/branding/share-card.jpg';
 
 function wrapText(ctx, text, x, y, maxW, lh, maxLines) {
@@ -87,6 +89,8 @@ function buildShare(page, fallback) {
   if (obj.path && obj.path.indexOf('ref=share') === -1) {
     obj.path += (obj.path.indexOf('?') > -1 ? '&' : '?') + 'ref=share';
   }
+  // 转化漏斗：分享节点
+  analytics.track('share_tap', { path: obj.path || '' });
   return obj;
 }
 

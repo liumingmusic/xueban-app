@@ -45,7 +45,7 @@
 
     <view class="card">
       <block wx:if="{{tab === 'events'}}">
-        <view wx:if="{{!shownEvents.length}}" class="empty">暂无记录</view>
+        <empty-state wx:if="{{!shownEvents.length}}" title="暂无记录" />
         <view wx:for="{{shownEvents}}" wx:key="index" class="row" data-link="{{item.link}}" bindtap="copyLink" hover-class="{{item.link ? 'row-press' : ''}}">
           <text class="year">{{item.year}}</text>
           <view class="text-wrap">
@@ -56,7 +56,7 @@
         </view>
       </block>
       <block wx:if="{{tab === 'births'}}">
-        <view wx:if="{{!shownBirths.length}}" class="empty">暂无记录</view>
+        <empty-state wx:if="{{!shownBirths.length}}" title="暂无记录" />
         <view wx:for="{{shownBirths}}" wx:key="index" class="row" data-link="{{item.link}}" bindtap="copyLink" hover-class="{{item.link ? 'row-press' : ''}}">
           <text class="year">{{item.year}}</text>
           <view class="text-wrap">
@@ -67,7 +67,7 @@
         </view>
       </block>
       <block wx:if="{{tab === 'deaths'}}">
-        <view wx:if="{{!shownDeaths.length}}" class="empty">暂无记录</view>
+        <empty-state wx:if="{{!shownDeaths.length}}" title="暂无记录" />
         <view wx:for="{{shownDeaths}}" wx:key="index" class="row" data-link="{{item.link}}" bindtap="copyLink" hover-class="{{item.link ? 'row-press' : ''}}">
           <text class="year">{{item.year}}</text>
           <view class="text-wrap">
@@ -78,7 +78,7 @@
         </view>
       </block>
       <block wx:if="{{tab === 'holidays'}}">
-        <view wx:if="{{!shownHolidays.length}}" class="empty">暂无节日记录</view>
+        <empty-state wx:if="{{!shownHolidays.length}}" title="暂无节日记录" />
         <view wx:for="{{shownHolidays}}" wx:key="index" class="row" data-link="{{item.link}}" bindtap="copyLink" hover-class="{{item.link ? 'row-press' : ''}}">
           <text class="year">{{item.year || '节'}}</text>
           <view class="text-wrap">

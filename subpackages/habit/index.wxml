@@ -58,7 +58,7 @@
 
   <!-- 习惯列表 -->
   <view class="list">
-    <view wx:if="{{!habits.length}}" class="empty">还没有习惯，点上面「＋ 添加习惯」开始吧</view>
+    <empty-state wx:if="{{!habits.length}}" title="还没有习惯" sub="点上面「＋ 添加习惯」开始吧" />
     <view wx:for="{{habits}}" wx:key="id" class="card hb">
       <view class="hb-top">
         <view class="hb-emoji" style="background: {{item.color}}1a;">{{item.emoji}}</view>

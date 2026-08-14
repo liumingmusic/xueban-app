@@ -9,11 +9,7 @@
 </view>
 
 <!-- 空状态：首用引导 -->
-<view wx:if="{{isEmpty}}" class="card empty-state fade-in">
-  <view class="empty-emoji">🌱</view>
-  <view class="empty-title">还没有学习记录</view>
-  <view class="empty-sub">去「中枢」翻开今天的第一首诗吧</view>
-</view>
+<empty-state wx:if="{{isEmpty}}" icon="🌱" title="还没有学习记录" sub="去「中枢」翻开今天的第一首诗吧" />
 
 <!-- 闯关战绩 -->
 <view class="card fade-in">

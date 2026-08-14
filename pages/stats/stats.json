@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "学伴小筑"
+  "navigationBarTitleText": "学伴小筑",
+  "usingComponents": {
+    "empty-state": "/components/empty-state/empty-state"
+  }
 }

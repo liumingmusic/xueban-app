@@ -1,5 +1,8 @@
 {
   "navigationBarTitleText": "全局搜索",
+  "usingComponents": {
+    "empty-state": "/components/empty-state/empty-state"
+  },
   "navigationBarBackgroundColor": "#FBF7F0",
   "navigationBarTextStyle": "black",
   "backgroundColor": "#FBF7F0"

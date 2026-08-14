@@ -6,6 +6,7 @@ const store = require('../../utils/store');
 const request = require('../../utils/request');
 const FALLBACK = require('./fallback.js');
 const shareCard = require('../../utils/shareCard');
+const analytics = require('../../utils/analytics');
 
 // 提取条目：附维基条目缩略图（懒加载）与外部链接（点按复制）
 function pick(arr) {
@@ -60,6 +61,7 @@ Page({
     shareCard.prepareCard(this, { title: '历史上的今天', subtitle: dateUtil.formatCn(), tag: '历史', color: '#c2410c' });
     this.fetch();
     store.moduleCheckin('history');
+    analytics.track('content_view', { module: 'history', id: this.data.dateStr });
     if (options && options.ref === 'share') {
       wx.showToast({ title: (store.getProfile().guided ? '好友分享 · 欢迎回来' : '欢迎通过分享加入学伴小筑 🌿'), icon: 'none' });
     }

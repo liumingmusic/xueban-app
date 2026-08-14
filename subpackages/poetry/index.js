@@ -10,6 +10,7 @@ const POEMS = require('./poems.js');
 const AUTHORS = require('./authors.js');
 const CIPAI = require('./cipai.js');
 const shareCard = require('../../utils/shareCard');
+const analytics = require('../../utils/analytics');
 
 const STAGES = ['全部', '小学', '初中', '高中', '其他'];
 const DYNASTIES = ['全部', '唐', '宋', '诗经', '元', '明', '其他'];
@@ -74,6 +75,7 @@ Page({
     if (!poem) poem = POEMS[dateUtil.dailyIndex(POEMS.length, 'poem')];
     this.show(poem, false);
     store.moduleCheckin('poetry');
+    analytics.track('content_view', { module: 'poem', id: (poem && poem.id) || 'daily' });
     if (options && options.ref === 'share') {
       wx.showToast({ title: (store.getProfile().guided ? '好友分享 · 欢迎回来' : '欢迎通过分享加入学伴小筑 🌿'), icon: 'none' });
     }

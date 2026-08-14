@@ -1,7 +1,7 @@
 <view class="app-root {{themeClass}} {{fontClass}}">
-<view class="page-head ph-quote fade-in">
-  <view class="ph-wm">集</view>
-  <view class="ph-block">览</view>
+<view class="page-head ph-cover fade-in">
+  <view class="ph-wm">发</view>
+  <view class="ph-block">发</view>
   <view class="ph-body">
     <view class="ph-title">发现</view>
   </view>
@@ -25,9 +25,7 @@
   <app-card wx:for="{{group.apps}}" wx:key="id" app="{{item}}" />
 </view>
 
-<view wx:if="{{!hasRecent}}" class="group fade-in">
-  <view class="recent-empty">还没有学习记录，去「中枢」开始第一天吧</view>
-</view>
+<empty-state wx:if="{{!hasRecent}}" icon="🌱" title="还没有学习记录" sub="去「中枢」开始第一天吧" />
 
 <view class="foot-space"></view>
 </view>

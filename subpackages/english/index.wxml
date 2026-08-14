@@ -121,14 +121,14 @@
         <view class="row-title">{{item.word}}</view>
         <view class="row-meta">{{item.phonetic}} · {{item.cn}}</view>
       </view>
-      <view wx:if="{{!list.length}}" class="empty">没有匹配的单词，换个关键词试试</view>
+      <empty-state wx:if="{{!list.length}}" title="没有匹配的单词，换个关键词试试" />
     </view>
   </block>
 
   <!-- 生词列表 -->
   <block wx:elif="{{view === 'list' && tab === 'review'}}">
     <view class="list">
-      <view wx:if="{{!reviewList.length}}" class="empty">生词本是空的，很棒！</view>
+      <empty-state wx:if="{{!reviewList.length}}" title="生词本是空的，很棒！" />
       <view wx:for="{{reviewList}}" wx:key="id" class="row" data-id="{{item.id}}" bindtap="tapReview" hover-class="row-hover">
         <view class="row-title">{{item.word}}</view>
         <view class="row-meta">{{item.cn}}</view>
@@ -193,7 +193,7 @@
     <view class="card">
       <view class="sec-title tap" bindtap="toggleReview">生词本（{{reviewList.length}}） {{showReview ? '▾' : '▸'}}</view>
       <block wx:if="{{showReview}}">
-        <view wx:if="{{!reviewList.length}}" class="empty">生词本是空的，很棒！</view>
+        <empty-state wx:if="{{!reviewList.length}}" title="生词本是空的，很棒！" />
         <view wx:for="{{reviewList}}" wx:key="id" class="rev-row">
           <view class="rev-main" data-id="{{item.id}}" bindtap="tapReview">
             <text class="rev-word">{{item.word}}</text>

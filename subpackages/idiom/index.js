@@ -5,6 +5,7 @@ const store = require('../../utils/store');
 const tts = require('../../utils/tts');
 const IDIOMS = require('./idioms.js');
 const shareCard = require('../../utils/shareCard');
+const analytics = require('../../utils/analytics');
 
 const STAGES = ['全部', '小学', '初中', '高中'];
 const INITIALS = ['全部', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'W', 'X', 'Y', 'Z'];
@@ -53,6 +54,7 @@ Page({
     if (!idiom) idiom = IDIOMS[dateUtil.dailyIndex(IDIOMS.length, 'idiom')];
     this.setData({ themes: topThemes(10) });
     this.show(idiom, false);
+    analytics.track('content_view', { module: 'idiom', id: (idiom && idiom.id) || 'daily' });
     if (options && options.ref === 'share') {
       wx.showToast({ title: (store.getProfile().guided ? '好友分享 · 欢迎回来' : '欢迎通过分享加入学伴小筑 🌿'), icon: 'none' });
     }
