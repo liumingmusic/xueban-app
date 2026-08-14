@@ -38,6 +38,19 @@
   </view>
 </view>
 
+<!-- 成就里程碑 -->
+<view class="card fade-in">
+  <view class="card-title"><view class="dot" style="background: var(--c-habit);"></view>成就里程碑</view>
+  <view class="ach-grid">
+    <view wx:for="{{achievements}}" wx:key="key" class="ach-cell {{item.unlocked ? 'on' : ''}}">
+      <view class="ach-emoji">{{item.emoji}}</view>
+      <view class="ach-name">{{item.title}}</view>
+      <view class="ach-desc">{{item.desc}}</view>
+      <view wx:if="{{item.unlocked}}" class="ach-badge">✓</view>
+    </view>
+  </view>
+</view>
+
 <!-- 待消灭 -->
 <view class="card fade-in">
   <view class="card-title"><view class="dot" style="background: var(--c-quiz);"></view>待消灭</view>

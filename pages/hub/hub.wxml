@@ -28,6 +28,13 @@
   <view class="goal-tip">{{goalDone >= goalTarget ? '今日目标已达成，太棒了 ✓' : '还差 ' + (goalTarget - goalDone) + ' 个，点下方卡片开始吧'}}</view>
 </view>
 
+<!-- 习惯打卡提醒（本地进入检测，零后端替代订阅消息） -->
+<view wx:if="{{showHabitReminder}}" class="remind-bar fade-in" bindtap="goHabit" hover-class="press">
+  <text class="remind-emoji">💪</text>
+  <text class="remind-text">今天还有 {{habitRemain}} 个习惯没打卡，坚持一下～</text>
+  <text class="remind-go">去打卡 ›</text>
+</view>
+
 <!-- 个性化模块区：按 hubLayout（顺序 + 显隐）渲染 -->
 <view wx:for="{{sections}}" wx:key="key" class="card fade-in" data-go="{{item.key}}" bindtap="goSection" hover-class="press">
 

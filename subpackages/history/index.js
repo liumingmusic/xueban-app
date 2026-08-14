@@ -54,12 +54,15 @@ Page({
     shownEvents: [], shownBirths: [], shownDeaths: [], shownHolidays: []
   },
 
-  onLoad() {
+  onLoad(options) {
     const now = new Date();
     this.setData({ dateCn: dateUtil.formatCn(), dateStr: dateUtil.pad(now.getMonth() + 1) + '-' + dateUtil.pad(now.getDate()) });
     shareCard.prepareCard(this, { title: '历史上的今天', subtitle: dateUtil.formatCn(), tag: '历史', color: '#c2410c' });
     this.fetch();
     store.moduleCheckin('history');
+    if (options && options.ref === 'share') {
+      wx.showToast({ title: (store.getProfile().guided ? '好友分享 · 欢迎回来' : '欢迎通过分享加入学伴小筑 🌿'), icon: 'none' });
+    }
   },
 
   async fetch(mm, dd) {

@@ -14,6 +14,7 @@ Page({
     quizPoints: 0,
     quizStreak: 0,
     quizLevel: '启蒙',
+    achievements: [],
     isEmpty: false
   },
 
@@ -58,6 +59,23 @@ Page({
     // 闯关战绩（quizState 已记录但未充分展示）
     const qs = p.quizState || { points: 0, streak: 0 };
 
+    // 成就里程碑（纯本地计算，基于连续天数 / 积分 / 掌握量）
+    const appStreakN = (p.streaks && p.streaks.app && p.streaks.app.count) || 0;
+    const totalMastered = (p.mastered.idiom || []).length + (p.mastered.word || []).length + (p.mastered.poem || []).length;
+    let bestMod = 0;
+    const mods = p.streaks.modules || {};
+    Object.keys(mods).forEach(k => { if ((mods[k].count || 0) > bestMod) bestMod = mods[k].count; });
+    const achievements = [
+      { key: 'open7', emoji: '🌱', title: '初来乍到', desc: '连续打开 7 天', unlocked: appStreakN >= 7 },
+      { key: 'open30', emoji: '🌿', title: '半月有成', desc: '连续打开 30 天', unlocked: appStreakN >= 30 },
+      { key: 'open100', emoji: '🌳', title: '百日为伴', desc: '连续打开 100 天', unlocked: appStreakN >= 100 },
+      { key: 'learn7', emoji: '📖', title: '手不释卷', desc: '单模块连学 7 天', unlocked: bestMod >= 7 },
+      { key: 'points500', emoji: '🏅', title: '学霸认证', desc: '积分达 500', unlocked: (qs.points || 0) >= 500 },
+      { key: 'points1500', emoji: '👑', title: '宗师之境', desc: '积分达 1500', unlocked: (qs.points || 0) >= 1500 },
+      { key: 'qstreak10', emoji: '⚡', title: '连胜十方', desc: '闯关连胜 10', unlocked: (qs.streak || 0) >= 10 },
+      { key: 'master50', emoji: '🌟', title: '小有所成', desc: '掌握内容 50+', unlocked: totalMastered >= 50 }
+    ];
+
     // 空状态：无任何学习痕迹时给首用引导
     const isEmpty = (p.mastered.idiom || []).length === 0
       && (p.mastered.word || []).length === 0
@@ -75,6 +93,7 @@ Page({
       quizPoints: qs.points,
       quizStreak: qs.streak,
       quizLevel: store.quizLevel(qs.points),
+      achievements,
       isEmpty
     });
   },

@@ -83,6 +83,10 @@ function buildShare(page, fallback) {
   const obj = Object.assign({}, fallback);
   if (page._shareCard) obj.imageUrl = page._shareCard;
   else if (!obj.imageUrl) obj.imageUrl = FALLBACK;
+  // 统一追加分享来源标记，供回流承接（新用户引导 / 欢迎提示）
+  if (obj.path && obj.path.indexOf('ref=share') === -1) {
+    obj.path += (obj.path.indexOf('?') > -1 ? '&' : '?') + 'ref=share';
+  }
   return obj;
 }
 

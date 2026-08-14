@@ -74,6 +74,9 @@ Page({
     if (!poem) poem = POEMS[dateUtil.dailyIndex(POEMS.length, 'poem')];
     this.show(poem, false);
     store.moduleCheckin('poetry');
+    if (options && options.ref === 'share') {
+      wx.showToast({ title: (store.getProfile().guided ? '好友分享 · 欢迎回来' : '欢迎通过分享加入学伴小筑 🌿'), icon: 'none' });
+    }
   },
 
   onShow() {

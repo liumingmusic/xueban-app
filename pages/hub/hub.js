@@ -41,6 +41,8 @@ Page({
     habitTotal: 0,
     habitDone: 0,
     habitStreak: 0,
+    showHabitReminder: false,
+    habitRemain: 0,
     englishWord: null,
     englishOffline: false,
     historyEvents: [],
@@ -102,7 +104,9 @@ Page({
     this.setData({
       habitTotal: habits.length,
       habitDone,
-      habitStreak: (profile.streaks.habit && profile.streaks.habit.count) || 0
+      habitStreak: (profile.streaks.habit && profile.streaks.habit.count) || 0,
+      showHabitReminder: habits.length > 0 && habitDone < habits.length,
+      habitRemain: Math.max(0, habits.length - habitDone)
     });
 
     // 历史预览（本地同步数据，零网络，不转圈）
@@ -176,6 +180,7 @@ Page({
 
   goSearch() { wx.navigateTo({ url: '/pages/search/search' }); },
   goManage() { wx.navigateTo({ url: '/pages/modules/modules' }); },
+  goHabit() { wx.switchTab({ url: '/pages/habit-hub/habit-hub' }); },
 
   // 个性化首页：按模块 key 统一跳转
   goSection(e) {

@@ -25,10 +25,13 @@ Page({
     favList: [], historyList: []
   },
 
-  onLoad() {
+  onLoad(options) {
     this.setData({ quote: this.dailyQuote() });
     this.genShareCard();
     store.moduleCheckin('quote');
+    if (options && options.ref === 'share') {
+      wx.showToast({ title: (store.getProfile().guided ? '好友分享 · 欢迎回来' : '欢迎通过分享加入学伴小筑 🌿'), icon: 'none' });
+    }
   },
   onShow() {
     theme.apply(this); if (this.data.quote) this.setData({ favorited: this.isFav(this.data.quote) }); },

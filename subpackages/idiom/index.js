@@ -53,6 +53,9 @@ Page({
     if (!idiom) idiom = IDIOMS[dateUtil.dailyIndex(IDIOMS.length, 'idiom')];
     this.setData({ themes: topThemes(10) });
     this.show(idiom, false);
+    if (options && options.ref === 'share') {
+      wx.showToast({ title: (store.getProfile().guided ? '好友分享 · 欢迎回来' : '欢迎通过分享加入学伴小筑 🌿'), icon: 'none' });
+    }
   },
 
   onShow() {

@@ -196,6 +196,10 @@ page {
 .app-root.dark .card { box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.35); }
 .app-root.dark .search-in,
 .app-root.dark .result-row { box-shadow: none; }
+/* 暗色下全局类的硬编码色收敛（分包均用变量自动适配，此处补全局类残留硬编码） */
+.app-root.dark .row-hover { background: #2a2f38; }
+.app-root.dark .remote-tip.offline { background: rgba(180,83,9,.18); border-color: rgba(180,83,9,.4); color: #e0a458; }
+.app-root.dark .badge.placeholder { background: #4a4f57; }
 
 /* 骨架屏容器：与卡片同款留白 */
 .sk-card-wrap { padding: var(--pad); }
@@ -371,3 +375,34 @@ input { box-sizing: border-box; }
   color: #fff;
   font-size: 24rpx;
 }
+
+/* 中枢页习惯打卡提醒横幅（零后端本地提醒） */
+.remind-bar {
+  display: flex; align-items: center; gap: 12rpx;
+  margin: 0 var(--gap) 16rpx;
+  padding: 20rpx 24rpx;
+  border-radius: var(--radius);
+  background: var(--ph-tint, rgba(58,157,110,.12));
+  border: 1rpx solid var(--line);
+}
+.remind-emoji { font-size: 36rpx; }
+.remind-text { flex: 1; font-size: 26rpx; color: var(--ink); }
+.remind-go { font-size: 26rpx; color: var(--c-habit); font-weight: 600; }
+
+/* 成就里程碑（数据页通用） */
+.ach-grid { display: flex; flex-wrap: wrap; gap: 16rpx; margin-top: 8rpx; }
+.ach-cell {
+  flex: 0 0 calc(50% - 8rpx);
+  box-sizing: border-box;
+  padding: 20rpx;
+  border-radius: 16rpx;
+  background: var(--bg);
+  border: 1rpx solid var(--line);
+  opacity: 0.5;
+  position: relative;
+}
+.ach-cell.on { opacity: 1; border-color: var(--c-habit); background: var(--ph-tint, rgba(58,157,110,.10)); }
+.ach-emoji { font-size: 44rpx; }
+.ach-name { font-size: 26rpx; font-weight: 600; margin-top: 6rpx; color: var(--ink); }
+.ach-desc { font-size: 22rpx; color: var(--ink-2); margin-top: 4rpx; }
+.ach-badge { position: absolute; top: 12rpx; right: 12rpx; font-size: 20rpx; color: var(--c-habit); }
