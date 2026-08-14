@@ -390,9 +390,8 @@ input { box-sizing: border-box; }
 .remind-go { font-size: 26rpx; color: var(--c-habit); font-weight: 600; }
 
 /* 成就里程碑（数据页通用） */
-.ach-grid { display: flex; flex-wrap: wrap; gap: 16rpx; margin-top: 8rpx; }
+.ach-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16rpx; margin-top: 8rpx; }
 .ach-cell {
-  flex: 0 0 calc(50% - 8rpx);
   box-sizing: border-box;
   padding: 20rpx;
   border-radius: 16rpx;
