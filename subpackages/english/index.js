@@ -24,6 +24,13 @@ function shuffle(arr) {
   return a;
 }
 
+// 把音频路径解析为可播放的远程地址：相对路径（data/audio/xxx.mp3）走数据 CDN 镜像，与远程词库同源
+function audioFull(p) {
+  if (!p) return '';
+  if (/^https?:\/\//i.test(p)) return p;
+  return remote.MIRROR + '/' + p;
+}
+
 Page({
   data: {
     view: 'detail', tab: 'today',
@@ -100,9 +107,10 @@ Page({
       known: (p.mastered.word || []).indexOf(id) > -1,
       inWrong: (p.wrongBank.english || []).some(w => w.id === id),
       favorited: store.isFavorite('word', id),
-      audioUrl: word.audio || '', view: 'detail'
+      audioUrl: audioFull(word.audio), view: 'detail'
     });
-    this.fetchAudio(id);
+    // 仅当词库未内置音频时，才运行时向 dictionaryapi.dev 取音（已带本地音频则不再请求，避免限流）
+    if (!word.audio) this.fetchAudio(id);
     shareCard.prepareCard(this, { title: word.word, subtitle: word.cn, tag: '英语', color: '#7c5cff' });
   },
 
@@ -311,7 +319,7 @@ Page({
     const sq = this.data.sq;
     if (!sq || !sq.w.audio) { wx.showToast({ title: '离线暂无音频', icon: 'none' }); return; }
     if (!this._audio) this._audio = wx.createInnerAudioContext();
-    this._audio.src = sq.w.audio; this._audio.play();
+    this._audio.src = audioFull(sq.w.audio); this._audio.play();
   },
 
   pickStudy(e) {
