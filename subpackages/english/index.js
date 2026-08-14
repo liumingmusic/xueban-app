@@ -131,7 +131,7 @@ Page({
   markUnknown() {
     const w = this.data.word;
     store.addWrong('english', { id: w.word, word: w.word, cn: w.cn, phonetic: w.phonetic });
-    store.addReview({ id: 'en-' + w.word, module: 'english', title: w.word, sub: w.cn });
+    store.addReview({ module: 'word', id: w.word, label: w.word });
     this.setData({ inWrong: true });
     this.loadReview();
     wx.showToast({ title: '已加入生词本', icon: 'none' });

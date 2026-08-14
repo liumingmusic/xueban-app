@@ -2,6 +2,7 @@
   "navigationBarTitleText": "学伴小筑",
   "usingComponents": {
     "related-rail": "/components/related-rail/related-rail",
-    "streak-badge": "/components/streak-badge/streak-badge"
+    "streak-badge": "/components/streak-badge/streak-badge",
+    "skeleton": "/components/skeleton/skeleton"
   }
 }
