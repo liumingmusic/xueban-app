@@ -6,12 +6,12 @@ const store = require('../../utils/store');
 
 // 模块展示名（与 streaks.modules 的 key 对齐）
 const MODULE_LABEL = {
-  poem: { name: '今日诗词', icon: '📜', entry: '/subpackages/poetry/index' },
-  idiom: { name: '成语故事', icon: '🀄', entry: '/subpackages/idiom/index' },
-  quote: { name: '每日一句', icon: '💬', entry: '/subpackages/quote/index' },
-  english: { name: '每日单词', icon: '🔤', entry: '/subpackages/english/index' },
-  quiz: { name: '知识闯关', icon: '🎯', entry: '/subpackages/quiz/index' },
-  history: { name: '历史上的今天', icon: '📅', entry: '/subpackages/history/index' }
+  poem:    { name: '今日诗词', seal: '诗', color: '#2f8f78', entry: '/subpackages/poetry/index' },
+  idiom:   { name: '成语故事', seal: '语', color: '#2f8f78', entry: '/subpackages/idiom/index' },
+  quote:   { name: '每日一句', seal: '言', color: '#3a78a8', entry: '/subpackages/quote/index' },
+  english: { name: '每日单词', seal: '英', color: '#4f8a6a', entry: '/subpackages/english/index' },
+  quiz:    { name: '知识闯关', seal: '闯', color: '#2563eb', entry: '/subpackages/quiz/index' },
+  history: { name: '历史上的今天', seal: '史', color: '#b45309', entry: '/subpackages/history/index' }
 };
 
 Page({
@@ -37,7 +37,8 @@ Page({
       .map(k => ({
         key: k,
         name: (MODULE_LABEL[k] && MODULE_LABEL[k].name) || k,
-        icon: (MODULE_LABEL[k] && MODULE_LABEL[k].icon) || '📌',
+        seal: (MODULE_LABEL[k] && MODULE_LABEL[k].seal) || '·',
+        color: (MODULE_LABEL[k] && MODULE_LABEL[k].color) || '#8A8175',
         entry: (MODULE_LABEL[k] && MODULE_LABEL[k].entry) || '',
         count: ms[k].count || 0,
         last: ms[k].last

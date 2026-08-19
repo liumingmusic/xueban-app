@@ -131,6 +131,8 @@ page {
 .ph-quote   { --ph-accent: var(--c-quote);   --ph-tint: rgba(58,120,168,.12); }
 .ph-habit   { --ph-accent: var(--c-habit);   --ph-tint: rgba(58,157,110,.12); }
 .ph-movie   { --ph-accent: var(--c-movie);   --ph-tint: rgba(124,92,255,.12); }
+/* 发现页（应用广场）· 与中枢同源青瓷绿，明确配色，避免回退默认绿 */
+.ph-cover  { --ph-accent: #2f8f78; --ph-tint: rgba(47,143,120,.12); }
 
 /* 兼容旧标记（如有未更新处） */
 .page-head .h1 { font-size: 46rpx; font-weight: 700; }

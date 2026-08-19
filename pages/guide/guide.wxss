@@ -28,7 +28,18 @@
   text-align: center;
   padding: 0 20rpx;
 }
-.emoji { font-size: 140rpx; margin-bottom: 48rpx; }
+.seal {
+  width: 200rpx; height: 200rpx;
+  border-radius: 32rpx;
+  background: var(--ph-accent, #2f8f78);
+  color: #fff;
+  font-size: 120rpx; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  font-family: "Songti SC", "STSong", serif;
+  margin-bottom: 48rpx;
+  transform: rotate(-6deg);
+  box-shadow: 0 12rpx 32rpx rgba(47,143,120,.28);
+}
 .title { font-size: 44rpx; font-weight: 700; color: var(--ink); margin-bottom: 28rpx; }
 .desc { font-size: 30rpx; color: var(--ink-2); line-height: 1.7; max-width: 520rpx; }
 

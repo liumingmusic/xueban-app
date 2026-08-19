@@ -4,17 +4,17 @@ const theme = require('../../utils/theme');
 
 const SLIDES = [
   {
-    emoji: '🌿',
-    title: '欢迎来到雪伴',
+    seal: '伴',
+    title: '欢迎来到学伴',
     desc: '一个把诗词、成语、单词、历史揉进每日碎片时间的学习小筑。'
   },
   {
-    emoji: '📚',
+    seal: '学',
     title: '每天学一点',
     desc: '中枢每日为你精选一首诗、一个成语、一句箴言，三五分钟，轻松积累。'
   },
   {
-    emoji: '🔁',
+    seal: '忆',
     title: '学了不忘',
     desc: '学过的会自动进入复习队列，按遗忘曲线提醒你巩固，告别背了就忘。'
   }

@@ -1,5 +1,5 @@
 <view class="app-card {{app.status === 'placeholder' ? 'dim' : ''}}" hover-class="hov" bindtap="onTap">
-  <view class="icon" style="background: {{app.color}}1a;">{{app.icon}}</view>
+  <view class="icon" style="color: {{app.color}}; border-color: {{app.color}}; background: {{app.color}}14;">{{app.icon}}</view>
   <view class="body">
     <view class="name-row">
       <text class="name">{{app.name}}</text>

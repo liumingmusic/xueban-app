@@ -5,7 +5,7 @@
   <swiper class="swiper" current="{{idx}}" bindchange="onSlide" indicator-dots="{{false}}">
     <swiper-item wx:for="{{slides}}" wx:key="title">
       <view class="slide">
-        <view class="emoji">{{item.emoji}}</view>
+        <view class="seal">{{item.seal}}</view>
         <view class="title">{{item.title}}</view>
         <view class="desc">{{item.desc}}</view>
       </view>

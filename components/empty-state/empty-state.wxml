@@ -1,6 +1,7 @@
 <view class="es state-{{type}} fade-in">
   <view wx:if="{{type === 'loading'}}" class="es-spinner"></view>
-  <view wx:else class="es-emoji">{{icon || (type === 'error' ? '⚠️' : '🌱')}}</view>
+  <view wx:elif="{{icon}}" class="es-emoji">{{icon}}</view>
+  <view wx:elif="{{type === 'error'}}" class="es-emoji">⚠️</view>
   <view wx:if="{{title}}" class="es-title">{{title}}</view>
   <view wx:if="{{sub}}" class="es-sub">{{sub}}</view>
   <view wx:if="{{showRetry}}" class="es-retry" hover-class="press" bindtap="onRetry">{{retryText}}</view>

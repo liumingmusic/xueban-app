@@ -22,9 +22,13 @@
 }
 .recent-icon {
   flex: none;
-  width: 56rpx;
-  font-size: 40rpx;
-  text-align: center;
+  width: 64rpx; height: 64rpx;
+  border-radius: 18rpx;
+  border: 2rpx solid;
+  box-sizing: border-box;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 34rpx; font-weight: 700;
+  font-family: "Songti SC", "STSong", serif;
 }
 .recent-body {
   flex: 1;

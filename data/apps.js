@@ -2,7 +2,7 @@ module.exports = [
   {
     "id": "poetry",
     "name": "每日诗词",
-    "icon": "📜",
+    "icon": "诗",
     "category": "传统文化",
     "status": "online",
     "entry": "/subpackages/poetry/index",
@@ -12,7 +12,7 @@ module.exports = [
   {
     "id": "idiom",
     "name": "成语故事",
-    "icon": "🀄",
+    "icon": "语",
     "category": "传统文化",
     "status": "online",
     "entry": "/subpackages/idiom/index",
@@ -22,7 +22,7 @@ module.exports = [
   {
     "id": "quiz",
     "name": "知识闯关",
-    "icon": "🎯",
+    "icon": "闯",
     "category": "学习提升",
     "status": "online",
     "entry": "/subpackages/quiz/index",
@@ -32,7 +32,7 @@ module.exports = [
   {
     "id": "english",
     "name": "英语卡片",
-    "icon": "🔤",
+    "icon": "英",
     "category": "学习提升",
     "status": "online",
     "entry": "/subpackages/english/index",
@@ -42,7 +42,7 @@ module.exports = [
   {
     "id": "history",
     "name": "历史上的今天",
-    "icon": "📅",
+    "icon": "史",
     "category": "资讯文化",
     "status": "online",
     "entry": "/subpackages/history/index",
@@ -52,7 +52,7 @@ module.exports = [
   {
     "id": "quote",
     "name": "每日一句",
-    "icon": "💬",
+    "icon": "言",
     "category": "资讯文化",
     "status": "online",
     "entry": "/subpackages/quote/index",
@@ -62,7 +62,7 @@ module.exports = [
   {
     "id": "habit",
     "name": "习惯打卡",
-    "icon": "✅",
+    "icon": "习",
     "category": "生活记录",
     "status": "online",
     "entry": "/subpackages/habit/index",
@@ -72,7 +72,7 @@ module.exports = [
   {
     "id": "movie",
     "name": "观影追踪",
-    "icon": "🎬",
+    "icon": "影",
     "category": "生活记录",
     "status": "online",
     "entry": "/subpackages/movie/index",
@@ -82,7 +82,7 @@ module.exports = [
   {
     "id": "news",
     "name": "热点新闻",
-    "icon": "📰",
+    "icon": "闻",
     "category": "网页版",
     "status": "web",
     "entry": "https://liumingmusic.github.io/news-hot-site/",
@@ -92,7 +92,7 @@ module.exports = [
   {
     "id": "trending",
     "name": "热门仓库",
-    "icon": "⭐",
+    "icon": "星",
     "category": "网页版",
     "status": "web",
     "entry": "https://liumingmusic.github.io/github-trending/",
@@ -102,7 +102,7 @@ module.exports = [
   {
     "id": "health",
     "name": "养生日历",
-    "icon": "🌿",
+    "icon": "养",
     "category": "网页版",
     "status": "web",
     "entry": "https://liumingmusic.github.io/health-calendar/",
@@ -112,7 +112,7 @@ module.exports = [
   {
     "id": "tarot",
     "name": "塔罗牌",
-    "icon": "🔮",
+    "icon": "塔",
     "category": "网页版",
     "status": "web",
     "entry": "https://liumingmusic.github.io/tarot/",

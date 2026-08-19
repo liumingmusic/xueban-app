@@ -11,7 +11,7 @@
   <view class="group-title">最近在学</view>
   <view class="recent-row">
     <view wx:for="{{recent}}" wx:key="key" class="recent-chip" data-url="{{item.entry}}" bindtap="goRecent" hover-class="press">
-      <text class="recent-icon">{{item.icon}}</text>
+      <view class="recent-icon" style="color:{{item.color}};border-color:{{item.color}};background:{{item.color}}14;">{{item.seal}}</view>
       <view class="recent-body">
         <view class="recent-name">{{item.name}}</view>
         <view class="recent-sub">累计 {{item.count}} 次</view>
@@ -25,7 +25,7 @@
   <app-card wx:for="{{group.apps}}" wx:key="id" app="{{item}}" />
 </view>
 
-<empty-state wx:if="{{!hasRecent}}" icon="🌱" title="还没有学习记录" sub="去「中枢」开始第一天吧" />
+<empty-state wx:if="{{!hasRecent}}" title="还没有学习记录" sub="去「中枢」开始第一天吧" />
 
 <view class="foot-space"></view>
 </view>
